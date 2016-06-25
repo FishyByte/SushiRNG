@@ -62,13 +62,15 @@ For this project a raspberry pi 3 is used, this pi is flashed with Rasbian. Comp
     ```
 
 ## Scope
-- ### Image Processing
-- ### Random Number Generator
-- ### Server
-- ### Web Application
-    - ###### Front-End
-    - ###### Back-End
-- ### Testing Analysis
+### - Image Processing
+### - Random Number Generator
+### - Server
+### - Web Application
+    Front-End:
+    
+    Back-End:
+    
+### - Testing Analysis
 
 This project will be using a camera to livestream Chris' fishtank.
 This livestream will be used to generate a binary number to then help
@@ -78,11 +80,13 @@ the section that will generate the random cryptic sequence.
 ## Configuration
 
 ## Contributions
-
+- [Adrian Roseblock](https://github.com/jrosebr1)
 ## Features
 
 ## License
-Copyright (c) <2016> <Corey Aing, Christopher Asakawa, Matthew O'Brien, Nicholas Mchale>
+The MIT License (MIT)
+
+Copyright (c) 2016 Corey Aing, Christopher Asakawa, Matthew O'Brien, Nicholas Mchale
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
