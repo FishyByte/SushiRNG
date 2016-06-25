@@ -18,9 +18,14 @@ args = vars(ap.parse_args())
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
 # list of tracked points
-orangeLower = (0, 200, 20)
-orangeUpper = (20, 255, 255)
+orangeLower = (0, 100, 30)
+orangeUpper = (30, 255, 255)
 pts = deque(maxlen=args["buffer"])
+
+temp_x = -1
+temp_y = -1
+x_print = -1
+y_print = -1
 
 # if a video path was not supplied, grab the reference
 # to the webcam
@@ -36,7 +41,7 @@ while True:
     # grab the current frame
     (grabbed, frame) = camera.read()
 
-    # if we are viewing a video and we did not grab a frame,
+    # if we are viewing a video and we did not grab a fpythrame,
     # then we have reached the end of the video
     if args.get("video") and not grabbed:
         break
@@ -69,8 +74,8 @@ while True:
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
             # only proceed if the radius meets a minimum  and max size
-            if radius > 15:
-                if radius < 100:
+            if radius > 20:
+                if radius < 500:
                     # if a video path was not supplied, grab the reference:
                     # draw the circle and centroid on the frame,
                     # then update the list of tracked points
@@ -81,6 +86,8 @@ while True:
             # update the points queue
             pts.appendleft(center)
 
+
+
     # loop over the set of tracked points
     for i in xrange(1, len(pts)):
         # if either of the tracked points are None, ignore
@@ -88,7 +95,31 @@ while True:
         if pts[i - 1] is None or pts[i] is None:
             continue
 
-        #print (((y-x)+1)+x)
+        x = int(x)
+        y = int(y)
+        x_print = 0
+        y_print = 0
+        # only proceed if movement detected
+        if temp_x != x:
+            if temp_y != y:
+
+                if temp_x > x:
+                    x_print = 1
+                else:
+                    x_print = 0
+
+                if temp_y > y:
+                    y_print = 1
+                else:
+                    y_print = 0
+
+                print (x_print, y_print)
+                #print (x_print, y_print, temp_x, temp_y, x, y)
+
+                temp_x = x
+                temp_y = y
+
+        #print ("x:", x, "      y:", y)
 
         # otherwise, compute the thickness of the line and
         # draw the connecting lines
