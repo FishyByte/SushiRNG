@@ -2,7 +2,7 @@
 Fish tank random number generator.
 This project uses a raspberry pi 3 with a camera to create a live stream of my fish tank. This live stream is then used to generate a random number.
 
-#### Table of contents
+## Table of contents
 - Installation Guide
     - Raspberry Pi Setup
 - Scope
@@ -11,8 +11,8 @@ This project uses a raspberry pi 3 with a camera to create a live stream of my f
 - Features
 - License
 
-### Installation Guide
-#### Raspberry Pi Setup
+## Installation Guide
+- #### Raspberry Pi Setup
 For this project a raspberry pi 3 is used, this pi is flashed with Rasbian. Complete the following steps on the raspberry pi.
 
 1.  The installation requires pip to be installed on the raspberry pi
@@ -61,25 +61,31 @@ For this project a raspberry pi 3 is used, this pi is flashed with Rasbian. Comp
     http://<your pi's ip>:5000
     ```
 
-### Scope
-
-#### Image Processing
-#### Random Number Generator
-#### Server
-#### Web Application
-##### Front-End
-##### Back-End
-#### Testing Analysis
+## Scope
+- ### Image Processing
+- ### Random Number Generator
+- ### Server
+- ### Web Application
+    - ###### Front-End
+    - ###### Back-End
+- ### Testing Analysis
 
 This project will be using a camera to livestream Chris' fishtank.
 This livestream will be used to generate a binary number to then help
 create a random cryptic sequence. Matthew and Nick will be working on
 the section that will generate the random cryptic sequence.
 
-### Configuration
+## Configuration
 
-### Contributions
+## Contributions
 
-### Features
+## Features
 
-### License
+## License
+Copyright (c) <2016> <Corey Aing, Christopher Asakawa, Matthew O'Brien, Nicholas Mchale>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
