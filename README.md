@@ -1,15 +1,22 @@
-# nemoRNG
+# SushiRNG
 Fish tank random number generator.
-This project uses a raspberry pi 3 with a camera to create a live stream of my fish tank. This live stream is then used to generate a random number.
+This project uses a Raspberry Pi 3 with a camera to create a live stream of my fish tank. This live stream is then used to generate a random number.
 
-## Table of contents
-- Installation Guide
-    - Raspberry Pi Setup
-- Scope
-- Configuration
-- Contributions
-- Features
-- License
+## Table of Contents
+- [Installation Guide](https://github.com/FishyByte/SushiRNG/tree/readme#installation-guide)
+    - [Raspberry Pi Setup](https://github.com/FishyByte/SushiRNG/tree/readme#raspberry-pi-setup)
+- [Scope](https://github.com/FishyByte/SushiRNG/tree/readme#scope)
+    - [Image Processing](https://github.com/FishyByte/SushiRNG/tree/readme#--image-processing)
+    - [Random Number Generator](https://github.com/FishyByte/SushiRNG/tree/readme#--random-number-generator)
+    - [Server](https://github.com/FishyByte/SushiRNG/tree/readme#--server)
+    - [Web Application](https://github.com/FishyByte/SushiRNG/tree/readme#--web-application)
+        - Front-End
+        - Back-End
+    - [Testing Analysis](https://github.com/FishyByte/SushiRNG/tree/readme#--testing-analysis)
+- [Configuration](https://github.com/FishyByte/SushiRNG/tree/readme#configuration)
+- [Contributions](https://github.com/FishyByte/SushiRNG/tree/readme#contributions)
+- [Features](https://github.com/FishyByte/SushiRNG/tree/readme#features)
+- [License](https://github.com/FishyByte/SushiRNG/tree/readme#license)
 
 ## Installation Guide
 - #### Raspberry Pi Setup
@@ -81,15 +88,8 @@ the section that will generate the random cryptic sequence.
 
 ## Contributions
 - [Adrian Roseblock](https://github.com/jrosebr1)
+
 ## Features
 
 ## License
-The MIT License (MIT)
-
-Copyright (c) 2016 Corey Aing, Christopher Asakawa, Matthew O'Brien, Nicholas Mchale
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+[The MIT License](LICENSE)
