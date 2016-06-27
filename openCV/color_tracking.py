@@ -1,11 +1,8 @@
 # import the necessary packages
 from collections import deque
-import numpy as np
 import argparse
 import imutils
-import urllib
-import os
-import cv2, platform
+import cv2
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -18,14 +15,9 @@ args = vars(ap.parse_args())
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
 # list of tracked points
-orangeLower = (0, 100, 30)
-orangeUpper = (30, 255, 255)
+orangeLower = (0, 195, 63)
+orangeUpper = (20, 255, 255)
 pts = deque(maxlen=args["buffer"])
-
-temp_x = -1
-temp_y = -1
-x_print = -1
-y_print = -1
 
 # if a video path was not supplied, grab the reference
 # to the webcam
@@ -74,57 +66,16 @@ while True:
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
             # only proceed if the radius meets a minimum  and max size
-            if radius > 20:
-                if radius < 500:
-                    # if a video path was not supplied, grab the reference:
-                    # draw the circle and centroid on the frame,
-                    # then update the list of tracked points
-                    cv2.circle(frame, (int(x), int(y)), int(radius),
-                               (0, 255, 255), 2)
-                    cv2.circle(frame, center, 5, (0, 0, 255), -1)
+            if radius > 13:
+                # if a video path was not supplied, grab the reference:
+                # draw the circle and centroid on the frame,
+                # then update the list of tracked points
+                cv2.circle(frame, (int(x), int(y)), int(radius),
+                           (0, 255, 255), 2)
+                cv2.circle(frame, center, 5, (255, 0, 255), -1)
 
             # update the points queue
             pts.appendleft(center)
-
-
-
-    # loop over the set of tracked points
-    for i in xrange(1, len(pts)):
-        # if either of the tracked points are None, ignore
-        # them
-        if pts[i - 1] is None or pts[i] is None:
-            continue
-
-        x = int(x)
-        y = int(y)
-        x_print = 0
-        y_print = 0
-        # only proceed if movement detected
-        if temp_x != x:
-            if temp_y != y:
-
-                if temp_x > x:
-                    x_print = 1
-                else:
-                    x_print = 0
-
-                if temp_y > y:
-                    y_print = 1
-                else:
-                    y_print = 0
-
-                print (x_print, y_print)
-                #print (x_print, y_print, temp_x, temp_y, x, y)
-
-                temp_x = x
-                temp_y = y
-
-        #print ("x:", x, "      y:", y)
-
-        # otherwise, compute the thickness of the line and
-        # draw the connecting lines
-        # thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.0)
-        # cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
 
     # show the frame to our screen
     cv2.imshow("Frame", frame)
