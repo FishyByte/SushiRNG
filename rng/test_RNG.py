@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Chris Asakawa, Matt OBrien, Corey Aing, Nick McHale
-# 5/28/2016
+# 6/29/2016
 
 # Create a length 624 list to store the state of the generator
 MT = [0 for i in range(624)]
