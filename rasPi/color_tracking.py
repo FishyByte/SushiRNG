@@ -10,18 +10,12 @@ from picamera import PiCamera
 import time
 
 
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-b", "--buffer", type=int, default=64,
-                help="max buffer size")
-args = vars(ap.parse_args())
-
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
 # list of tracked points
 orangeLower = (0, 195, 63)
 orangeUpper = (20, 255, 255)
-pts = deque(maxlen=args["buffer"])
+pts = deque(maxlen=64)
 
 # init pi camera
 camera = PiCamera()
@@ -34,24 +28,13 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
 # allow camera warmup
 time.sleep(0.3)
 
-
-
-# keep looping
+# capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-    # grab the current frame
-    # (grabbed, frame) = camera.read()
-    
+   
+    # grab the raw NumPy array representing the image 
     frame = frame.array
-    
 
-
-    # if we are viewing a video and we did not grab a fpythrame,
-    # then we have reached the end of the video
-    if args.get("video") and not grabbed:
-        break
-
-    # resize the frame, blur it, and convert it to the HSV
-    # color space
+    # resize the frame, blur it, and convert it to the HSV color space
     frame = imutils.resize(frame, width=640)
     # blurred = cv2.GaussianBlur(frame, (11, 11), 0)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
