@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from flask import Flask, render_template, Response
+import cv2
 
 # Raspberry Pi camera module (requires picamera package)
 from camera_pi import Camera
@@ -29,4 +30,4 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, threaded=True)
+    app.run(host='0.0.0.0', debug=False, threaded=True)
