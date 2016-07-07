@@ -28,10 +28,9 @@ class Camera(object):
     def _thread(cls):
         with picamera.PiCamera() as camera:
             # camera setup
-            camera.resolution = (1280, 720)
-            camera.hflip = False
+            camera.resolution = (640, 360)
+            camera.hflip = True
             camera.vflip = True
-            camera.exposure = "verylong"
 
             # let camera warm up
             camera.start_preview()
