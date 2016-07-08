@@ -13,8 +13,8 @@ import time
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
 # list of tracked points
-orangeLower = (0, 195, 63)
-orangeUpper = (20, 255, 255)
+orangeLower = (0, 0, 223)
+orangeUpper = (179, 255, 255)
 pts = deque(maxlen=64)
 
 # init pi camera
@@ -61,7 +61,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
             # only proceed if the radius meets a minimum  and max size
-            if radius > 13:
+            if radius > 3: 
                 # if a video path was not supplied, grab the reference:
                 # draw the circle and centroid on the frame,
                 # then update the list of tracked points
