@@ -28,10 +28,9 @@ class Camera(object):
     def _thread(cls):
         with picamera.PiCamera() as camera:
             # camera setup
-            camera.resolution = (1280, 720)
-            camera.hflip = False
+            camera.resolution = (640, 360)
+            camera.hflip = True
             camera.vflip = True
-            camera.exposure = "verylong"
 
             # let camera warm up
             camera.start_preview()
@@ -50,6 +49,6 @@ class Camera(object):
 
                 # if there hasn't been any clients asking for frames in
                 # the last 10 seconds stop the thread
-                if time.time() - cls.last_access > 1:
+                if time.time() - cls.last_access > 10:
                     break
         cls.thread = None
