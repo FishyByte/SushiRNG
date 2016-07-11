@@ -65,6 +65,7 @@ class FishStream:
     def print_stream(self):
         print self.stream
 
+    # returns two values, probability of zero and one
     def get_probabilities(self):
         # calculate total (we use it twice)
         total = self.zero_count + self.one_count

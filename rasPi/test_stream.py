@@ -1,6 +1,8 @@
 from fish_stream import *
+from fish_pool import *
 
 fish_stream = FishStream()
+fish_pool = FishPool()
 
 # about 10 seconds of input from fish tank
 fish_stream.add_position(0, 164.0, 171.5)
@@ -515,4 +517,31 @@ fish_stream.print_stream()
 prob1, prob2 = fish_stream.get_probabilities()
 print "probability of zeros:", prob1
 print "probability of ones: ", prob2
-print "number of bits in stream", fish_stream.get_length()
+print "total bits:", fish_stream.get_length()
+
+entropy = fish_pool.entropy_calculations(prob1, prob2)
+print "entropy:", entropy
+correct_bits = int(fish_pool.entropy_correction(entropy))
+print "corrected length:", correct_bits
+
+bit_list = str(fish_stream.get_bits(correct_bits))
+print fish_pool.whiten_numbers(0, 100, bit_list)
+
+
+entropy = fish_pool.entropy_calculations(prob1, prob2)
+print "entropy:", entropy
+correct_bits = int(fish_pool.entropy_correction(entropy))
+print "corrected length:", correct_bits
+
+bit_list = str(fish_stream.get_bits(correct_bits))
+print fish_pool.whiten_numbers(0, 100, bit_list)
+
+
+
+entropy = fish_pool.entropy_calculations(prob1, prob2)
+print "entropy:", entropy
+correct_bits = int(fish_pool.entropy_correction(entropy))
+print "corrected length:", correct_bits
+
+bit_list = str(fish_stream.get_bits(correct_bits))
+print fish_pool.whiten_numbers(0, 100, bit_list)
