@@ -13,44 +13,48 @@ class FishStream:
         self.zero_count = 0
         self.one_count = 0
 
+    # helper function, add one to the stream and one count
+    def add_zero(self):
+        self.stream.write(False)
+        self.zero_count += 1
+
+    # helper function, add zero to the stream and the zero count
+    def add_one(self):
+        self.stream.write(True)
+        self.one_count += 1
+
     def add_position(self, fish_id, x, y):
+
         # if the current index it empty this will throw
         # an indexException, and in which case, init the
         # current fish position at that index.
         try:
+            # grab the past position of the current fish
+            x_previous = self.fish_positions[fish_id][0]
+            y_previous = self.fish_positions[fish_id][1]
+
             # current fish moved to the right
-            if self.fish_positions[fish_id][0] > x:
-                self.stream.write(True)
-                self.one_count += 1
+            if x_previous > x:
+                self.add_one()
             # current fish moved to the left
             else:
-                self.stream.write(False)
-                self.zero_count += 1
-
+                self.add_zero()
             # current fish moved up the screen
-            if self.fish_positions[fish_id][1] > y:
-                self.stream.write(True)
-                self.one_count += 1
+            if y_previous > y:
+                self.add_one()
             # current fish moved down the screen
             else:
-                self.stream.write(False)
-                self.zero_count += 1
+                self.add_zero()
 
-            # if y_old > x_current
-            if self.fish_positions[fish_id][1] > x:
-                self.stream.write(True)
-                self.one_count += 1
+            # MOAR bits
+            if y_previous > x:
+                self.add_one()
             else:
-                self.stream.write(False)
-                self.zero_count += 1
-
-            # if x_old > y_current
-            if self.fish_positions[fish_id][0] > y:
-                self.stream.write(True)
-                self.one_count += 1
+                self.add_zero()
+            if x_previous > y:
+                self.add_one()
             else:
-                self.stream.write(False)
-                self.zero_count += 1
+                self.add_zero()
 
             # overwrite previous positions with current
             self.fish_positions[fish_id] = [x, y]
@@ -61,7 +65,7 @@ class FishStream:
     def print_stream(self):
         print self.stream
 
-    def get_probability(self):
+    def get_probabilities(self):
         # calculate total (we use it twice)
         total = self.zero_count + self.one_count
         # returns the probability of a zero and a one

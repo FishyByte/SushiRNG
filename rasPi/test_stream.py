@@ -512,7 +512,7 @@ fish_stream.add_position(0, 625.5, 63.5)
 
 
 fish_stream.print_stream()
-prob1, prob2 = fish_stream.get_probability()
+prob1, prob2 = fish_stream.get_probabilities()
 print "probability of zeros:", prob1
 print "probability of ones: ", prob2
 print "number of bits in stream", fish_stream.get_length()
