@@ -527,21 +527,3 @@ print "corrected length:", correct_bits
 bit_list = str(fish_stream.get_bits(correct_bits))
 print fish_pool.whiten_numbers(0, 100, bit_list)
 
-
-entropy = fish_pool.entropy_calculations(prob1, prob2)
-print "entropy:", entropy
-correct_bits = int(fish_pool.entropy_correction(entropy))
-print "corrected length:", correct_bits
-
-bit_list = str(fish_stream.get_bits(correct_bits))
-print fish_pool.whiten_numbers(0, 100, bit_list)
-
-
-
-entropy = fish_pool.entropy_calculations(prob1, prob2)
-print "entropy:", entropy
-correct_bits = int(fish_pool.entropy_correction(entropy))
-print "corrected length:", correct_bits
-
-bit_list = str(fish_stream.get_bits(correct_bits))
-print fish_pool.whiten_numbers(0, 100, bit_list)

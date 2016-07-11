@@ -3,6 +3,7 @@
 # - Chris Asakawa
 from bitstream import BitStream
 from numpy import *
+import math
 
 
 class FishStream:
