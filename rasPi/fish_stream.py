@@ -3,7 +3,7 @@
 # - Chris Asakawa
 from bitstream import BitStream
 from numpy import *
-import math
+import time
 
 
 class FishStream:
@@ -75,6 +75,8 @@ class FishStream:
             float(self.one_count) / total
 
     def get_bits(self, length):
+        while self.stream.__len__() < length:
+            time.sleep(0.1)
         return_bits = self.stream.read(length)
         self.zero_count -= str(return_bits).count('0')
         self.one_count -= str(return_bits).count('1')
