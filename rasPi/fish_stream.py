@@ -4,70 +4,75 @@
 from bitstream import BitStream
 from numpy import *
 
-# list to hold x position and y positions of each fish
-fish_list = []
-stream = BitStream()
 
+class FishStream:
+    # init a BitStream to hold the bit values
+    def __init__(self):
+        self.stream = BitStream()
+        self.fish_positions = []
+        self.zero_count = 0
+        self.one_count = 0
 
-class Fish:
-    # object params for individual fish
-    def __init__(self, fish_id, x, y):
-        self.fish_id = fish_id
-        self.x = x
-        self.y = y
-        self.x_compare = -1
-        self.y_compare = -1
-
-    def add_position(self):
-        # new frame, calculate the position of individual fish
-        # TODO: need to check for first iteration here.
-        if self.fish_id == 1: # || !isEmpty(fish_list)??
-            # calculate position of individual fish
-            self.generate_bits()
-            fish_list.append([self.x, self.y])
-        # else another fish on screen add to list
-        else:
-            fish_list.append([self.x, self.y])
-
-    def generate_bits(self):
-
-        # loop through all the fish position in current frame
-        for index in range(len(fish_list)):
-            # nothing to compare, init compare values
-            if self.x_compare == -1:
-                fish_list[index][0] = self.x_compare
-                fish_list[index][1] = self.y_compare
+    def add_position(self, fish_id, x, y):
+        # if the current index it empty this will throw
+        # an indexException, and in which case, init the
+        # current fish position at that index.
+        try:
+            # current fish moved to the right
+            if self.fish_positions[fish_id][0] > x:
+                self.stream.write(True)
+                self.one_count += 1
+            # current fish moved to the left
             else:
-                # fish moved left on the screen
-                if self.x_compare > fish_list[index][0]:
-                    first_bit = 1
-                else:
-                    first_bit = 0
-                # fish moved up the screen
-                if self.y_compare > fish_list[index][1]:
-                    second_bit = 1
-                else:
-                    second_bit = 0
+                self.stream.write(False)
+                self.zero_count += 1
 
-                # overwrite the compare values with new values
-                self.x_compare = fish_list[index][0]
-                self.y_compare = fish_list[index][1]
+            # current fish moved up the screen
+            if self.fish_positions[fish_id][1] > y:
+                self.stream.write(True)
+                self.one_count += 1
+            # current fish moved down the screen
+            else:
+                self.stream.write(False)
+                self.zero_count += 1
 
-                # save the calculated bit values in the stream
-                stream.write(first_bit, bool)
-                stream.write(second_bit, bool)
+            # if y_old > x_current
+            if self.fish_positions[fish_id][1] > x:
+                self.stream.write(True)
+                self.one_count += 1
+            else:
+                self.stream.write(False)
+                self.zero_count += 1
 
-        # finished processing current frame, nuke the fish list
-        del fish_list[:]
+            # if x_old > y_current
+            if self.fish_positions[fish_id][0] > y:
+                self.stream.write(True)
+                self.one_count += 1
+            else:
+                self.stream.write(False)
+                self.zero_count += 1
 
+            # overwrite previous positions with current
+            self.fish_positions[fish_id] = [x, y]
+        except IndexError:
+            # new fish found, append is to the list
+            self.fish_positions.append([x, y])
 
+    def print_stream(self):
+        print self.stream
 
+    def get_probability(self):
+        # calculate total (we use it twice)
+        total = self.zero_count + self.one_count
+        # returns the probability of a zero and a one
+        return float(self.zero_count) / total, \
+            float(self.one_count) / total
 
+    def get_bits(self, length):
+        return_bits = self.stream.read(length)
+        self.zero_count -= str(return_bits).count('0')
+        self.one_count -= str(return_bits).count('1')
+        return return_bits
 
-
-
-
-
-
-
-
+    def get_length(self):
+        return len(str(self.stream))
