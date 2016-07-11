@@ -46,7 +46,7 @@ def dist_calculations(bit_list):
 def entropy_calculations(percent_one, percent_zero):
 
     # calculating the bits of entropy
-    entropy = (-percent_one*math.log2(percent_one))+(-percent_zero*math.log2(percent_zero))
+    entropy = (-percent_one*math.log(percent_one,2))+(-percent_zero*math.log(percent_zero,2))
     return entropy
 
 
