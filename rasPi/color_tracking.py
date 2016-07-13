@@ -29,7 +29,7 @@ camera = PiCamera()
 camera.vflip = True
 camera.hflip = True
 camera.resolution = (640, 368)
-camera.framerate = 32
+camera.framerate = 60
 camera.exposure_mode='verylong'
 rawCapture = PiRGBArray(camera, size=(640, 368))
     

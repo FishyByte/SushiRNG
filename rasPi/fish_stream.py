@@ -47,16 +47,6 @@ class FishStream:
             elif y_previous < y:
                 self.add_zero()
 
-            # MOAR bits
-            if y_previous > x:
-                self.add_one()
-            elif y_previous < x: 
-                self.add_zero()
-            if x_previous > y:
-                self.add_one()
-            elif x_previous < y:
-                self.add_zero()
-
             # overwrite previous positions with current
             self.fish_positions[fish_id] = [x, y]
         except IndexError:
