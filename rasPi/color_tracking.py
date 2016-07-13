@@ -1,19 +1,22 @@
 # import the necessary packages
 from collections import deque
-import argparse
 import imutils
 import cv2
-from fish_stream import *
 from fish_pool import *
-
-fish_stream = FishStream()
-fish_pool = FishPool()
 
 # import picamera
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
 
+# call constructors
+fish_stream = FishStream()
+fish_pool = FishPool()
+
+
+raw_input("?")
+test_output = open('fishData/fishBits.txt', 'w')
+test_output.truncate()
 
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
@@ -102,6 +105,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
+        test_output.write(str(fish_stream.stream))
         break
     
     if key == ord("p"):
@@ -112,4 +116,4 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 
 # cleanup the camera and close any open windows
-cv1.destroyAllWindows()
+cv2.destroyAllWindows()
