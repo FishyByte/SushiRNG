@@ -34,24 +34,42 @@ class FishStream:
             x_previous = self.fish_positions[fish_id][0]
             y_previous = self.fish_positions[fish_id][1]
 
+            # keep track of bit persistence
+            x_zero = self.fish_positions[fish_id][2]
+            x_one = self.fish_positions[fish_id][3]
+            y_zero = self.fish_positions[fish_id][4]
+            y_one = self.fish_positions[fish_id][5]
+
             # current fish moved to the right
             if x_previous > x:
-                self.add_one()
+                if x_one < 2:
+                    self.add_one()
+                    x_one += 1
+                    x_zero = 0
             # current fish moved to the left
             elif x_previous < x:
-                self.add_zero()
+                if x_zero < 2:
+                    self.add_zero()
+                    x_zero += 1
+                    x_one = 0
             # current fish moved up the screen
             if y_previous > y:
-                self.add_one()
+                if y_one < 2:
+                    self.add_one()
+                    y_one += 1
+                    y_zero = 0
             # current fish moved down the screen
             elif y_previous < y:
-                self.add_zero()
+                if y_zero < 2:
+                    self.add_zero()
+                    y_zero += 1
+                    y_one = 0
 
             # overwrite previous positions with current
-            self.fish_positions[fish_id] = [x, y]
+            self.fish_positions[fish_id] = [x, y, x_zero, x_one, y_zero, y_one]
         except IndexError:
             # new fish found, append is to the list
-            self.fish_positions.append([x, y])
+            self.fish_positions.append([x, y, 0, 0, 0, 0])
 
     def print_stream(self):
         print self.stream
