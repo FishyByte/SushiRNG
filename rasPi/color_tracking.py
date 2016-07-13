@@ -13,8 +13,7 @@ import time
 fish_stream = FishStream()
 fish_pool = FishPool()
 
-
-raw_input("?")
+# output bitstream to file
 test_output = open('fishData/fishBits.txt', 'w')
 test_output.truncate()
 
