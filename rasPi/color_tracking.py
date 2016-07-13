@@ -13,8 +13,8 @@ import time
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
 # list of tracked points
-orangeLower = (0, 0, 223)
-orangeUpper = (179, 255, 255)
+orangeLower = (0, 183, 73)
+orangeUpper = (255, 255, 255)
 pts = deque(maxlen=64)
 
 # init pi camera
@@ -23,6 +23,7 @@ camera.vflip = True
 camera.hflip = True
 camera.resolution = (640, 368)
 camera.framerate = 32
+camera.exposure_mode='verylong'
 rawCapture = PiRGBArray(camera, size=(640, 368))
     
 # allow camera warmup
@@ -54,6 +55,15 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # only proceed if at least one contour was found
     if len(cnts) > 0:
+
+        # lets count the fishies on the screen
+        fish_count = 0    
+        x_compare = -1
+        y_compare = -1
+
+        first_bit = 0
+        second_bit = 0
+        
         # loop through all the contours in the mask
         for c in cnts:
             ((x, y), radius) = cv2.minEnclosingCircle(c)
@@ -61,13 +71,18 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
             # only proceed if the radius meets a minimum  and max size
-            if radius > 3: 
+            if radius > 10: 
                 # if a video path was not supplied, grab the reference:
                 # draw the circle and centroid on the frame,
                 # then update the list of tracked points
                 cv2.circle(frame, (int(x), int(y)), int(radius),
                            (0, 255, 255), 2)
                 cv2.circle(frame, center, 5, (255, 0, 255), -1)
+
+                
+                # where are the fish at now?
+                fish_count += 1
+                print "fish#:", fish_count, "x:", x, "y:", y
 
             # update the points queue
             pts.appendleft(center)
@@ -84,4 +99,4 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         break
 
 # cleanup the camera and close any open windows
-cv2.destroyAllWindows()
+cv1.destroyAllWindows()
