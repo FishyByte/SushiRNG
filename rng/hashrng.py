@@ -11,8 +11,10 @@
 
 import hashlib
 import math
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy import stats
 
 
 def create_test_list():
@@ -36,8 +38,9 @@ def dist_calculations(bit_list):
     zero_count = bit_string.count('0')
     total_length = len(bit_string)
 
-    percent_one = one_count / total_length
-    percent_zero = zero_count / total_length
+    percent_one = one_count / float(total_length)
+    percent_zero = zero_count / float(total_length)
+
 
     return percent_one, percent_zero
 
@@ -47,12 +50,15 @@ def entropy_calculations(percent_one, percent_zero):
 
     # calculating the bits of entropy
     entropy = (-percent_one*math.log(percent_one,2))+(-percent_zero*math.log(percent_zero,2))
+    # entropy = stats.entropy(percent_one) + stats.entropy(percent_zero)
+
     return entropy
 
 
 # Find the corrected length of bits given entropy calculations
 def entropy_correction(entropy):
     corrected_bits = math.ceil(128 * entropy)
+    corrected_bits = int(corrected_bits)
     corrected_bits = 128 + (128-corrected_bits)
     return corrected_bits
 
@@ -73,7 +79,7 @@ def whiten_numbers(min_value,max_value, bit_list):
     bit_string = str(bit_string)
     hash_number = hashlib.sha1(bit_string.encode('utf-8')).hexdigest()
     hash_number = int(hash_number,32)
-    random_number = hash_number%max_value
+    random_number = hash_number % max_value
     return random_number
 
 # Main function for testing
@@ -96,9 +102,9 @@ def main():
 
     # Reporting all the information
     print(len(new_bit_list))
-    print("Percent of 1s",percent_one)
-    print("Percent of 0s", percent_zero)
-    print("Bits of Entropy", entropy)
-    print("Random number is: ", random_number)
+    print "Percent of 1s:", percent_one
+    print "Percent of 0s:", percent_zero
+    print "Bits of Entropy:", entropy
+    print "Random number is:", random_number
 
 main()
