@@ -38,23 +38,23 @@ class FishStream:
             if x_previous > x:
                 self.add_one()
             # current fish moved to the left
-            else:
+            elif x_previous < x:
                 self.add_zero()
             # current fish moved up the screen
             if y_previous > y:
                 self.add_one()
             # current fish moved down the screen
-            else:
+            elif y_previous < y:
                 self.add_zero()
 
             # MOAR bits
             if y_previous > x:
                 self.add_one()
-            else:
+            elif y_previous < x: 
                 self.add_zero()
             if x_previous > y:
                 self.add_one()
-            else:
+            elif x_previous < y:
                 self.add_zero()
 
             # overwrite previous positions with current
