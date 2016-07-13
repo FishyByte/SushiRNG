@@ -3,6 +3,11 @@ from collections import deque
 import argparse
 import imutils
 import cv2
+from fish_stream import *
+from fish_pool import *
+
+fish_stream = FishStream()
+fish_pool = FishPool()
 
 # import picamera
 from picamera.array import PiRGBArray
@@ -82,7 +87,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                 
                 # where are the fish at now?
                 fish_count += 1
-                print "fish#:", fish_count, "x:", x, "y:", y
+                fish_stream.add_position(fish_count, x, y)
+                # print "fish#:", fish_count, "x:", x, "y:", y
 
             # update the points queue
             pts.appendleft(center)
@@ -97,6 +103,13 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
         break
+    
+    if key == ord("p"):
+        prob1, prob2 = fish_stream.get_probabilities()
+        print "probability of zeros:", prob1
+        print "probability of ones: ", prob2
+        print "total bits:", fish_stream.get_length()
+
 
 # cleanup the camera and close any open windows
 cv1.destroyAllWindows()
