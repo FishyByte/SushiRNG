@@ -42,25 +42,25 @@ class FishStream:
 
             # current fish moved to the right
             if x_previous > x:
-                if x_one < 2:
+                if x_one < 5:
                     self.add_one()
                     x_one += 1
                     x_zero = 0
             # current fish moved to the left
             elif x_previous < x:
-                if x_zero < 2:
+                if x_zero < 5:
                     self.add_zero()
                     x_zero += 1
                     x_one = 0
             # current fish moved up the screen
             if y_previous > y:
-                if y_one < 2:
+                if y_one < 5:
                     self.add_one()
                     y_one += 1
                     y_zero = 0
             # current fish moved down the screen
             elif y_previous < y:
-                if y_zero < 2:
+                if y_zero < 5:
                     self.add_zero()
                     y_zero += 1
                     y_one = 0
