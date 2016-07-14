@@ -8,6 +8,7 @@ from fish_pool import *
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
+import timeit
 
 # call constructors
 fish_stream = FishStream()
@@ -20,7 +21,7 @@ test_output.truncate()
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
 # list of tracked points
-orangeLower = (0, 183, 73)
+orangeLower = (0, 215, 37)
 orangeUpper = (255, 255, 255)
 pts = deque(maxlen=64)
 
@@ -35,6 +36,11 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
     
 # allow camera warmup
 time.sleep(0.3)
+
+# testing variables    2^20bits
+lineCount = 16384
+printLength = 64
+start = timeit.timeit()
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -101,10 +107,25 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # clear the stream in prep for next frame
     rawCapture.truncate(0)
+    
+    # testing
+    if fish_stream.get_length() > printLength:
+        lineCount -= 1;
+        for i in range(0,7):
+            test_output.write("  ")
+            test_output.write(str(fish_stream.get_bits(8)))
+        test_output.write("\n")
+        if lineCount == 0:
+            end = timeit.timeit()    
+            print end - start, "seconds to recieve 2^20 bits", 
+            break
+
+
 
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
         test_output.write(str(fish_stream.stream))
+        test_output.write("\n")
         break
     
     if key == ord("p"):
