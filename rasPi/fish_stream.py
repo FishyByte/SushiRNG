@@ -36,10 +36,10 @@ class FishStream:
 
 
             # current fish moved to the left
-            if x_previous < x:
+            if x_previous > x:
                 self.add_one()
             # current fish moved to the right
-            elif x_previous > x:
+            elif x_previous < x:
                 self.add_zero()
             # current fish moved up the screen
             if y_previous > y:

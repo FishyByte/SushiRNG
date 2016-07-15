@@ -38,7 +38,7 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
 time.sleep(0.3)
 
 # testing variables
-totalBits = 1024  #131072 = 2^17 bits
+totalBits = 131072  # 131072 = 2^17 bits
 printLength = 64
 lineCount = totalLines = totalBits / printLength
 start = timeit.timeit()
@@ -117,8 +117,12 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                 test_output.write(str(fish_stream.get_bits(8)))
             test_output.write("\n")
 
+        zero, one = fish_stream.get_probabilities()
         end = timeit.timeit()
         print "--------------------------------------------------"
+        print "0:", zero
+        print "1:", one
+        print "total bits:", fish_stream.get_length()
         print end, "seconds to receive", totalBits, "bits"
         print "--------------------------------------------------"
         break
