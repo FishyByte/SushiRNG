@@ -37,9 +37,10 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
 # allow camera warmup
 time.sleep(0.3)
 
-# testing variables    2^20bits
-lineCount = 16384
+# testing variables    2^19bits
+lineCount = 8192
 printLength = 64
+linesWritten = 0
 start = timeit.timeit()
 
 # capture frames from the camera
@@ -111,13 +112,13 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # testing
     if fish_stream.get_length() > printLength:
         lineCount -= 1;
-        for i in range(0,7):
-            test_output.write("  ")
+        for i in range(0,8):
+            test_output.write(" ")
             test_output.write(str(fish_stream.get_bits(8)))
         test_output.write("\n")
         if lineCount == 0:
             end = timeit.timeit()    
-            print end - start, "seconds to recieve 2^20 bits", 
+            print end - start, "seconds to recieve 2^19 bits", 
             break
 
 
@@ -129,11 +130,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         break
     
     if key == ord("p"):
-        prob1, prob2 = fish_stream.get_probabilities()
-        print "probability of zeros:", prob1
-        print "probability of ones: ", prob2
-        print "total bits:", fish_stream.get_length()
-
+        print (8192 - lineCount) * 64, "/ 524288 bits written to file"
 
 # cleanup the camera and close any open windows
 cv2.destroyAllWindows()
