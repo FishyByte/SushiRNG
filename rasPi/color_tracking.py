@@ -133,13 +133,12 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         break
     
     if key == ord("p"):
-        zero_prob, one_prob = fish_stream.get_probabilities()
-        zero = fish_stream.zero_count()
-        one = fish_stream.one_count()
+        zero, one = fish_stream.get_probabilities()
 
         print "--------------------------------------------------"
-        print "0:", zero, "/", zero + one, "=", zero_prob
-        print "1:", one, "/", zero + one, "=", one_prob
+        print "0:", zero
+        print "1:", one
+        print "total bits:", fish_stream.get_length()
         print "--------------------------------------------------"
 
 # cleanup the camera and close any open windows
