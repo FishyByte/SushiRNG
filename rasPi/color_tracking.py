@@ -134,7 +134,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     
     if key == ord("p"):
         zero_prob, one_prob = fish_stream.get_probabilities()
-        zero = fish_stream.add_zero()
+        zero = fish_stream.zero_count()
         one = fish_stream.one_count()
 
         print "--------------------------------------------------"
