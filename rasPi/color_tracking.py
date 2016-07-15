@@ -37,10 +37,10 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
 # allow camera warmup
 time.sleep(0.3)
 
-# testing variables    2^19bits
-lineCount = 8192
+# testing variables
+totalBits = 1024  #131072 = 2^17 bits
 printLength = 64
-linesWritten = 0
+lineCount = totalLines = totalBits / printLength
 start = timeit.timeit()
 
 # capture frames from the camera
@@ -109,17 +109,20 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # clear the stream in prep for next frame
     rawCapture.truncate(0)
     
-    # testing
-    if fish_stream.get_length() > printLength:
-        lineCount -= 1;
-        for i in range(0,8):
-            test_output.write(" ")
-            test_output.write(str(fish_stream.get_bits(8)))
-        test_output.write("\n")
-        if lineCount == 0:
-            end = timeit.timeit()    
-            print end - start, "seconds to recieve 2^19 bits", 
-            break
+    # testing: finished gathering bits, write out to file
+    if fish_stream.get_length() > totalBits:
+        for j in range(0, lineCount):
+            for i in range(0, 8):
+                test_output.write(" ")
+                test_output.write(str(fish_stream.get_bits(8)))
+            test_output.write("\n")
+
+        end = timeit.timeit()
+        print "--------------------------------------------------"
+        print "--------------------------------------------------"
+        print end - start, "seconds to receive", totalBits, "bits",
+        print "--------------------------------------------------"
+        break
 
 
 
@@ -130,7 +133,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         break
     
     if key == ord("p"):
-        print (8192 - lineCount) * 64, "/ 524288 bits written to file"
+        zero_prob, one_prob = fish_stream.get_probabilities()
+        zero = fish_stream.add_zero()
+        one = fish_stream.one_count()
+
+        print "--------------------------------------------------"
+        print "0:", zero, "/", zero + one, "=", zero_prob
+        print "1:", one, "/", zero + one, "=", one_prob
+        print "--------------------------------------------------"
 
 # cleanup the camera and close any open windows
 cv2.destroyAllWindows()
