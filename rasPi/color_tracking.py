@@ -119,8 +119,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
         end = timeit.timeit()
         print "--------------------------------------------------"
-        print "--------------------------------------------------"
-        print end - start, "seconds to receive", totalBits, "bits",
+        print end, "seconds to receive", totalBits, "bits"
         print "--------------------------------------------------"
         break
 
