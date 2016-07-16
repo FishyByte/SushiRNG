@@ -25,6 +25,9 @@ class FishStream:
         self.one_count += 1
 
     def add_position(self, fish_id, x, y):
+        # if velocity is greater than this value
+        # then flip the bit value.
+        velocity_threashold = 25
 
         # if the current index it empty this will throw
         # an indexException, and in which case, init the
@@ -36,29 +39,33 @@ class FishStream:
 
             # current fish moved to the right
             if x_previous > x:
-                self.add_one()
+                if (x_previous - x) < velocity_threashold:
+                    self.add_one()
+                else:
+                    self.add_zero()
             # current fish moved to the left
-            else:
-                self.add_zero()
-            # current fish moved up the screen
-            if y_previous > y:
-                self.add_one()
-            # current fish moved down the screen
-            else:
-                self.add_zero()
+            elif x_previous < x:
+                if (x - x_previous) < velocity_threashold:
+                    self.add_zero()
+                else:
+                    self.add_one()
 
-            # MOAR bits
-            if y_previous > x:
-                self.add_one()
-            else:
-                self.add_zero()
-            if x_previous > y:
-                self.add_one()
-            else:
-                self.add_zero()
+            # current fish moved up the screen
+            if y_previous < y:
+                if (y_previous - y) < velocity_threashold:
+                    self.add_one()
+                else:
+                    self.add_zero()
+            # current fish moved down the screen
+            elif y_previous > y:
+                if (y - y_previous) < velocity_threashold:
+                    self.add_zero()
+                else:
+                    self.add_one()
 
             # overwrite previous positions with current
             self.fish_positions[fish_id] = [x, y]
+
         except IndexError:
             # new fish found, append is to the list
             self.fish_positions.append([x, y])

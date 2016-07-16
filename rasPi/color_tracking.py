@@ -1,19 +1,27 @@
 # import the necessary packages
 from collections import deque
-import argparse
 import imutils
 import cv2
+from fish_pool import *
 
 # import picamera
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
+import timeit
 
+# call constructors
+fish_stream = FishStream()
+fish_pool = FishPool()
+
+# output bitstream to file
+test_output = open('fishData/fishBits.txt', 'w')
+test_output.truncate()
 
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
 # list of tracked points
-orangeLower = (0, 183, 73)
+orangeLower = (0, 215, 37)
 orangeUpper = (255, 255, 255)
 pts = deque(maxlen=64)
 
@@ -22,12 +30,18 @@ camera = PiCamera()
 camera.vflip = True
 camera.hflip = True
 camera.resolution = (640, 368)
-camera.framerate = 32
+camera.framerate = 60
 camera.exposure_mode='verylong'
 rawCapture = PiRGBArray(camera, size=(640, 368))
     
 # allow camera warmup
 time.sleep(0.3)
+
+# testing variables
+totalBits = 32768  # 32768 = 2^15 bits
+printLength = 64
+lineCount = totalLines = totalBits / printLength
+start = timeit.timeit()
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -79,10 +93,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                            (0, 255, 255), 2)
                 cv2.circle(frame, center, 5, (255, 0, 255), -1)
 
-                
                 # where are the fish at now?
                 fish_count += 1
-                print "fish#:", fish_count, "x:", x, "y:", y
+                fish_stream.add_position(fish_count, x, y)
+                # print "fish#:", fish_count, "x:", x, "y:", y
 
             # update the points queue
             pts.appendleft(center)
@@ -93,10 +107,39 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # clear the stream in prep for next frame
     rawCapture.truncate(0)
+    
+    # testing: finished gathering bits, write out to file
+    if fish_stream.get_length() > totalBits:
+        zero, one = fish_stream.get_probabilities()
+        finalLength = fish_stream.get_length()
+        for j in range(0, lineCount):
+            for i in range(0, 8):
+                test_output.write(" ")
+                test_output.write(str(fish_stream.get_bits(8)))
+            test_output.write("\n")
+        end = timeit.timeit()
+        print "--------------------------------------------------"
+        print "0:", zero
+        print "1:", one
+        print "total bits:", finalLength
+        print end, "seconds to receive", totalBits, "bits"
+        print "--------------------------------------------------"
+        break
+
+
 
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
+        test_output.write(str(fish_stream.stream))
+        test_output.write("\n")
         break
+    
+    if key == ord("p"):
+        zero, one = fish_stream.get_probabilities()
+        print "0:", zero
+        print "1:", one
+        print "total bits:", fish_stream.get_length(), "/", totalBits
+        print "--------------------------------------------------"
 
 # cleanup the camera and close any open windows
-cv1.destroyAllWindows()
+cv2.destroyAllWindows()
