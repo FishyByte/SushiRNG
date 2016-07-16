@@ -38,7 +38,7 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
 time.sleep(0.3)
 
 # testing variables
-totalBits = 131072  # 131072 = 2^17 bits
+totalBits = 32768  # 32768 = 2^15 bits
 printLength = 64
 lineCount = totalLines = totalBits / printLength
 start = timeit.timeit()
@@ -93,7 +93,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                            (0, 255, 255), 2)
                 cv2.circle(frame, center, 5, (255, 0, 255), -1)
 
-                
                 # where are the fish at now?
                 fish_count += 1
                 fish_stream.add_position(fish_count, x, y)
@@ -112,7 +111,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # testing: finished gathering bits, write out to file
     if fish_stream.get_length() > totalBits:
         zero, one = fish_stream.get_probabilities()
-        finalLength = fish_stream.get_length();
+        finalLength = fish_stream.get_length()
         for j in range(0, lineCount):
             for i in range(0, 8):
                 test_output.write(" ")
