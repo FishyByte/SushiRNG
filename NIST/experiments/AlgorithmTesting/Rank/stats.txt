@@ -1,0 +1,4 @@
+				RANK TEST
+		Error: Insuffucient # Of Bits To Define An 32x32 (32x32) Matrix
+FAILURE		p_value = 0.000000
+
