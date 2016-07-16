@@ -111,18 +111,18 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     
     # testing: finished gathering bits, write out to file
     if fish_stream.get_length() > totalBits:
+        zero, one = fish_stream.get_probabilities()
+        finalLength = fish_stream.get_length();
         for j in range(0, lineCount):
             for i in range(0, 8):
                 test_output.write(" ")
                 test_output.write(str(fish_stream.get_bits(8)))
             test_output.write("\n")
-
-        zero, one = fish_stream.get_probabilities()
         end = timeit.timeit()
         print "--------------------------------------------------"
         print "0:", zero
         print "1:", one
-        print "total bits:", fish_stream.get_length()
+        print "total bits:", finalLength
         print end, "seconds to receive", totalBits, "bits"
         print "--------------------------------------------------"
         break
