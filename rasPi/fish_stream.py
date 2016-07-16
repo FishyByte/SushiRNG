@@ -80,12 +80,12 @@ class FishStream:
             # current fish moved to the left
             elif x_previous < x:
                 if vx < velocity_threshold:
-                    if ax < acceleration_threshold:
+                    if ax > acceleration_threshold:
                         self.add_one()
                     else:
                         self.add_zero()
                 else:
-                    if ax < acceleration_threshold:
+                    if ax > acceleration_threshold:
                         self.add_one()
                     else:
                         self.add_zero()
@@ -106,12 +106,12 @@ class FishStream:
             # current fish moved down the screen
             elif y_previous > y:
                 if vy < velocity_threshold:
-                    if ay < acceleration_threshold:
+                    if ay > acceleration_threshold:
                         self.add_one()
                     else:
                         self.add_zero()
                 else:
-                    if ay < acceleration_threshold:
+                    if ay > acceleration_threshold:
                         self.add_one()
                     else:
                         self.add_zero()
