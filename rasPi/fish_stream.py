@@ -27,48 +27,101 @@ class FishStream:
     def add_position(self, fish_id, x, y):
         # if velocity is greater than this value
         # then flip the bit value.
-        velocity_threashold = 25
+        velocity_threshold = 5
+        acceleration_threshold = 5
 
         # if the current index it empty this will throw
         # an indexException, and in which case, init the
         # current fish position at that index.
         try:
-            # grab the past position of the current fish
-            x_previous = self.fish_positions[fish_id][0]
-            y_previous = self.fish_positions[fish_id][1]
+            # grab the past position of the current fish    # - PREVIOUS -
+            x_previous = self.fish_positions[fish_id][0]    # position of x
+            y_previous = self.fish_positions[fish_id][1]    # position of y
+            vx_previous = self.fish_positions[fish_id][2]   # velocity of x
+            vy_previous = self.fish_positions[fish_id][3]   # velocity of y
+            ax = ay = 0
+
+            # determine the current velocity
+            if x_previous > x:
+                vx = (x_previous - x)
+            else:
+                vx = (x - x_previous)
+
+            if y_previous > y:
+                vy = (y_previous - y)
+            else:
+                vy = (y - y_previous)
+
+            # determine the current acceleration
+            if vx_previous > vx:
+                ax = vx_previous - vx
+            else:
+                ax = vx - vx_previous
+            if vy_previous > vy:
+                ay = vy_previous - vy
+            else:
+                ay = vy - vy_previous
+
+
 
             # current fish moved to the right
             if x_previous > x:
-                if (x_previous - x) < velocity_threashold:
-                    self.add_one()
+                if vx < velocity_threshold:
+                    if ax < acceleration_threshold:
+                        self.add_one()
+                    else:
+                        self.add_zero()
                 else:
-                    self.add_zero()
+                    if ax < acceleration_threshold:
+                        self.add_one()
+                    else:
+                        self.add_zero()
+
             # current fish moved to the left
             elif x_previous < x:
-                if (x - x_previous) < velocity_threashold:
-                    self.add_zero()
+                if vx < velocity_threshold:
+                    if ax < acceleration_threshold:
+                        self.add_one()
+                    else:
+                        self.add_zero()
                 else:
-                    self.add_one()
+                    if ax < acceleration_threshold:
+                        self.add_one()
+                    else:
+                        self.add_zero()
 
             # current fish moved up the screen
             if y_previous < y:
-                if (y_previous - y) < velocity_threashold:
-                    self.add_one()
+                if vy < velocity_threshold:
+                    if ay < acceleration_threshold:
+                        self.add_one()
+                    else:
+                        self.add_zero()
                 else:
-                    self.add_zero()
+                    if ay < acceleration_threshold:
+                        self.add_one()
+                    else:
+                        self.add_zero()
+
             # current fish moved down the screen
             elif y_previous > y:
-                if (y - y_previous) < velocity_threashold:
-                    self.add_zero()
+                if vy < velocity_threshold:
+                    if ay < acceleration_threshold:
+                        self.add_one()
+                    else:
+                        self.add_zero()
                 else:
-                    self.add_one()
+                    if ay < acceleration_threshold:
+                        self.add_one()
+                    else:
+                        self.add_zero()
 
             # overwrite previous positions with current
-            self.fish_positions[fish_id] = [x, y]
+            self.fish_positions[fish_id] = [x, y, vx, vy]
 
         except IndexError:
             # new fish found, append is to the list
-            self.fish_positions.append([x, y])
+            self.fish_positions.append([x, y, 0, 0])
 
     def print_stream(self):
         print self.stream
