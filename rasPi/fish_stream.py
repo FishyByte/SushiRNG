@@ -25,9 +25,9 @@ class FishStream:
         self.one_count += 1
 
     def add_position(self, fish_id, x, y):
-        # if distance between frames is greater than this value
+        # if velocity is greater than this value
         # then flip the bit value.
-        distance_threshold = 50
+        velocity_threashold = 25
 
         # if the current index it empty this will throw
         # an indexException, and in which case, init the
@@ -39,26 +39,26 @@ class FishStream:
 
             # current fish moved to the right
             if x_previous > x:
-                if (x_previous - x) < distance_threshold:
+                if (x_previous - x) < velocity_threashold:
                     self.add_one()
                 else:
                     self.add_zero()
             # current fish moved to the left
             elif x_previous < x:
-                if (x - x_previous) < distance_threshold:
+                if (x - x_previous) < velocity_threashold:
                     self.add_zero()
                 else:
                     self.add_one()
 
             # current fish moved up the screen
             if y_previous < y:
-                if (y_previous - y) < distance_threshold:
+                if (y_previous - y) < velocity_threashold:
                     self.add_one()
                 else:
                     self.add_zero()
             # current fish moved down the screen
             elif y_previous > y:
-                if (y - y_previous) < distance_threshold:
+                if (y - y_previous) < velocity_threashold:
                     self.add_zero()
                 else:
                     self.add_one()
