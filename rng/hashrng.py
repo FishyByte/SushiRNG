@@ -17,26 +17,29 @@ import numpy as np
 from scipy import stats
 
 
-def create_test_list():
-    bit_list = []
-    for i in range(1028):
-        if i % 3 == 0:
-            bit_list.append(1)
-        else:
-            bit_list.append(0)
+def create_test_list(num):
+    bit_list = np.zeros(1028, dtype=int)
+    for i in range(len(bit_list)):
+        if i % num == 0:
+            bit_list[i] = 1
 
     return bit_list
+
+
+# Stir functions
+def stir_pool(entropy_one, entropy_two):
+    new_entropy_pool = np.logical_xor(entropy_one,entropy_two)
+
+
+    return new_entropy_pool
 
 
 # Calculate the distributions of 1s and 0s in total string.
 def dist_calculations(bit_list):
 
-    # For testing of the distribution. Comment out later
-    bit_string = int("".join(str(x) for x in bit_list))
-    bit_string = str(bit_string)
-    one_count = bit_string.count('1')
-    zero_count = bit_string.count('0')
-    total_length = len(bit_string)
+    one_count = np.count_nonzero(bit_list)
+    total_length = len(bit_list)
+    zero_count = total_length - one_count
 
     percent_one = one_count / float(total_length)
     percent_zero = zero_count / float(total_length)
@@ -65,9 +68,9 @@ def entropy_correction(entropy):
 
 # Grab the needed amounts of bits to ensure 128 bits of entropy
 def alter_bit_length(bit_list, corrected_bits):
-    new_bit_list = []
+    new_bit_list = np.zeros(len(bit_list))
     for i in range(corrected_bits):
-        new_bit_list.append(bit_list.pop())
+        new_bit_list[i] = bit_list[i]
     return new_bit_list
 
 
@@ -75,8 +78,9 @@ def alter_bit_length(bit_list, corrected_bits):
 def whiten_numbers(min_value,max_value, bit_list):
 
     # Use SHA1 to hash the string.
-    bit_string = int("".join(str(x) for x in bit_list))
-    bit_string = str(bit_string)
+    #bit_string = int("".join(str(x) for x in bit_list))
+    #bit_string = str(bit_string)
+    bit_string = np.array2string(bit_list)
     hash_number = hashlib.sha1(bit_string.encode('utf-8')).hexdigest()
     hash_number = int(hash_number,32)
     random_number = hash_number % max_value
@@ -85,7 +89,9 @@ def whiten_numbers(min_value,max_value, bit_list):
 # Main function for testing
 def main():
     # Make the testing list
-    bit_list = create_test_list()
+    bit_list = create_test_list(3)
+    second_bit_list = create_test_list(2)
+
 
     # Calculate the percents of 1s and 0s of test list
     percent_one, percent_zero = dist_calculations(bit_list)
@@ -106,5 +112,12 @@ def main():
     print "Percent of 0s:", percent_zero
     print "Bits of Entropy:", entropy
     print "Random number is:", random_number
+
+    new_entropy_pool = stir_pool(new_bit_list,second_bit_list)
+    new_entropy_pool = stir_pool(new_entropy_pool, bit_list)
+
+    new_random_number = whiten_numbers(0,100,new_entropy_pool)
+
+    print new_random_number
 
 main()
