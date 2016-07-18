@@ -17,8 +17,8 @@ import numpy as np
 from scipy import stats
 
 
-def create_test_list(num):
-    bit_list = np.zeros(4096, dtype=int)
+def create_test_list(num, size):
+    bit_list = np.zeros(size, dtype=int)
     for i in range(len(bit_list)):
         if i % num == 0:
             bit_list[i] = 1
@@ -62,17 +62,18 @@ def entropy_calculations(percent_one, percent_zero):
 # I need to fix this.
 # Find the corrected length of bits given entropy calculations
 def entropy_correction(entropy):
-    corrected_bits = math.ceil(128 * entropy)
+    corrected_bits = math.ceil(4096 * entropy)
     corrected_bits = int(corrected_bits)
-    corrected_bits = 128 + (128-corrected_bits)
+    corrected_bits = 4096 + (4096-corrected_bits)
     return corrected_bits
 
 
 # Grab the needed amounts of bits to ensure 128 bits of entropy
 def alter_bit_length(bit_list, corrected_bits):
-    new_bit_list = np.zeros(len(bit_list))
-    for i in range(corrected_bits):
-        new_bit_list[i] = bit_list[i]
+    # new_bit_list = np.zeros(corrected_bits)
+    # for i in range(corrected_bits):
+        # new_bit_list[i] = bit_list[i]
+    new_bit_list = create_test_list(5, corrected_bits)
     return new_bit_list
 
 
@@ -112,8 +113,8 @@ def report_stats(bit_list):
 # Main function for testing
 def main():
     # Make the testing list
-    bit_list = create_test_list(3)
-    second_bit_list = create_test_list(10)
+    bit_list = create_test_list(3, 4096)
+    second_bit_list = create_test_list(10, 4096)
 
     # Report information
     report_stats(bit_list)
