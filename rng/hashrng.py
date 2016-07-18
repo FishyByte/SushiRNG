@@ -18,7 +18,7 @@ from scipy import stats
 
 
 def create_test_list(num):
-    bit_list = np.zeros(1028, dtype=int)
+    bit_list = np.zeros(4096, dtype=int)
     for i in range(len(bit_list)):
         if i % num == 0:
             bit_list[i] = 1
@@ -28,8 +28,9 @@ def create_test_list(num):
 
 # Stir functions
 def stir_pool(entropy_one, entropy_two):
-    new_entropy_pool = np.logical_xor(entropy_one,entropy_two)
 
+    # Create new numpy list XOR from two
+    new_entropy_pool = np.logical_xor(entropy_one,entropy_two)
 
     return new_entropy_pool
 
@@ -58,6 +59,7 @@ def entropy_calculations(percent_one, percent_zero):
     return entropy
 
 
+# I need to fix this.
 # Find the corrected length of bits given entropy calculations
 def entropy_correction(entropy):
     corrected_bits = math.ceil(128 * entropy)
@@ -86,38 +88,42 @@ def whiten_numbers(min_value,max_value, bit_list):
     random_number = hash_number % max_value
     return random_number
 
-# Main function for testing
-def main():
-    # Make the testing list
-    bit_list = create_test_list(3)
-    second_bit_list = create_test_list(2)
 
+# Report function for all of the number's information
+def report_stats(bit_list):
 
-    # Calculate the percents of 1s and 0s of test list
     percent_one, percent_zero = dist_calculations(bit_list)
 
-    # Calculate Entropy
-    entropy = entropy_calculations(percent_one,percent_zero)
+    entropy = entropy_calculations(percent_one, percent_zero)
 
-    # Find the corrected bits we need for 128 bits of entropy.
-    corrected_bits = entropy_correction(entropy)
-    new_bit_list = alter_bit_length(bit_list,corrected_bits)
+    correct_bits = entropy_correction(entropy)
 
-    # Whiten the number and set parameters for the number.
-    random_number = whiten_numbers(0,100,new_bit_list)
+    new_bit_list = alter_bit_length(bit_list,correct_bits)
 
-    # Reporting all the information
+    random_number = whiten_numbers(0,100, new_bit_list)
+
     print(len(new_bit_list))
     print "Percent of 1s:", percent_one
     print "Percent of 0s:", percent_zero
     print "Bits of Entropy:", entropy
     print "Random number is:", random_number
 
-    new_entropy_pool = stir_pool(new_bit_list,second_bit_list)
+
+# Main function for testing
+def main():
+    # Make the testing list
+    bit_list = create_test_list(3)
+    second_bit_list = create_test_list(10)
+
+    # Report information
+    report_stats(bit_list)
+
+    new_entropy_pool = stir_pool(bit_list,second_bit_list)
+
+    report_stats(new_entropy_pool)
+
     new_entropy_pool = stir_pool(new_entropy_pool, bit_list)
 
-    new_random_number = whiten_numbers(0,100,new_entropy_pool)
-
-    print new_random_number
+    report_stats(new_entropy_pool)
 
 main()
