@@ -78,30 +78,38 @@ def alter_bit_length(bit_list, corrected_bits):
 
 
 # Whitener for the 128 bit list to generate a random number
-def whiten_numbers(min_value,max_value, bit_list):
+def whiten_numbers(min_value,max_value, bit_list,whitener):
 
-    # Use SHA1 to hash the string.
-    #bit_string = int("".join(str(x) for x in bit_list))
-    #bit_string = str(bit_string)
+    # Stringify the list
     bit_string = np.array2string(bit_list)
-    hash_number = hashlib.sha1(bit_string.encode('utf-8')).hexdigest()
+
+    # Update the hash libraray
+    whitener.update(bit_string)
+
+    # Digest the library and convert into a int 32
+    hash_number = whitener.hexdigest()
     hash_number = int(hash_number,32)
+
+    # Kick out number of no more than max_value
     random_number = hash_number % max_value
     return random_number
 
 
 # Report function for all of the number's information
-def report_stats(bit_list):
+def report_stats(bit_list, whitener):
 
+    # Call Dist function
     percent_one, percent_zero = dist_calculations(bit_list)
 
+    # Call Entropy
     entropy = entropy_calculations(percent_one, percent_zero)
 
+    # Correct bits
     correct_bits = entropy_correction(entropy)
 
     new_bit_list = alter_bit_length(bit_list,correct_bits)
 
-    random_number = whiten_numbers(0,100, new_bit_list)
+    random_number = whiten_numbers(0,100, new_bit_list,whitener)
 
     print(len(new_bit_list))
     print "Percent of 1s:", percent_one
@@ -112,19 +120,22 @@ def report_stats(bit_list):
 
 # Main function for testing
 def main():
+
+    whitener = hashlib.sha1()
     # Make the testing list
     bit_list = create_test_list(3, 4096)
     second_bit_list = create_test_list(10, 4096)
 
     # Report information
-    report_stats(bit_list)
+    report_stats(bit_list,whitener)
 
     new_entropy_pool = stir_pool(bit_list,second_bit_list)
 
-    report_stats(new_entropy_pool)
+    report_stats(new_entropy_pool,whitener)
 
     new_entropy_pool = stir_pool(new_entropy_pool, bit_list)
 
-    report_stats(new_entropy_pool)
+    report_stats(new_entropy_pool,whitener)
+    report_stats(new_entropy_pool,whitener)
 
 main()
