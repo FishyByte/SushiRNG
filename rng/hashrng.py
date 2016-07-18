@@ -109,13 +109,64 @@ def report_stats(bit_list, whitener):
 
     new_bit_list = alter_bit_length(bit_list,correct_bits)
 
-    random_number = whiten_numbers(0,100, new_bit_list,whitener)
+    random_number = whiten_numbers(0,20, new_bit_list,whitener)
 
-    print(len(new_bit_list))
-    print "Percent of 1s:", percent_one
-    print "Percent of 0s:", percent_zero
-    print "Bits of Entropy:", entropy
+    # print(len(new_bit_list))
+    # print "Percent of 1s:", percent_one
+    # print "Percent of 0s:", percent_zero
+    # print "Bits of Entropy:", entropy
     print "Random number is:", random_number
+
+    return random_number
+
+
+# 8-Ball Responses
+def eight_ball_response(number):
+
+    if number == 0:
+        response = "It is Certain"
+    elif number == 1:
+        response = "It is decidedly so"
+    elif number == 2:
+        response = "Without a doubt"
+    elif number == 3:
+        response = "Yes, definitely"
+    elif number == 4:
+        response = "You may rely on it"
+    elif number == 5:
+        response = "As I see it, yes"
+    elif number == 6:
+        response = "Most likely"
+    elif number == 7:
+        response = "Outlook good"
+    elif number == 8:
+        response = "Yes"
+    elif number == 9:
+        response = "Signs point to yes"
+    elif number == 10:
+        response = "Reply hazy, try again"
+    elif number == 11:
+        response = "Ask again later"
+    elif number == 12:
+        response = "Better not tell you now"
+    elif number == 13:
+        response = "Cannot predict now"
+    elif number == 14:
+        response = "Concentrate and ask again"
+    elif number == 15:
+        response = "Don't count on it"
+    elif number == 16:
+        response = "My reply is no"
+    elif number == 17:
+        response = "My sources say no"
+    elif number == 18:
+        response = "Outlook not so good"
+    elif number == 19:
+        response = "Very doubtful"
+    else:
+        response = "Lol no"
+
+    return response
 
 
 # Main function for testing
@@ -127,15 +178,18 @@ def main():
     second_bit_list = create_test_list(10, 4096)
 
     # Report information
-    report_stats(bit_list,whitener)
+    # report_stats(bit_list,whitener)
 
     new_entropy_pool = stir_pool(bit_list,second_bit_list)
 
-    report_stats(new_entropy_pool,whitener)
+    # report_stats(new_entropy_pool,whitener)
 
     new_entropy_pool = stir_pool(new_entropy_pool, bit_list)
 
-    report_stats(new_entropy_pool,whitener)
-    report_stats(new_entropy_pool,whitener)
+
+    for i in range(5):
+        input = report_stats(new_entropy_pool, whitener)
+        response = eight_ball_response(input)
+        print response
 
 main()
