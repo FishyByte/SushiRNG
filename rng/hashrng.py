@@ -14,7 +14,7 @@ import math
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy import stats
+from io import StringIO
 
 
 class rng_pool():
@@ -172,6 +172,13 @@ class rng_pool():
 
         return response
 
+    # Turn a file into a numpy array
+    def read_from_file(self,text):
+
+        with open(text, 'r') as myfile:
+            data = myfile.read().replace('\n', '')
+        test_array = np.array(list(data), dtype=int)
+        return test_array
 
 # Main function for testing
 def main():
@@ -181,6 +188,11 @@ def main():
     # Make the testing list
     bit_list = new_pool.create_test_list(3, 4096)
     second_bit_list = new_pool.create_test_list(10, 4096)
+
+    file_input = new_pool.read_from_file("test_numbers")
+    print "Testing area:"
+    print file_input
+
 
     # Report information
     # report_stats(bit_list,whitener)
