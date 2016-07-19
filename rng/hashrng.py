@@ -180,19 +180,25 @@ class rng_pool():
         test_array = np.array(list(data), dtype=int)
         return test_array
 
+    # Turn a numpy array into a file
+    def write_to_file(self, np_array, f_name):
+        np.savetxt(f_name, np_array, fmt='%d')
+
 # Main function for testing
 def main():
 
     new_pool = rng_pool()
     whitener = hashlib.sha1()
     # Make the testing list
-    bit_list = new_pool.create_test_list(3, 4096)
+    bit_list = new_pool.create_test_list(5, 4096)
     second_bit_list = new_pool.create_test_list(10, 4096)
+
+    new_pool.write_to_file(bit_list,'test_numbers')
 
     file_input = new_pool.read_from_file("test_numbers")
     print "Testing area:"
     print file_input
-
+    new_pool.report_stats(file_input, whitener)
 
     # Report information
     # report_stats(bit_list,whitener)
@@ -205,10 +211,9 @@ def main():
 
     stirred_pool = new_pool.stir_split_pool(new_entropy_pool)
 
-    number_input = new_pool.report_stats(stirred_pool,whitener)
+    number_input = new_pool.report_stats(stirred_pool, whitener)
     reps = new_pool.eight_ball_response(number_input)
     print reps
-
 
     for i in range(3):
         input = new_pool.report_stats(new_entropy_pool, whitener)
