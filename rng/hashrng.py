@@ -200,6 +200,10 @@ def main():
     print file_input
     new_pool.report_stats(file_input, whitener)
 
+    # Needs work.
+    plt.plot(file_input)
+    plt.show()
+
     # Report information
     # report_stats(bit_list,whitener)
 
