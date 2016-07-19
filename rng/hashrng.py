@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import stats
 
+
 class rng_pool():
 
     def create_test_list(self, num, size):
@@ -26,6 +27,11 @@ class rng_pool():
 
         return bit_list
 
+    # Stir the pool
+    def stir_split_pool(self, entropy_pool):
+        new_pool = np.split(entropy_pool, 2)
+        new_pool = np.logical_xor(new_pool[0],new_pool[1])
+        return new_pool
 
     # Stir functions
     def stir_pool(self, entropy_one, entropy_two):
@@ -34,7 +40,6 @@ class rng_pool():
         new_entropy_pool = np.logical_xor(entropy_one,entropy_two)
 
         return new_entropy_pool
-
 
     # Calculate the distributions of 1s and 0s in total string.
     def dist_calculations(self, bit_list):
@@ -49,7 +54,6 @@ class rng_pool():
 
         return percent_one, percent_zero
 
-
     # Entropy calculations
     def entropy_calculations(self, percent_one, percent_zero):
 
@@ -58,7 +62,6 @@ class rng_pool():
         # entropy = stats.entropy(percent_one) + stats.entropy(percent_zero)
 
         return entropy
-
 
     # I need to fix this.
     # Find the corrected length of bits given entropy calculations
@@ -188,8 +191,14 @@ def main():
 
     new_entropy_pool = new_pool.stir_pool(new_entropy_pool, bit_list)
 
+    stirred_pool = new_pool.stir_split_pool(new_entropy_pool)
 
-    for i in range(5):
+    number_input = new_pool.report_stats(stirred_pool,whitener)
+    reps = new_pool.eight_ball_response(number_input)
+    print reps
+
+
+    for i in range(3):
         input = new_pool.report_stats(new_entropy_pool, whitener)
         response = new_pool.eight_ball_response(input)
         print response
