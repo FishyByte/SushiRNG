@@ -27,8 +27,8 @@ class FishStream:
     def add_position(self, fish_id, x, y):
         # if velocity and acceleration is greater than these values
         # then flip the bit value.
-        velocity_threshold = 3
-        acceleration_threshold = 3
+        velocity_threshold = 5
+        acceleration_threshold = 5
 
         # if the current index it empty this will throw
         # an indexException, and in which case, init the
