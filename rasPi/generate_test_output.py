@@ -106,7 +106,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     rawCapture.truncate(0)
 
     # let the pool fill up then start grabbing bits to write out to file
-    if fish_stream.get_length() > 163824:
+    if fish_stream.get_length() > 8192:
         prob1, prob2 = fish_stream.get_probabilities()
         entropy = fish_pool.entropy_calculations(prob1, prob2)
         correct_bits = int(fish_pool.entropy_correction(entropy))
@@ -123,6 +123,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
+        test_output.write('\n')
         zero, one = fish_stream.get_probabilities()
         print "O:", zero
         print "1:", one
