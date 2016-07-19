@@ -105,13 +105,13 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # clear the stream in prep for next frame
     rawCapture.truncate(0)
 
-    # grab a bit and write it to text file
-    if fish_stream.get_length() > 1024:
+    # let the pool fill up then start grabbing bits to write out to file
+    if fish_stream.get_length() > 163824:
         prob1, prob2 = fish_stream.get_probabilities()
         entropy = fish_pool.entropy_calculations(prob1, prob2)
         correct_bits = int(fish_pool.entropy_correction(entropy))
         bit_list = str(fish_stream.get_bits(correct_bits))
-        result = fish_pool.whiten_numbers(0, 1, bit_list)
+        result = fish_pool.whiten_numbers(0, 2, bit_list)
         test_output.write(str(result))
 
         bit_count += 1
@@ -123,10 +123,18 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
+        zero, one = fish_stream.get_probabilities()
+        print "O:", zero
+        print "1:", one
+        print "# bits in stream:", fish_stream.get_length()
         print "printed", bit_count, "to file"
         break
     
     if key == ord("p"):
+        zero, one = fish_stream.get_probabilities()
+        print "O:", zero
+        print "1:", one
+        print "# bits in stream:", fish_stream.get_length()
         print "printed", bit_count, "to file"
 
 # cleanup the camera and close any open windows
