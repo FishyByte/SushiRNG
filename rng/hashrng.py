@@ -14,97 +14,214 @@ import math
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy import stats
+from io import StringIO
 
 
-def create_test_list():
-    bit_list = []
-    for i in range(1028):
-        if i % 3 == 0:
-            bit_list.append(1)
+class rng_pool():
+
+    def create_test_list(self, num, size):
+        bit_list = np.zeros(size, dtype=int)
+        for i in range(len(bit_list)):
+            if i % num == 0:
+                bit_list[i] = 1
+
+        return bit_list
+
+    # Stir the pool
+    def stir_split_pool(self, entropy_pool):
+        new_pool = np.split(entropy_pool, 2)
+        new_pool = np.logical_xor(new_pool[0],new_pool[1])
+        return new_pool
+
+    # Stir functions
+    def stir_pool(self, entropy_one, entropy_two):
+
+        # Create new numpy list XOR from two
+        new_entropy_pool = np.logical_xor(entropy_one,entropy_two)
+
+        return new_entropy_pool
+
+    # Calculate the distributions of 1s and 0s in total string.
+    def dist_calculations(self, bit_list):
+
+        one_count = np.count_nonzero(bit_list)
+        total_length = len(bit_list)
+        zero_count = total_length - one_count
+
+        percent_one = one_count / float(total_length)
+        percent_zero = zero_count / float(total_length)
+
+
+        return percent_one, percent_zero
+
+    # Entropy calculations
+    def entropy_calculations(self, percent_one, percent_zero):
+
+        # calculating the bits of entropy
+        entropy = (-percent_one*math.log(percent_one,2))+(-percent_zero*math.log(percent_zero,2))
+        # entropy = stats.entropy(percent_one) + stats.entropy(percent_zero)
+
+        return entropy
+
+    # I need to fix this.
+    # Find the corrected length of bits given entropy calculations
+    def entropy_correction(self, entropy):
+        corrected_bits = math.ceil(4096 * entropy)
+        corrected_bits = int(corrected_bits)
+        corrected_bits = 4096 + (4096-corrected_bits)
+        return corrected_bits
+
+
+    # Grab the needed amounts of bits to ensure 128 bits of entropy
+    def alter_bit_length(self, bit_list, corrected_bits):
+        # new_bit_list = np.zeros(corrected_bits)
+        # for i in range(corrected_bits):
+            # new_bit_list[i] = bit_list[i]
+        new_bit_list = self.create_test_list(5, corrected_bits)
+        return new_bit_list
+
+
+    # Whitener for the 128 bit list to generate a random number
+    def whiten_numbers(self, min_value,max_value, bit_list,whitener):
+
+        # Stringify the list
+        bit_string = np.array2string(bit_list)
+
+        # Update the hash libraray
+        whitener.update(bit_string)
+
+        # Digest the library and convert into a int 32
+        hash_number = whitener.hexdigest()
+        hash_number = int(hash_number,32)
+
+        # Kick out number of no more than max_value
+        random_number = hash_number % max_value
+        return random_number
+
+
+    # Report function for all of the number's information
+    def report_stats(self, bit_list, whitener):
+
+        # Call Dist function
+        percent_one, percent_zero = self.dist_calculations(bit_list)
+
+        # Call Entropy
+        entropy = self.entropy_calculations(percent_one, percent_zero)
+
+        # Correct bits
+        correct_bits = self.entropy_correction(entropy)
+
+        new_bit_list = self.alter_bit_length(bit_list,correct_bits)
+
+        random_number = self.whiten_numbers(0,20, new_bit_list,whitener)
+
+        # print(len(new_bit_list))
+        # print "Percent of 1s:", percent_one
+        # print "Percent of 0s:", percent_zero
+        # print "Bits of Entropy:", entropy
+        print "Random number is:", random_number
+
+        return random_number
+
+
+    # 8-Ball Responses
+    def eight_ball_response(self, number):
+
+        if number == 0:
+            response = "It is Certain"
+        elif number == 1:
+            response = "It is decidedly so"
+        elif number == 2:
+            response = "Without a doubt"
+        elif number == 3:
+            response = "Yes, definitely"
+        elif number == 4:
+            response = "You may rely on it"
+        elif number == 5:
+            response = "As I see it, yes"
+        elif number == 6:
+            response = "Most likely"
+        elif number == 7:
+            response = "Outlook good"
+        elif number == 8:
+            response = "Yes"
+        elif number == 9:
+            response = "Signs point to yes"
+        elif number == 10:
+            response = "Reply hazy, try again"
+        elif number == 11:
+            response = "Ask again later"
+        elif number == 12:
+            response = "Better not tell you now"
+        elif number == 13:
+            response = "Cannot predict now"
+        elif number == 14:
+            response = "Concentrate and ask again"
+        elif number == 15:
+            response = "Don't count on it"
+        elif number == 16:
+            response = "My reply is no"
+        elif number == 17:
+            response = "My sources say no"
+        elif number == 18:
+            response = "Outlook not so good"
+        elif number == 19:
+            response = "Very doubtful"
         else:
-            bit_list.append(0)
+            response = "Lol no"
 
-    return bit_list
+        return response
 
+    # Turn a file into a numpy array
+    def read_from_file(self,text):
 
-# Calculate the distributions of 1s and 0s in total string.
-def dist_calculations(bit_list):
+        with open(text, 'r') as myfile:
+            data = myfile.read().replace('\n', '')
+        test_array = np.array(list(data), dtype=int)
+        return test_array
 
-    # For testing of the distribution. Comment out later
-    bit_string = int("".join(str(x) for x in bit_list))
-    bit_string = str(bit_string)
-    one_count = bit_string.count('1')
-    zero_count = bit_string.count('0')
-    total_length = len(bit_string)
-
-    percent_one = one_count / float(total_length)
-    percent_zero = zero_count / float(total_length)
-
-
-    return percent_one, percent_zero
-
-
-# Entropy calculations
-def entropy_calculations(percent_one, percent_zero):
-
-    # calculating the bits of entropy
-    entropy = (-percent_one*math.log(percent_one,2))+(-percent_zero*math.log(percent_zero,2))
-    # entropy = stats.entropy(percent_one) + stats.entropy(percent_zero)
-
-    return entropy
-
-
-# Find the corrected length of bits given entropy calculations
-def entropy_correction(entropy):
-    corrected_bits = math.ceil(128 * entropy)
-    corrected_bits = int(corrected_bits)
-    corrected_bits = 128 + (128-corrected_bits)
-    return corrected_bits
-
-
-# Grab the needed amounts of bits to ensure 128 bits of entropy
-def alter_bit_length(bit_list, corrected_bits):
-    new_bit_list = []
-    for i in range(corrected_bits):
-        new_bit_list.append(bit_list.pop())
-    return new_bit_list
-
-
-# Whitener for the 128 bit list to generate a random number
-def whiten_numbers(min_value,max_value, bit_list):
-
-    # Use SHA1 to hash the string.
-    bit_string = int("".join(str(x) for x in bit_list))
-    bit_string = str(bit_string)
-    hash_number = hashlib.sha1(bit_string.encode('utf-8')).hexdigest()
-    hash_number = int(hash_number,32)
-    random_number = hash_number % max_value
-    return random_number
+    # Turn a numpy array into a file
+    def write_to_file(self, np_array, f_name):
+        np.savetxt(f_name, np_array, fmt='%d')
 
 # Main function for testing
 def main():
+
+    new_pool = rng_pool()
+    whitener = hashlib.sha1()
     # Make the testing list
-    bit_list = create_test_list()
+    bit_list = new_pool.create_test_list(5, 4096)
+    second_bit_list = new_pool.create_test_list(10, 4096)
 
-    # Calculate the percents of 1s and 0s of test list
-    percent_one, percent_zero = dist_calculations(bit_list)
+    new_pool.write_to_file(bit_list,'test_numbers')
 
-    # Calculate Entropy
-    entropy = entropy_calculations(percent_one,percent_zero)
+    file_input = new_pool.read_from_file("test_numbers")
+    print "Testing area:"
+    print file_input
+    new_pool.report_stats(file_input, whitener)
 
-    # Find the corrected bits we need for 128 bits of entropy.
-    corrected_bits = entropy_correction(entropy)
-    new_bit_list = alter_bit_length(bit_list,corrected_bits)
+    # Needs work.
+    plt.plot(file_input)
+    plt.show()
 
-    # Whiten the number and set parameters for the number.
-    random_number = whiten_numbers(0,100,new_bit_list)
+    # Report information
+    # report_stats(bit_list,whitener)
 
-    # Reporting all the information
-    print(len(new_bit_list))
-    print "Percent of 1s:", percent_one
-    print "Percent of 0s:", percent_zero
-    print "Bits of Entropy:", entropy
-    print "Random number is:", random_number
+    new_entropy_pool = new_pool.stir_pool(bit_list,second_bit_list)
+
+    # report_stats(new_entropy_pool,whitener)
+
+    new_entropy_pool = new_pool.stir_pool(new_entropy_pool, bit_list)
+
+    stirred_pool = new_pool.stir_split_pool(new_entropy_pool)
+
+    number_input = new_pool.report_stats(stirred_pool, whitener)
+    reps = new_pool.eight_ball_response(number_input)
+    print reps
+
+    for i in range(3):
+        input = new_pool.report_stats(new_entropy_pool, whitener)
+        response = new_pool.eight_ball_response(input)
+        print response
 
 main()
