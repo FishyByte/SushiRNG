@@ -2,6 +2,7 @@
 # 07/12/2016
 # Python script to run NIST tests against a bitstream found in a textfile
 
+import sys
 import subprocess
 from subprocess import Popen, PIPE
 
@@ -22,6 +23,8 @@ def runNist(bitStreamLength, path):
 		#as long as the .txt file has enough bits
 		p.stdin.write("0\n")#indicates its an ASCII binary file consisting of 0's and 1's
 		print "Success"
-		p.stdin.write("./results.sh\n")
+		c = Popen(["./finalResults.sh\n"])
 	except:
 		print "Script failed to execute"
+
+main()
