@@ -2,7 +2,7 @@
 		-----------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		-----------------------------------------------
-		(a) n (sequence_length)      = 1000
+		(a) n (sequence_length)      = 200
 		(b) m (block length of 1s)   = 9
 		(c) M (length of substring)  = 1032
 		(d) N (number of substrings) = 0
