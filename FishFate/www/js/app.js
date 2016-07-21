@@ -3,7 +3,7 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('FishFate', ['ionic']);
 
-var eightBallRevealed = true;
+
 
 app.run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
@@ -36,29 +36,32 @@ app.config(function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/home')
 });
 
-app.controller('fishController', function($scope, $ionicHistory, $ionicLoading){
+app.controller('fishController', function($scope, $ionicHistory){
+
+  var eightBallRevealed = true;
+  var optionOpen = [false, false, false];
+  var answers = [
+    'do or do not,<br>there is<br>no try'
+  ];
+
+  /* go back button */
   $scope.goBack = function(){
     $ionicHistory.goBack();
   };
 
-  $scope.eightBall = function(){
-    console.log("clicked eight ball")
+
+  /* menu selection options */
+  $scope.selectEightBall = function(){
+    showEightBall();
   };
-/*  $scope.show = function() {
-    $ionicLoading.show({
-      template: 'Loading...'
-    }).then(function(){
-       console.log("The loading indicator is now displayed");
-    });
+  $scope.selectDiceRoll = function(){
+    showDiceRoll();
   };
-  $scope.hide = function(){
-    $ionicLoading.hide().then(function(){
-       console.log("The loading indicator is now hidden");
-    });
-  };*/
-  var answers = [
-    "do or do not,<br>there is<br>no try"
-  ];
+  $scope.selectCoinFlip = function(){
+    showCoinFlip();
+  };
+
+
   $scope.eightBall = {
     answer: answers[0]
   };
@@ -73,16 +76,71 @@ app.controller('fishController', function($scope, $ionicHistory, $ionicLoading){
     var answer = $('#answer');
 
     if (eightBallRevealed == false){
-      triangle.fadeIn("slow");
-      answer.fadeIn("slow");
+      triangle.fadeIn('slow');
+      answer.fadeIn('slow');
       eightBallRevealed = true;
     }
     else{
-      triangle.fadeOut("slow");
-      answer.fadeOut("slow");
+      triangle.fadeOut('slow');
+      answer.fadeOut('slow');
       eightBallRevealed = false;
     }
+  }
+  //
+
+
+
+  /**
+   *  JQuery effects
+   * */
+  function showEightBall (){
+    $('#fishBanner').animate({
+      height: '50px'
+    }, 'slow', function(){
+
+      if (!optionOpen[0]) {
+        $('#diceRoll').fadeOut('slow');
+        $('#coinFlip').fadeOut('slow', function(){
+          $('#eightBall').fadeIn('slow');
+          optionOpen[0] = true;
+          optionOpen[1] = optionOpen[2] = false;
+        });
+      }
+
+    });
 
   }
+  function showDiceRoll (){
+    if (!optionOpen[1]) {
+      $('#eightBall').fadeOut('slow');
+      $('#coinFlip').fadeOut('slow', function(){
+        $('#diceRoll').fadeIn('slow');
+        optionOpen[1] = true;
+        optionOpen[0] = optionOpen[2] = false;
+      });
+    }
+  }
+  function showCoinFlip () {
+    if (!optionOpen[2]) {
+      $('#eightBall').fadeOut('slow');
+      $('#diceRoll').fadeOut('slow', function(){
+        $('#coinFlip').fadeIn('slow');
+        optionOpen[2] = true;
+        optionOpen[0] = optionOpen[1] = false;
+      });
+    }
+  }
+
+  function hideAllOptions (){
+    if (optionOpen[0])
+      $('#eightBall').fadeOut('slow');
+    if (optionOpen[1])
+      $('#diceRoll').fadeOut('slow');
+    if (optionOpen[2])
+      $('#coinFlip').fadeOut('slow');
+
+    optionOpen[0] = optionOpen[1] = optionOpen[2] = false
+  }
+
 });
 
