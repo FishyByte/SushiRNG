@@ -1,1 +1,18 @@
 /* Empty. Add your own CSS if you like */
+
+.moveDown{
+  top: 43px;
+}
+
+.video{
+  background-color: black;
+
+  width: 100%;
+  padding-bottom: 50%;
+}
+
+.videoText{
+  color: white;
+  position: absolute;
+  margin: 5px;
+}

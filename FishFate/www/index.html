@@ -1,50 +1,84 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+  <link href="css/ionic.app.css" rel="stylesheet">
+  -->
 
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
 
-    <!-- your app's js -->
-    <script src="js/app.js"></script>
-  </head>
-  <body ng-app="FishFate">
-  <ion-side-menus>
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+</head>
+<body ng-app="FishFate">
+<ion-side-menus>
 
-    <ion-side-menu-content>
+  <ion-side-menu-content>
+
     <!-- Main content, usually <ion-nav-view> -->
-        <!-- The nav bar that will be updated as we navigate -->
-  <ion-nav-bar class="bar-positive">
-  </ion-nav-bar>
+    <!-- The nav bar that will be updated as we navigate -->
+    <ion-nav-bar class="bar-positive" align-title="center">
+      <ion-nav-title>Fish Fate</ion-nav-title>
+      <ion-nav-back-button class="button-clear"
+                           ng-click="$ionicHistory.goBack();"
+                           style="display:block; margin-left:10px;">
+        <i class="ion-arrow-left-b"></i>
+      </ion-nav-back-button>
+      <ion-nav-buttons side="right"><!-- Toggle right side menu -->
+        <button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <!-- end nav bar -->
 
-  <!-- where the initial view template will be rendered -->
-  <ion-nav-view>
-    <ion-view>
-      <ion-content>Hello!</ion-content>
-    </ion-view>
-  </ion-nav-view>
+    <!-- where the initial view template will be rendered -->
+    <ion-nav-view class="moveDown">
+      <ion-view>
+        <ion-content>
 
-    </ion-side-menu-content>
+          <!-- video demo here -->
+          <div class="video">
+            <div class="videoText">
+             ~ Why swim in your thoughts when the fish can do it for you.
+            </div>
+          </div>
+          <!-- buttons -->
+          <ion-item>
+            <button class="button button-calm">asdf</button>
+            <button class="button button-calm">asdf</button>
+            <button class="button button-calm">asdf</button>
 
-    <!-- Right menu -->
-    <ion-side-menu side="right">
-    </ion-side-menu>
-
-  </ion-side-menus>
+          </ion-item>
 
 
-  </body>
+
+
+
+        </ion-content>
+      </ion-view>
+    </ion-nav-view>
+
+  </ion-side-menu-content>
+
+  <!-- Right menu -->
+  <ion-side-menu side="right">
+  </ion-side-menu>
+
+</ion-side-menus>
+
+
+<div class="bar bar-footer">
+   <h1 class="title">Footer</h1>
+</div>
+</body>
 </html>
