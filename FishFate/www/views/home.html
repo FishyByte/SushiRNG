@@ -2,19 +2,25 @@
   <ion-content>
 
     <!-- video demo here -->
-    <div class="backgroundGif">
-      <img class="stretch" src="../img/fishDemo_2.gif">
-      <div class="videoText">
-        ~ Why swim in your thoughts when the fish can do it for you.
+    <div id="fishBanner">
+      <div class="backgroundGif">
+        <img class="stretch" src="../img/fishDemo_2.gif">
+        <div class="videoText">
+          ~ Why swim in your thoughts when the fish can do it for you.
+        </div>
       </div>
     </div>
+
+    <div class="whiteOut">
     <!-- buttons -->
     <ion-item>
       <div class="row">
         <button class="button button-calm col addMargin shadow"
-                ng-click='eightBall()'>Magic 8-Ball</button>
-        <button class="button button-calm col addMargin shadow">Dice Roll</button>
-        <button class="button button-calm col addMargin shadow">Coin Flip</button>
+                ng-click="selectEightBall()">Magic 8-Ball</button>
+        <button class="button button-calm col addMargin shadow"
+                ng-click="selectDiceRoll()">Dice Roll</button>
+        <button class="button button-calm col addMargin shadow"
+                ng-click="selectCoinFlip()">Coin Flip</button>
       </div>
 
     </ion-item>
@@ -71,7 +77,6 @@
         <button class="button button-block button-balanced">submit</button>
       </ion-item>
     </div>
-
-
+</div>
   </ion-content>
 </ion-view>
