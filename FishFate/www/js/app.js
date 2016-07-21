@@ -33,13 +33,25 @@ app.config(function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/home')
 });
 
-app.controller('fishController', function($scope, $ionicHistory){
+app.controller('fishController', function($scope, $ionicHistory, $ionicLoading){
   $scope.goBack = function(){
     $ionicHistory.goBack();
   };
 
   $scope.eightBall = function(){
     console.log("clicked eight ball")
-  }
+  };
+/*  $scope.show = function() {
+    $ionicLoading.show({
+      template: 'Loading...'
+    }).then(function(){
+       console.log("The loading indicator is now displayed");
+    });
+  };
+  $scope.hide = function(){
+    $ionicLoading.hide().then(function(){
+       console.log("The loading indicator is now hidden");
+    });
+  };*/
 });
 

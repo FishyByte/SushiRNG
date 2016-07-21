@@ -2,7 +2,8 @@
   <ion-content>
 
     <!-- video demo here -->
-    <div class="video">
+    <div class="backgroundGif">
+      <img class="stretch" src="../img/fishDemo_2.gif">
       <div class="videoText">
         ~ Why swim in your thoughts when the fish can do it for you.
       </div>
@@ -18,26 +19,58 @@
 
     </ion-item>
 
-    <!-- dice roll input form -->
-    <ion-item>
-      <div class="list">
-        <div class="item range">
-          <div class="range-label"># dice</div>
-          <input type="range" name="numberDice" min="1" max="6" ng-model="numberDice">
-          {{numberDice}}
-        </div>
-        <div class="item range">
-          <div class="range-label"># sides</div>
-          <input type="range" name="numberSides" min="4" max="20" default="4" ng-model="numberSides">
-          {{numberSides}}
-        </div>
-      </div>
-    </ion-item>
-    <ion-item>
-      <button class="button button-block button-positive">submit</button>
-    </ion-item>
+    <!-- magic eight ball -->
+    <div id="eightBall">
+      <ion-item>
+        <ul id="eightBall01" class="roundCorners">
+          <li id="eightBall02" class="roundCorners"></li>
+          <li id="eightBall03" class="roundCorners"></li>
+          <li id="triangle"></li>
+          <li id="answer">do or do not,<br>there is<br> no try<br></li>
+          <li id="triangleOverlay" class="roundCorners"></li>
+        </ul>
+      </ion-item>
+      <ion-item>
+        <button class="button button-block button-balanced">submit</button>
+      </ion-item>
+    </div>
 
+    <!-- dice roll input -->
+    <div id="diceRoll">
+      <ion-item>
+        <div class="list">
+          <div class="item range">
+            <div class="range-label fixLabel"># dice</div>
+            <input type="range" name="numberDice" min="1" max="6" ng-model="numberDice">
+            {{numberDice}}
+          </div>
+          <div class="item range">
+            <div class="range-label fixLabel"># sides</div>
+            <input type="range" name="numberSides" min="4" max="20" default="4" ng-model="numberSides">
+            {{numberSides}}
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <button class="button button-block button-balanced">submit</button>
+      </ion-item>
+    </div>
 
+    <!-- coin flip input -->
+    <div id="coinFlip">
+      <ion-item>
+        <div class="list">
+          <div class="item range">
+            <div class="range-label fixLabel"># coins</div>
+            <input type="range" name="numberCoins" min="1" max="6" ng-model="numberCoins">
+            {{numberCoins}}
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <button class="button button-block button-balanced">submit</button>
+      </ion-item>
+    </div>
 
 
   </ion-content>
