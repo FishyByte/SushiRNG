@@ -16,88 +16,118 @@ import matplotlib.pyplot as plt
 import numpy as np
 from io import StringIO
 
+fake_size = 20000
+fake_mod = 3
 
-class rng_pool():
 
-    def create_test_list(self, num, size):
-        bit_list = np.zeros(size, dtype=int)
+# Creates a fake RNG set for testing and returns as a list of ints
+def create_test_list(fake_mod, fake_size):
+
+    bit_np = np.zeros(fake_size, dtype=int)
+    for i in range(len(bit_np)):
+        if i % fake_mod == 0:
+            bit_np[i] = 1
+
+    bit_list = bit_np.tolist()
+
+    return bit_list
+
+
+class RngPool:
+
+    # Data class for pool data.
+    def __init__(self):
+
+        self.data = np.zeros(1, dtype=int)
+        self.whitener = hashlib.sha1()
+        self.random_pool = np.zeros(1, dtype=int)
+        self.correct_bits = 4096
+        self.percent_ones = 0
+        self.percent_zeros = 0
+        self.entropy = 0
+
+    # Report information on pool
+    def report_pool_info(self):
+        print "Corrected bits: ", self.correct_bits
+        print "Entropy: ", self.entropy
+        print "Percent of zeros: ", self.percent_zero
+        print "Percent of ones: ", self.percent_one
+
+    # Adding new data into the pool.
+    def update_data(self,bit_list):
+
+        # Remake data equal to the size of input
+        self.data = np.zeros(len(bit_list), dtype=int)
+
+        # Override the original data with new input
         for i in range(len(bit_list)):
-            if i % num == 0:
-                bit_list[i] = 1
+            self.data[i] = bit_list[i]
 
-        return bit_list
+
+        self.dist_calculations()
+        self.entropy_calculations()
+        self.entropy_correction()
 
     # Stir the pool
-    def stir_split_pool(self, entropy_pool):
-        new_pool = np.split(entropy_pool, 2)
+    def stir_split_pool(self):
+
+        # Split the pool in half and XOR
+        new_pool = np.split(self.random_pool, 2)
         new_pool = np.logical_xor(new_pool[0],new_pool[1])
-        return new_pool
 
-    # Stir functions
-    def stir_pool(self, entropy_one, entropy_two):
-
-        # Create new numpy list XOR from two
-        new_entropy_pool = np.logical_xor(entropy_one,entropy_two)
-
-        return new_entropy_pool
+        # Set the pool equal to the XOR functioned pool.
+        self.random_pool = new_pool
 
     # Calculate the distributions of 1s and 0s in total string.
-    def dist_calculations(self, bit_list):
+    def dist_calculations(self):
 
-        one_count = np.count_nonzero(bit_list)
-        total_length = len(bit_list)
+        one_count = np.count_nonzero(self.data)
+        total_length = len(self.data)
         zero_count = total_length - one_count
 
-        percent_one = one_count / float(total_length)
-        percent_zero = zero_count / float(total_length)
 
+        self.percent_one = one_count / float(total_length)
 
-        return percent_one, percent_zero
+        self.percent_zero = zero_count / float(total_length)
 
     # Entropy calculations
-    def entropy_calculations(self, percent_one, percent_zero):
+    def entropy_calculations(self):
 
         # calculating the bits of entropy
-        entropy = (-percent_one*math.log(percent_one,2))+(-percent_zero*math.log(percent_zero,2))
-        # entropy = stats.entropy(percent_one) + stats.entropy(percent_zero)
+        entropy = (-self.percent_one*math.log(self.percent_one,2))+(-self.percent_zero*math.log(self.percent_zero,2))
+        self.entropy = entropy
 
-        return entropy
-
-    # I need to fix this.
     # Find the corrected length of bits given entropy calculations
-    def entropy_correction(self, entropy):
-        corrected_bits = math.ceil(4096 * entropy)
+    def entropy_correction(self):
+        corrected_bits = math.ceil(4096 * self.entropy)
         corrected_bits = int(corrected_bits)
         corrected_bits = 4096 + (4096-corrected_bits)
-        return corrected_bits
+        self.correct_bits = corrected_bits
 
+    # Whitener for the Fish numbers to 160 bits
+    def whiten_numbers(self, bit_list):
 
-    # Grab the needed amounts of bits to ensure 128 bits of entropy
-    def alter_bit_length(self, bit_list, corrected_bits):
-        # new_bit_list = np.zeros(corrected_bits)
-        # for i in range(corrected_bits):
-            # new_bit_list[i] = bit_list[i]
-        new_bit_list = self.create_test_list(5, corrected_bits)
-        return new_bit_list
+        # Starting position of the sub array to string
+        start = 0
 
+        # Iterate through list of fish numbers
+        for i in range(bit_list):
 
-    # Whitener for the 128 bit list to generate a random number
-    def whiten_numbers(self, min_value,max_value, bit_list,whitener):
+            # Whiten every 4096 bits
+            if i % self.correct_bits == 0:
 
-        # Stringify the list
-        bit_string = np.array2string(bit_list)
+                temp_string = bit_list[start:i]
 
-        # Update the hash libraray
-        whitener.update(bit_string)
+                # Update the string into the hash
+                self.whitener.update(temp_string)
 
-        # Digest the library and convert into a int 32
-        hash_number = whitener.hexdigest()
-        hash_number = int(hash_number,32)
+                # Digest the hash, convert into a binary and append to the random_pool
+                temp_number = self.whitener.hexdigest()
+                temp_number = bin(int(temp_number,32))
+                self.random_pool.append(temp_number)
 
-        # Kick out number of no more than max_value
-        random_number = hash_number % max_value
-        return random_number
-
+                # new beginning position of the sub list
+                start = i
 
     # Report function for all of the number's information
     def report_stats(self, bit_list, whitener):
@@ -113,16 +143,15 @@ class rng_pool():
 
         new_bit_list = self.alter_bit_length(bit_list,correct_bits)
 
-        random_number = self.whiten_numbers(0,20, new_bit_list,whitener)
+        # random_number = self.whiten_numbers(new_bit_list)
 
         # print(len(new_bit_list))
         # print "Percent of 1s:", percent_one
         # print "Percent of 0s:", percent_zero
         # print "Bits of Entropy:", entropy
-        print "Random number is:", random_number
+        # print "Random number is:", random_number
 
-        return random_number
-
+        # return random_number
 
     # 8-Ball Responses
     def eight_ball_response(self, number):
@@ -184,44 +213,78 @@ class rng_pool():
     def write_to_file(self, np_array, f_name):
         np.savetxt(f_name, np_array, fmt='%d')
 
+    # Returns a random dice roll of X size Y times.
+    def dice_roll_return(self, data, dice_size, num_dice):
+
+        response = []
+
+        for i in range(num_dice):
+            response = response.append(int(data[dice_size]))
+
+        return response
+
+    # Returns a response string one time
+    def eight_ball_return(self, data):
+
+        next_data = data[4]
+
+        response = self.eight_ball_response(next_data)
+
+        return response, data
+
+    # Returns heads or tails
+    def coin_flip_return(self, data):
+
+        next_data = data[0]
+
+        if next_data == 0:
+            response = "heads"
+        else:
+            response = "tails"
+
+        return response, data
+
+
 # Main function for testing
 def main():
 
-    new_pool = rng_pool()
-    whitener = hashlib.sha1()
+    new_pool = RngPool()
+    bit_list = create_test_list(fake_mod, fake_size)
+
+    new_pool.update_data(bit_list)
+    new_pool.report_pool_info()
+
     # Make the testing list
-    bit_list = new_pool.create_test_list(5, 4096)
-    second_bit_list = new_pool.create_test_list(10, 4096)
+    # bit_list = new_pool.create_test_list(5, 4096)
+    # second_bit_list = new_pool.create_test_list(10, 4096)
 
-    new_pool.write_to_file(bit_list,'test_numbers')
+    # new_pool.write_to_file(new_pool.data,'test_numbers')
 
-    file_input = new_pool.read_from_file("test_numbers")
-    print "Testing area:"
-    print file_input
-    new_pool.report_stats(file_input, whitener)
+    # file_input = new_pool.read_from_file("test_numbers")
+    # print "Testing area:"
+    # print file_input
+    # new_pool.report_stats(file_input, new_pool.whitener)
 
     # Needs work.
-    plt.plot(file_input)
-    plt.show()
 
     # Report information
     # report_stats(bit_list,whitener)
 
-    new_entropy_pool = new_pool.stir_pool(bit_list,second_bit_list)
+    # new_entropy_pool = new_pool.stir_pool(bit_list,second_bit_list)
 
     # report_stats(new_entropy_pool,whitener)
 
-    new_entropy_pool = new_pool.stir_pool(new_entropy_pool, bit_list)
+    # new_entropy_pool = new_pool.stir_pool(new_entropy_pool, bit_list)
 
-    stirred_pool = new_pool.stir_split_pool(new_entropy_pool)
+    # stirred_pool = new_pool.stir_split_pool(new_entropy_pool)
 
-    number_input = new_pool.report_stats(stirred_pool, whitener)
-    reps = new_pool.eight_ball_response(number_input)
-    print reps
+    # number_input = new_pool.report_stats(stirred_pool, whitener)
+    # reps = new_pool.eight_ball_response(number_input)
+    # print reps
 
-    for i in range(3):
-        input = new_pool.report_stats(new_entropy_pool, whitener)
-        response = new_pool.eight_ball_response(input)
-        print response
+    # for i in range(3):
+        # input = new_pool.report_stats(new_entropy_pool, whitener)
+        # response = new_pool.eight_ball_response(input)
+        # print response
 
 main()
