@@ -110,10 +110,9 @@ class RngPool:
 
         # Starting position of the sub array to string
         start = 0
-        length = len(bit_list)
 
         # Iterate through list of fish numbers
-        for i in range(length):
+        for i in range(len(bit_list)):
 
             # Whiten every corrected bits
             if i % self.correct_bits == 0 and i != 0:
@@ -126,8 +125,11 @@ class RngPool:
 
                 # Digest the hash, convert into a binary and append to the random_pool
                 temp_number = self.whitener.hexdigest()
-                temp_number = bin(int(temp_number,32))[2:].zfill(0)
-                self.random_pool.append(temp_number)
+                temp_number = str(bin(int(temp_number,32))[2:].zfill(0))
+
+                # Append each binary digit into the pool. Probably need to rework this
+                for j in range(len(temp_number)):
+                    self.random_pool.append(temp_number[j])
 
                 # new beginning position of the sub list
                 start = i
@@ -202,6 +204,8 @@ class RngPool:
         else:
             response = "Lol no"
 
+        # Need to add more possible responses
+
         return response
 
     # Turn a file into a numpy array
@@ -217,35 +221,56 @@ class RngPool:
         np.savetxt(f_name, np_array, fmt='%d')
 
     # Returns a random dice roll of X size Y times.
-    def dice_roll_return(self, data, dice_size, num_dice):
+    def dice_roll_return(self, dice_size, num_dice):
 
+        # Find out the binary size of the dice size
+        bin_length = len(bin(dice_size)[2:].zfill(0))
         response = []
 
+        # Make the response list, and remove from pool.
         for i in range(num_dice):
-            response = response.append(int(data[dice_size]))
+            temp_string = []
+            for j in range(bin_length):
+                temp_string.append(self.random_pool.pop())
+            temp_number = int(''.join(str(x) for x in temp_string), 2)
+            response.append(temp_number)
+
+        print response
 
         return response
 
     # Returns a response string one time
-    def eight_ball_return(self, data):
+    def eight_ball_return(self):
 
-        next_data = data[4]
+        # Temp String
+        temp_string = []
 
-        response = self.eight_ball_response(next_data)
+        # Make the string
+        for i in range(5):
+            temp_string.append(self.random_pool.pop())
 
-        return response, data
+        # Convert into an Int
+        temp_number = int(''.join(str(x) for x in temp_string), 2)
+
+        # Get the response from the 8-ball
+        response = self.eight_ball_response(temp_number)
+        print response
+
+        return response
 
     # Returns heads or tails
-    def coin_flip_return(self, data):
+    def coin_flip_return(self):
 
-        next_data = data[0]
+        next_data = int(self.random_pool.pop())
 
         if next_data == 0:
             response = "heads"
         else:
             response = "tails"
 
-        return response, data
+        print response
+
+        return response
 
 
 # Main function for testing
@@ -257,7 +282,15 @@ def main():
     new_pool.update_data(bit_list)
     new_pool.report_pool_info()
     new_pool.whiten_numbers(bit_list)
-    print new_pool.random_pool
+    print len(new_pool.random_pool)
+    new_pool.dice_roll_return(5, 2)
+    new_pool.eight_ball_return()
+    new_pool.coin_flip_return()
+
+    for i in range(10):
+        new_pool.coin_flip_return()
+
+    print len(new_pool.random_pool)
 
     # Make the testing list
     # bit_list = new_pool.create_test_list(5, 4096)
