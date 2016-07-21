@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<ion-view>
+  <ion-content>
 
-</body>
-</html>
+    <!-- video demo here -->
+    <div class="video">
+      <div class="videoText">
+        ~ Why swim in your thoughts when the fish can do it for you.
+      </div>
+    </div>
+    <!-- buttons -->
+    <ion-item>
+      <div class="row">
+        <button class="button button-calm col addMargin shadow"
+                ng-click='eightBall()'>Magic 8-Ball</button>
+        <button class="button button-calm col addMargin shadow">Dice Roll</button>
+        <button class="button button-calm col addMargin shadow">Coin Flip</button>
+      </div>
+
+    </ion-item>
+
+    <!-- dice roll input form -->
+    <ion-item>
+      <div class="list">
+        <div class="item range">
+          <div class="range-label"># dice</div>
+          <input type="range" name="numberDice" min="1" max="6" ng-model="numberDice">
+          {{numberDice}}
+        </div>
+        <div class="item range">
+          <div class="range-label"># sides</div>
+          <input type="range" name="numberSides" min="4" max="20" default="4" ng-model="numberSides">
+          {{numberSides}}
+        </div>
+      </div>
+    </ion-item>
+    <ion-item>
+      <button class="button button-block button-positive">submit</button>
+    </ion-item>
+
+
+
+
+  </ion-content>
+</ion-view>
