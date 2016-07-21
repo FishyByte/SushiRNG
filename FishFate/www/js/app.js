@@ -2,6 +2,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('FishFate', ['ionic']);
+
+var eightBallRevealed = true;
+
 app.run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -53,5 +56,33 @@ app.controller('fishController', function($scope, $ionicHistory, $ionicLoading){
        console.log("The loading indicator is now hidden");
     });
   };*/
+  var answers = [
+    "do or do not,<br>there is<br>no try"
+  ];
+  $scope.eightBall = {
+    answer: answers[0]
+  };
+
+  $scope.submitEightBall = function(){
+    animateEightBall();
+  };
+
+  /* animations */
+  function animateEightBall(){
+    var triangle = $('#triangle');
+    var answer = $('#answer');
+
+    if (eightBallRevealed == false){
+      triangle.fadeIn("slow");
+      answer.fadeIn("slow");
+      eightBallRevealed = true;
+    }
+    else{
+      triangle.fadeOut("slow");
+      answer.fadeOut("slow");
+      eightBallRevealed = false;
+    }
+
+  }
 });
 

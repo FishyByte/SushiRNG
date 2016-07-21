@@ -26,12 +26,12 @@
           <li id="eightBall02" class="roundCorners"></li>
           <li id="eightBall03" class="roundCorners"></li>
           <li id="triangle"></li>
-          <li id="answer">do or do not,<br>there is<br> no try<br></li>
+          <li id="answer" ng-bind-html="eightBall.answer"></li>
           <li id="triangleOverlay" class="roundCorners"></li>
         </ul>
       </ion-item>
       <ion-item>
-        <button class="button button-block button-balanced">submit</button>
+        <button ng-click="submitEightBall()" id="eightBallButton" class="button button-block button-balanced">submit</button>
       </ion-item>
     </div>
 
