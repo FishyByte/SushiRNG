@@ -40,7 +40,7 @@ class RngPool:
 
         self.data = np.zeros(1, dtype=int)
         self.whitener = hashlib.sha1()
-        self.random_pool = np.zeros(1, dtype=int)
+        self.random_pool = []
         self.correct_bits = 4096
         self.percent_ones = 0
         self.percent_zeros = 0
@@ -74,6 +74,7 @@ class RngPool:
         # Split the pool in half and XOR
         new_pool = np.split(self.random_pool, 2)
         new_pool = np.logical_xor(new_pool[0],new_pool[1])
+        new_pool = new_pool.tolist()
 
         # Set the pool equal to the XOR functioned pool.
         self.random_pool = new_pool
@@ -109,21 +110,23 @@ class RngPool:
 
         # Starting position of the sub array to string
         start = 0
+        length = len(bit_list)
 
         # Iterate through list of fish numbers
-        for i in range(bit_list):
+        for i in range(length):
 
-            # Whiten every 4096 bits
-            if i % self.correct_bits == 0:
+            # Whiten every corrected bits
+            if i % self.correct_bits == 0 and i != 0:
 
                 temp_string = bit_list[start:i]
+                temp_string = ''.join(str(temp_string) for x in temp_string)
 
                 # Update the string into the hash
                 self.whitener.update(temp_string)
 
                 # Digest the hash, convert into a binary and append to the random_pool
                 temp_number = self.whitener.hexdigest()
-                temp_number = bin(int(temp_number,32))
+                temp_number = bin(int(temp_number,32))[2:].zfill(0)
                 self.random_pool.append(temp_number)
 
                 # new beginning position of the sub list
@@ -253,6 +256,8 @@ def main():
 
     new_pool.update_data(bit_list)
     new_pool.report_pool_info()
+    new_pool.whiten_numbers(bit_list)
+    print new_pool.random_pool
 
     # Make the testing list
     # bit_list = new_pool.create_test_list(5, 4096)
