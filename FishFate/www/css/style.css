@@ -1,110 +1,123 @@
 /* Empty. Add your own CSS if you like */
-a{
+a {
   text-decoration: none;
 }
-.addMargin{
-  margin:10px;
+
+.addMargin {
+  margin: 10px;
 }
-.fixLabel{
+
+.fixLabel {
   width: 60px;
 }
-.moveDown{
+
+.moveDown {
   top: 43px;
 }
-.stretch{
+
+.stretch {
   width: 100%;
   height: 100%;
 }
 
 .shadow {
--webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
--moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
 }
 
-.backgroundGif{
+.backgroundGif {
   width: 100%;
   color: white;
-}/**/
+}
 
-.videoText{
+/**/
+
+.videoText {
   color: white;
   position: absolute;
-  top:0;
+  top: 0;
   margin: 5px;
 }
+
 .roundCorners {
   border-radius: 300px 300px 300px 300px;
   -moz-border-radius: 300px 300px 300px 300px;
   -webkit-border-radius: 300px 300px 300px 300px;
 }
 
-#eightBall01{
-
+#eightBall01 {
   width: 300px;
   height: 300px;
+  margin-left: 50%;
+  right: 150px;
+  position: relative;
 
-  background: rgba(0,0,0,1);
-  background: -moz-linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(90,90,90,1) 100%);
-  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(0,0,0,1)), color-stop(100%, rgba(90,90,90,1)));
-  background: -webkit-linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(90,90,90,1) 100%);
-  background: -o-linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(90,90,90,1) 100%);
-  background: -ms-linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(90,90,90,1) 100%);
-  background: linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(90,90,90,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#5a5a5a', GradientType=1 );
+  background: rgba(0, 0, 0, 1);
+  background: -moz-linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(90, 90, 90, 1) 100%);
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(90, 90, 90, 1)));
+  background: -webkit-linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(90, 90, 90, 1) 100%);
+  background: -o-linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(90, 90, 90, 1) 100%);
+  background: -ms-linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(90, 90, 90, 1) 100%);
+  background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(90, 90, 90, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#5a5a5a', GradientType=1);
 
 }
+
 #eightBall02 {
-    position: absolute;
-    background-color: silver;
-    width: 184px;
-    height: 184px;
-    margin: 62px;
-    border: 2px solid #000000;
+  position: absolute;
+  background-color: silver;
+  width: 184px;
+  height: 184px;
+  margin: 62px;
+  border: 2px solid #000000;
 
-  background: rgba(117,111,114,1);
-background: -moz-linear-gradient(45deg, rgba(117,111,114,1) 0%, rgba(235,235,235,1) 100%);
-background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(117,111,114,1)), color-stop(100%, rgba(235,235,235,1)));
-background: -webkit-linear-gradient(45deg, rgba(117,111,114,1) 0%, rgba(235,235,235,1) 100%);
-background: -o-linear-gradient(45deg, rgba(117,111,114,1) 0%, rgba(235,235,235,1) 100%);
-background: -ms-linear-gradient(45deg, rgba(117,111,114,1) 0%, rgba(235,235,235,1) 100%);
-background: linear-gradient(45deg, rgba(117,111,114,1) 0%, rgba(235,235,235,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#756f72', endColorstr='#ebebeb', GradientType=1 );
+  background: rgba(117, 111, 114, 1);
+  background: -moz-linear-gradient(45deg, rgba(117, 111, 114, 1) 0%, rgba(235, 235, 235, 1) 100%);
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(117, 111, 114, 1)), color-stop(100%, rgba(235, 235, 235, 1)));
+  background: -webkit-linear-gradient(45deg, rgba(117, 111, 114, 1) 0%, rgba(235, 235, 235, 1) 100%);
+  background: -o-linear-gradient(45deg, rgba(117, 111, 114, 1) 0%, rgba(235, 235, 235, 1) 100%);
+  background: -ms-linear-gradient(45deg, rgba(117, 111, 114, 1) 0%, rgba(235, 235, 235, 1) 100%);
+  background: linear-gradient(45deg, rgba(117, 111, 114, 1) 0%, rgba(235, 235, 235, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#756f72', endColorstr='#ebebeb', GradientType=1);
 }
+
 #eightBall03 {
-    position: absolute;
-    background-color: black;
-    width: 174px;
-    height: 174px;
-    margin: 67px;
+  position: absolute;
+  background-color: black;
+  width: 174px;
+  height: 174px;
+  margin: 67px;
 }
 
 #triangle {
-    position: absolute;
-    width: 0;
-    height: 0;
-    margin-top: 107px;
-    margin-left: 83px;
-    border-left: 71px solid transparent;
-    border-right: 71px solid transparent;
-    border-top: 130px solid #3e136b;
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin-top: 107px;
+  margin-left: 83px;
+  border-left: 71px solid transparent;
+  border-right: 71px solid transparent;
+  border-top: 130px solid #3e136b;
 
 }
+
 #triangleOverlay {
-    position: absolute;
-    width: 174px;
-    height: 174px;
-    margin: 67px;
--webkit-box-shadow: inset 0px 0px 80px 10px rgba(0,0,0,0.9);
--moz-box-shadow: inset 0px 0px 80px 10px rgba(0,0,0,0.9);
-box-shadow: inset 0px 0px 80px 10px rgba(0,0,0,0.9);
+  position: absolute;
+  width: 174px;
+  height: 174px;
+  margin: 67px;
+  -webkit-box-shadow: inset 0px 0px 80px 10px rgba(0, 0, 0, 0.9);
+  -moz-box-shadow: inset 0px 0px 80px 10px rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0px 0px 80px 10px rgba(0, 0, 0, 0.9);
 }
+
 #answer {
   position: absolute;
-      color: white;
+  color: white;
   text-align: center;
-    margin-top: 122px;
-    margin-left: 106px;
+  margin-top: 122px;
+  margin-left: 106px;
 }
 
 #preloadGif {
