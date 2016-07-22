@@ -21,7 +21,7 @@ class FishPool:
         return int(corrected_bits)
 
     # Whitener for the 128 bit list to generate a random number
-    def whiten_numbers(self, min_value, max_value, bit_list):
+    def whiten_numbers(self, max_value, bit_list):
         # Use SHA1 to hash the string.
         bit_string = int("".join(str(x) for x in bit_list))
         bit_string = str(bit_string)
