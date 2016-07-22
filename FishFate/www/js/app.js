@@ -4,7 +4,6 @@
 var app = angular.module('FishFate', ['ionic']);
 
 
-
 app.run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -23,20 +22,20 @@ app.run(function ($ionicPlatform) {
   });
 });
 
-app.config(function($stateProvider, $urlRouterProvider){
- $stateProvider
- .state('home', {
-    url: '/home',
-    templateUrl: 'views/home.html'
- })
- .state('about', {
-    url: '/menu',
-    templateUrl: 'views/about.html'
- });
+app.config(function ($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('home', {
+      url: '/home',
+      templateUrl: 'views/home.html'
+    })
+    .state('about', {
+      url: '/menu',
+      templateUrl: 'views/about.html'
+    });
   $urlRouterProvider.otherwise('/home')
 });
 
-app.controller('fishController', function($scope, $ionicHistory){
+app.controller('fishController', function ($scope, $ionicHistory) {
 
   var eightBallRevealed = true;
   var optionOpen = [false, false, false];
@@ -44,20 +43,21 @@ app.controller('fishController', function($scope, $ionicHistory){
     'do or do not,<br>there is<br>no try'
   ];
 
+
   /* go back button */
-  $scope.goBack = function(){
+  $scope.goBack = function () {
     $ionicHistory.goBack();
   };
 
 
   /* menu selection options */
-  $scope.selectEightBall = function(){
+  $scope.selectEightBall = function () {
     showEightBall();
   };
-  $scope.selectDiceRoll = function(){
+  $scope.selectDiceRoll = function () {
     showDiceRoll();
   };
-  $scope.selectCoinFlip = function(){
+  $scope.selectCoinFlip = function () {
     showCoinFlip();
   };
 
@@ -66,42 +66,67 @@ app.controller('fishController', function($scope, $ionicHistory){
     answer: answers[0]
   };
 
-  $scope.submitEightBall = function(){
+  $scope.submitEightBall = function () {
     animateEightBall();
   };
 
   /* animations */
-  function animateEightBall(){
+  function animateEightBall() {
     var triangle = $('#triangle');
     var answer = $('#answer');
+    var eightBall = $('#eightBall01');
 
-    if (eightBallRevealed == false){
-      triangle.fadeIn('slow');
-      answer.fadeIn('slow');
+
+    triangle.fadeOut('fast');
+    answer.fadeOut('fast');
+
+    eightBall.animate({
+        right: '160px'
+    }, 300, function (){
+      eightBall.animate({
+        right: '140px'
+      }, 300, function(){
+        eightBall.animate({
+          right: '160px'
+        }, 300, function(){
+          eightBall.animate({
+            right: '150px'
+          }, 300 ,function (){
+            triangle.fadeIn('slow');
+            answer.fadeIn('slow');
+          });
+
+        });
+      });
+    });
+
+
+/*    if (eightBallRevealed == false) {
+      triangle.fadeIn('fast');
+      answer.fadeIn('fast');
       eightBallRevealed = true;
     }
-    else{
-      triangle.fadeOut('slow');
-      answer.fadeOut('slow');
+    else {
+      triangle.fadeOut('fast');
+      answer.fadeOut('fast');
       eightBallRevealed = false;
-    }
+    }*/
   }
-  //
 
+  //
 
 
   /**
    *  JQuery effects
    * */
-  function showEightBall (){
+  function showEightBall() {
     $('#fishBanner').animate({
       height: '50px'
-    }, 'slow', function(){
-
+    }, 'fast', function () {
       if (!optionOpen[0]) {
-        $('#diceRoll').fadeOut('slow');
-        $('#coinFlip').fadeOut('slow', function(){
-          $('#eightBall').fadeIn('slow');
+        $('#diceRoll').fadeOut('fast');
+        $('#coinFlip').fadeOut('fast', function () {
+          $('#eightBall').fadeIn('fast');
           optionOpen[0] = true;
           optionOpen[1] = optionOpen[2] = false;
         });
@@ -110,34 +135,46 @@ app.controller('fishController', function($scope, $ionicHistory){
     });
 
   }
-  function showDiceRoll (){
-    if (!optionOpen[1]) {
-      $('#eightBall').fadeOut('slow');
-      $('#coinFlip').fadeOut('slow', function(){
-        $('#diceRoll').fadeIn('slow');
-        optionOpen[1] = true;
-        optionOpen[0] = optionOpen[2] = false;
-      });
-    }
-  }
-  function showCoinFlip () {
-    if (!optionOpen[2]) {
-      $('#eightBall').fadeOut('slow');
-      $('#diceRoll').fadeOut('slow', function(){
-        $('#coinFlip').fadeIn('slow');
-        optionOpen[2] = true;
-        optionOpen[0] = optionOpen[1] = false;
-      });
-    }
+
+  function showDiceRoll() {
+    $('#fishBanner').animate({
+      height: $('.backgroundGif').height()
+    }, 'fast', function () {
+      if (!optionOpen[1]) {
+        $('#eightBall').fadeOut('fast');
+        $('#coinFlip').fadeOut('fast', function () {
+          $('#diceRoll').fadeIn('fast');
+          optionOpen[1] = true;
+          optionOpen[0] = optionOpen[2] = false;
+        });
+      }
+    });
   }
 
-  function hideAllOptions (){
+  function showCoinFlip() {
+    $('#fishBanner').animate({
+      height: $('.backgroundGif').height()
+
+    }, 'fast', function () {
+      if (!optionOpen[2]) {
+        $('#eightBall').fadeOut('fast');
+        $('#diceRoll').fadeOut('fast', function () {
+          $('#coinFlip').fadeIn('fast');
+          optionOpen[2] = true;
+          optionOpen[0] = optionOpen[1] = false;
+        });
+      }
+    });
+  }
+
+  function hideAllOptions() {
+
     if (optionOpen[0])
-      $('#eightBall').fadeOut('slow');
+      $('#eightBall').fadeOut('fast');
     if (optionOpen[1])
-      $('#diceRoll').fadeOut('slow');
+      $('#diceRoll').fadeOut('fast');
     if (optionOpen[2])
-      $('#coinFlip').fadeOut('slow');
+      $('#coinFlip').fadeOut('fast');
 
     optionOpen[0] = optionOpen[1] = optionOpen[2] = false
   }
