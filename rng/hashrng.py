@@ -47,11 +47,15 @@ fake_mod = 3
 # Creates a fake RNG set for testing and returns as a list of ints
 def create_test_list(fake_mod, fake_size):
 
+    # Make an numpy array of zeros to replace
     bit_np = np.zeros(fake_size, dtype=int)
+
+    # Replace the array with "fake" values of 1s and 0s
     for i in range(len(bit_np)):
         if i % fake_mod == 0:
             bit_np[i] = 1
 
+    # Make it into a list. Assumed LIST type was needed for implementation
     bit_list = bit_np.tolist()
 
     return bit_list
@@ -62,9 +66,16 @@ class RngPool:
     # Data class for pool data.
     def __init__(self):
 
+        # Data is the fish generated 1s and 0s. Will be destroyed after each whitening
         self.data = np.zeros(1, dtype=int)
+
+        # The Hash library
         self.whitener = hashlib.sha1()
+
+        # The pool of random binary values as a list.
         self.random_pool = []
+
+        # The current "datas" value for entropy bits, %s, and entropy.
         self.correct_bits = 4096
         self.percent_ones = 0
         self.percent_zeros = 0
@@ -141,6 +152,7 @@ class RngPool:
             # Whiten every corrected bits
             if i % self.correct_bits == 0 and i != 0:
 
+                # Strings the bit_list from the np array
                 temp_string = bit_list[start:i]
                 temp_string = ''.join(str(temp_string) for x in temp_string)
 
@@ -158,19 +170,19 @@ class RngPool:
                 # new beginning position of the sub list
                 start = i
 
-    # Report function for all of the number's information
-    def report_stats(self, bit_list, whitener):
+    # Report function for all of the number's information. Stale function
+    # def report_stats(self, bit_list, whitener):
 
         # Call Dist function
-        percent_one, percent_zero = self.dist_calculations(bit_list)
+        # percent_one, percent_zero = self.dist_calculations(bit_list)
 
         # Call Entropy
-        entropy = self.entropy_calculations(percent_one, percent_zero)
+        # self.entropy_calculations(percent_one, percent_zero)
 
         # Correct bits
-        correct_bits = self.entropy_correction(entropy)
+        # self.entropy_correction(entropy)
 
-        new_bit_list = self.alter_bit_length(bit_list,correct_bits)
+        # self.alter_bit_length(bit_list,correct_bits)
 
         # random_number = self.whiten_numbers(new_bit_list)
 
@@ -241,8 +253,10 @@ class RngPool:
         return test_array
 
     # Turn a numpy array into a file
-    def write_to_file(self, np_array, f_name):
-        np.savetxt(f_name, np_array, fmt='%d')
+    def write_to_file(self, f_name):
+        with open(f_name, 'w') as f:
+            for value in self.random_pool:
+                f.write(value)
 
     # Returns a random dice roll of X size Y times.
     def dice_roll_return(self, dice_size, num_dice):
@@ -259,6 +273,7 @@ class RngPool:
             temp_number = int(''.join(str(x) for x in temp_string), 2)
             response.append(temp_number)
 
+        # Printing responses for testing purposes
         print response
 
         return response
@@ -300,21 +315,35 @@ class RngPool:
 # Main function for testing
 def main():
 
+    # Make a pool.
     new_pool = RngPool()
+
+    # Make a "fake" list of values
     bit_list = create_test_list(fake_mod, fake_size)
 
+    # Update the pool with the new data
     new_pool.update_data(bit_list)
+
+    # Report the current stats of the pool.
     new_pool.report_pool_info()
+
+    # Whiten the current data set
     new_pool.whiten_numbers(bit_list)
-    print len(new_pool.random_pool)
-    new_pool.dice_roll_return(5, 2)
+
+    # Print the length of the pool.
+    print "Current length of the pool", len(new_pool.random_pool)
+    new_pool.dice_roll_return(5, 15)
     new_pool.eight_ball_return()
     new_pool.coin_flip_return()
 
     for i in range(10):
         new_pool.coin_flip_return()
 
-    print len(new_pool.random_pool)
+    # Ending length to be sure we are using and removing random binary numbers.
+    print "Current length of the pool: ", len(new_pool.random_pool)
+
+    # Write the pool to a file for NIST testing.
+    new_pool.write_to_file("test_numbers")
 
     # Make the testing list
     # bit_list = new_pool.create_test_list(5, 4096)
