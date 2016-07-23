@@ -2,7 +2,7 @@
 from collections import deque
 import imutils
 import cv2
-from fish_pool import *
+from rasPi.fish_pool import *
 
 # import picamera
 from picamera.array import PiRGBArray

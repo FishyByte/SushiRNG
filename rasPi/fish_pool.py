@@ -1,5 +1,6 @@
 import hashlib
-from fish_stream import *
+
+from rasPi.testing.fish_stream import *
 
 
 class FishPool:

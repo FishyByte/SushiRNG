@@ -1,5 +1,5 @@
 from fish_stream import *
-from fish_pool import *
+from rasPi.fish_pool import *
 
 fish_stream = FishStream()
 fish_pool = FishPool()
