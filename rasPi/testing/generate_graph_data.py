@@ -1,6 +1,6 @@
 # call constructors
-from fish_stream import FishStream
-from rasPi.fish_pool import FishPool
+from rasPi.fish_stream import FishStream
+from rasPi.testing.fish_pool import FishPool
 
 fish_stream = FishStream()
 fish_pool = FishPool()

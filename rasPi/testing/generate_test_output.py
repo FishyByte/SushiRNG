@@ -1,14 +1,14 @@
 # import the necessary packages
 from collections import deque
-import imutils
-import cv2
-from rasPi.fish_pool import *
 
+import cv2
+import imutils
+
+from rasPi.testing.fish_pool import *
 # import picamera
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
-import timeit
 
 # call constructors
 fish_stream = FishStream()

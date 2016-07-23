@@ -1,9 +1,10 @@
 # import the necessary packages
 from collections import deque
-import imutils
-import cv2
-from rasPi.fish_pool import *
 
+import cv2
+import imutils
+
+from rasPi.testing.fish_pool import *
 # import picamera
 from picamera.array import PiRGBArray
 from picamera import PiCamera
@@ -133,7 +134,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         test_output.write(str(fish_stream.stream))
         test_output.write("\n")
         break
-    
+
     if key == ord("p"):
         zero, one = fish_stream.get_probabilities()
         print "0:", zero

@@ -1,17 +1,16 @@
 # import the necessary packages
-from collections import deque
-import imutils
-import cv2
-from fish_pool import *
 import requests
-from picamera.array import PiRGBArray
-from picamera import PiCamera
 import time
+from collections import deque
 
-
-
+import cv2
+import imutils
+from picamera import PiCamera
+from picamera.array import PiRGBArray
 
 # call constructors
+from fish_stream import FishStream
+
 fish_stream = FishStream()
 
 # output bitstream to binary file
@@ -106,7 +105,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # sweet, we got enough bits from the fish
     if fish_stream.get_length() > totalBits:
         # first write to file
-        out.write(str(fish_stream.get_bits(totalBits)))
+        out.write(fish_stream.get_bits(totalBits))
 
         # now lets make a packet with 'requests'
         url = 'http://127.0.0.1:5000/add-bits'
@@ -129,7 +128,13 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if key == ord("q"):
         out.write(str(fish_stream.stream))
         break
-    
+
+    # if the 'o' key is pressed output current contents of BitStream
+    if key == ord("q"):
+        fish_stream.print_stream()
+        print "--------------------------------------------------"
+
+    # if the 'p' print out stats of the stream
     if key == ord("p"):
         zero, one = fish_stream.get_probabilities()
         print "0:", zero
