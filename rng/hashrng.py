@@ -121,7 +121,6 @@ class RngPool:
         total_length = len(self.data)
         zero_count = total_length - one_count
 
-
         self.percent_one = one_count / float(total_length)
 
         self.percent_zero = zero_count / float(total_length)
