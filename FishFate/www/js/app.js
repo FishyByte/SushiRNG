@@ -45,21 +45,12 @@ app.controller('fishController', function ($scope, $ionicHistory) {
 
 
   /* go back button */
-  $scope.goBack = function () {
-    $ionicHistory.goBack();
-  };
-
-
+  $scope.goBack = function () { $ionicHistory.goBack(); };
+  
   /* menu selection options */
-  $scope.selectEightBall = function () {
-    showEightBall();
-  };
-  $scope.selectDiceRoll = function () {
-    showDiceRoll();
-  };
-  $scope.selectCoinFlip = function () {
-    showCoinFlip();
-  };
+  $scope.selectEightBall = function () { showEightBall(); };
+  $scope.selectDiceRoll  = function () { showDiceRoll();  };
+  $scope.selectCoinFlip  = function () { showCoinFlip();  };
 
 
   $scope.eightBall = {
@@ -75,7 +66,6 @@ app.controller('fishController', function ($scope, $ionicHistory) {
     var triangle = $('#triangle');
     var answer = $('#answer');
     var eightBall = $('#eightBall01');
-
 
     triangle.fadeOut('fast');
     answer.fadeOut('fast');

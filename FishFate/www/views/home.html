@@ -12,71 +12,87 @@
     </div>
 
     <div class="whiteOut">
-    <!-- buttons -->
-    <ion-item>
-      <div class="row">
-        <button class="button button-calm col addMargin shadow"
-                ng-click="selectEightBall()">Magic 8-Ball</button>
-        <button class="button button-calm col addMargin shadow"
-                ng-click="selectDiceRoll()">Dice Roll</button>
-        <button class="button button-calm col addMargin shadow"
-                ng-click="selectCoinFlip()">Coin Flip</button>
+      <!-- buttons -->
+      <ion-item>
+        <div class="row">
+          <button class="button button-calm col addMargin shadow"
+                  ng-click="selectEightBall()">Magic 8-Ball
+          </button>
+          <button class="button button-calm col addMargin shadow"
+                  ng-click="selectDiceRoll()">Dice Roll
+          </button>
+          <button class="button button-calm col addMargin shadow"
+                  ng-click="selectCoinFlip()">Coin Flip
+          </button>
+        </div>
+
+      </ion-item>
+
+      <!-- magic eight ball -->
+      <div id="eightBall">
+        <ion-item>
+          <ul id="eightBall01" class="roundCorners">
+            <li id="eightBall02" class="roundCorners"></li>
+            <li id="eightBall03" class="roundCorners"></li>
+            <li id="triangle"></li>
+            <li id="answer" ng-bind-html="eightBall.answer"></li>
+            <li id="triangleOverlay" class="roundCorners"></li>
+          </ul>
+        </ion-item>
+        <ion-item>
+          <button ng-click="submitEightBall()" id="eightBallButton" class="button button-block button-balanced">submit
+          </button>
+        </ion-item>
       </div>
 
-    </ion-item>
-
-    <!-- magic eight ball -->
-    <div id="eightBall">
-      <ion-item>
-        <ul id="eightBall01" class="roundCorners">
-          <li id="eightBall02" class="roundCorners"></li>
-          <li id="eightBall03" class="roundCorners"></li>
-          <li id="triangle"></li>
-          <li id="answer" ng-bind-html="eightBall.answer"></li>
-          <li id="triangleOverlay" class="roundCorners"></li>
-        </ul>
-      </ion-item>
-      <ion-item>
-        <button ng-click="submitEightBall()" id="eightBallButton" class="button button-block button-balanced">submit</button>
-      </ion-item>
-    </div>
-
-    <!-- dice roll input -->
-    <div id="diceRoll">
-      <ion-item>
-        <div class="list">
-          <div class="item range">
-            <div class="range-label fixLabel"># dice</div>
-            <input type="range" name="numberDice" min="1" max="6" ng-model="numberDice">
-            {{numberDice}}
+      <!-- dice roll input -->
+      <div id="diceRoll">
+        <ion-item>
+          <div class="list">
+            <div class="item range">
+              <div class="range-label fixLabel"># dice</div>
+              <input type="range"
+                     name="numberDice"
+                     min="1" max="6"
+                     ng-model="numberDice">
+              {{numberDice}}
+            </div>
+            <div class="item range">
+              <div class="range-label fixLabel"># sides</div>
+              <input type="range" n
+                     ame="numberSides"
+                     min="4" max="20"
+                     ng-checked="6"
+                     ng-model="numberSides">
+              {{numberSides}}
+            </div>
           </div>
-          <div class="item range">
-            <div class="range-label fixLabel"># sides</div>
-            <input type="range" name="numberSides" min="4" max="20" default="4" ng-model="numberSides">
-            {{numberSides}}
-          </div>
-        </div>
-      </ion-item>
-      <ion-item>
-        <button class="button button-block button-balanced">submit</button>
-      </ion-item>
-    </div>
+        </ion-item>
+        <ion-item>
+          <button class="button button-block button-balanced">submit</button>
+        </ion-item>
+      </div>
 
-    <!-- coin flip input -->
-    <div id="coinFlip">
-      <ion-item>
-        <div class="list">
-          <div class="item range">
-            <div class="range-label fixLabel"># coins</div>
-            <input type="range" name="numberCoins" min="1" max="6" ng-model="numberCoins">
-            {{numberCoins}}
+      <!-- coin flip input -->
+      <div id="coinFlip">
+        <ion-item>
+          <div class="list">
+            <div class="item range">
+              <div class="range-label fixLabel"># coins</div>
+              <input type="range" name="numberCoins" min="1" max="6" ng-model="numberCoins">
+              {{numberCoins}}
+            </div>
           </div>
-        </div>
-      </ion-item>
-      <ion-item>
-        <button class="button button-block button-balanced">submit</button>
-      </ion-item>
+        </ion-item>
+
+        <ion-item>
+
+        </ion-item>
+
+        <ion-item>
+          <button class="button button-block button-balanced">submit</button>
+        </ion-item>
+      </div>
     </div>
-</div>
   </ion-content>
 </ion-view>
