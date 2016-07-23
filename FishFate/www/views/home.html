@@ -78,10 +78,39 @@
       <!-- coin flip input -->
       <div id="coinFlip">
         <ion-item>
-          <ul id="coin0" class="coin roundCorners">
-            <li class="heads"><img src="../img/coinHeads.png"></li>
-            <li class="coinLayer1 roundCorners"></li>
-          </ul>
+
+
+
+
+
+
+          <div  id="coin0" class="flip-container">
+            <div class="flipper">
+              <div class="front">
+
+                <ul class="coin roundCorners">
+                  <li class="heads"><img src="../img/coinHeads.png"></li>
+                  <li class="coinLayer1 roundCorners"></li>
+                </ul>
+
+              </div>
+              <div class="back">
+
+                <ul class="coin roundCorners">
+                  <li class="tails"><img src="../img/coinTails.png"></li>
+                  <li class="coinLayer1 roundCorners"></li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
           <ul id="coin1" class="coin roundCorners">
             <li class="tails"><img src="../img/coinTails.png"></li>
             <li class="coinLayer1 roundCorners"></li>
@@ -114,7 +143,7 @@
 
 
         <ion-item>
-          <button class="button button-block button-balanced">submit</button>
+          <button class="button button-block button-balanced"  ng-click="submitCoinFlip()">submit</button>
         </ion-item>
       </div>
     </div>

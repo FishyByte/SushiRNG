@@ -66,6 +66,10 @@ app.controller('fishController', function ($scope, $ionicHistory) {
   $scope.submitEightBall = function () {
     animateEightBall();
   };
+  $scope.submitCoinFlip = function (){
+    console.log("hit coin flip");
+    animateCoins();
+  };
 
   /* animations */
   function animateEightBall() {
@@ -130,6 +134,18 @@ app.controller('fishController', function ($scope, $ionicHistory) {
         break;
     }
   }
+  function animateCoins () {
+    var flipCount = 0;
+    document.querySelector("#coin0").classList.toggle("flip");
+    var trigger = setInterval(function(){
+      if (flipCount == 10){
+        clearInterval(trigger)
+      }
+      document.querySelector("#coin0").classList.toggle("flip");
+      flipCount++;
+    }, 100);
+  }
+
 
   /**
    *  JQuery effects
