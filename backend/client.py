@@ -8,9 +8,10 @@ encoded = int(input_data, 2)
 # print encoded
 # print bin(int(binascii.hexlify(encoded), 16))[2:]
 
+
 payload = {
     'pub_key': '233taewdzvx',
     'fishBits': encoded
 }
-r = requests.post('http://127.0.0.1:5000/add-bits', data=payload)
+r = requests.post('http://127.0.0.1:5000/add-bits', data=payload, files={'bits.txt': open('bits.txt',rb)})
 print r.status_code
