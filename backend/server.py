@@ -35,7 +35,7 @@ ALLOWED_EXTENSIONS=['bin']
 MAX_REQUEST_SIZE = 1000 # users may request up to 1MB
 
 app = Flask(__name__)
-app.confg['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 myBitStream = BitStream()
 
