@@ -1,14 +1,14 @@
 # import the necessary packages
 from collections import deque
-import imutils
-import cv2
-from fish_pool import *
 
+import cv2
+import imutils
+
+from rasPi.testing.fish_pool import *
 # import picamera
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
-import timeit
 
 # call constructors
 fish_stream = FishStream()
@@ -38,10 +38,7 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
 time.sleep(0.3)
 
 # testing variables
-totalBits = 32768  # 32768 = 2^15 bits
-printLength = 64
-lineCount = totalLines = totalBits / printLength
-start = timeit.timeit()
+bit_count = 0
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -107,39 +104,39 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # clear the stream in prep for next frame
     rawCapture.truncate(0)
-    
-    # testing: finished gathering bits, write out to file
-    if fish_stream.get_length() > totalBits:
-        zero, one = fish_stream.get_probabilities()
-        finalLength = fish_stream.get_length()
-        for j in range(0, lineCount):
-            for i in range(0, 8):
-                test_output.write(" ")
-                test_output.write(str(fish_stream.get_bits(8)))
-            test_output.write("\n")
-        end = timeit.timeit()
-        print "--------------------------------------------------"
-        print "0:", zero
-        print "1:", one
-        print "total bits:", finalLength
-        print end, "seconds to receive", totalBits, "bits"
-        print "--------------------------------------------------"
-        break
+
+    # let the pool fill up then start grabbing bits to write out to file
+    if fish_stream.get_length() > 8192:
+        prob1, prob2 = fish_stream.get_probabilities()
+        entropy = fish_pool.entropy_calculations(prob1, prob2)
+        correct_bits = int(fish_pool.entropy_correction(entropy))
+        bit_list = str(fish_stream.get_bits(correct_bits))
+        result = fish_pool.whiten_numbers(0, 2, bit_list)
+        test_output.write(str(result))
+
+        bit_count += 1
+        if bit_count % 64 == 0:
+            test_output.write('\n')
+
 
 
 
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
-        test_output.write(str(fish_stream.stream))
-        test_output.write("\n")
+        test_output.write('\n')
+        zero, one = fish_stream.get_probabilities()
+        print "O:", zero
+        print "1:", one
+        print "# bits in stream:", fish_stream.get_length()
+        print "printed", bit_count, "to file"
         break
     
     if key == ord("p"):
         zero, one = fish_stream.get_probabilities()
-        print "0:", zero
+        print "O:", zero
         print "1:", one
-        print "total bits:", fish_stream.get_length(), "/", totalBits
-        print "--------------------------------------------------"
+        print "# bits in stream:", fish_stream.get_length()
+        print "printed", bit_count, "to file"
 
 # cleanup the camera and close any open windows
 cv2.destroyAllWindows()

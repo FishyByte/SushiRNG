@@ -1,22 +1,21 @@
 # import the necessary packages
-from collections import deque
-import imutils
-import cv2
-from fish_pool import *
-
-# import picamera
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+import requests
 import time
-import timeit
+from collections import deque
+
+import cv2
+import imutils
+from picamera import PiCamera
+from picamera.array import PiRGBArray
 
 # call constructors
-fish_stream = FishStream()
-fish_pool = FishPool()
+from fish_stream import FishStream
 
-# output bitstream to file
-test_output = open('fishData/fishBits.txt', 'w')
-test_output.truncate()
+fish_stream = FishStream()
+
+# output bitstream to binary file
+out = open('fishData/fishBits.bin', 'wb')
+out.truncate()
 
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
@@ -37,8 +36,8 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
 # allow camera warmup
 time.sleep(0.3)
 
-# testing variables
-bit_count = 0
+# how many bits per file. 32768 bits = 4kb
+totalBits = 32768
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -66,7 +65,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # only proceed if at least one contour was found
     if len(cnts) > 0:
-
         # lets count the fishies on the screen
         fish_count = 0    
         x_compare = -1
@@ -93,50 +91,56 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                 # where are the fish at now?
                 fish_count += 1
                 fish_stream.add_position(fish_count, x, y)
-                # print "fish#:", fish_count, "x:", x, "y:", y
 
             # update the points queue
             pts.appendleft(center)
 
     # show the frame to our screen
-    cv2.imshow("Frame", frame)
+    # cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in prep for next frame
     rawCapture.truncate(0)
 
-    # let the pool fill up then start grabbing bits to write out to file
-    if fish_stream.get_length() > 8192:
-        prob1, prob2 = fish_stream.get_probabilities()
-        entropy = fish_pool.entropy_calculations(prob1, prob2)
-        correct_bits = int(fish_pool.entropy_correction(entropy))
-        bit_list = str(fish_stream.get_bits(correct_bits))
-        result = fish_pool.whiten_numbers(0, 2, bit_list)
-        test_output.write(str(result))
+    # sweet, we got enough bits from the fish
+    if fish_stream.get_length() > totalBits:
+        # first write to file
+        out.write(fish_stream.get_bits(totalBits))
 
-        bit_count += 1
-        if bit_count % 64 == 0:
-            test_output.write('\n')
+        # now lets make a packet with 'requests'
+        url = 'http://127.0.0.1:5000/add-bits'
+        data = {'token': 'auth_token'}
+        headers = {'Content-type': 'multipart/form-data'}
+        files = {'document': open('fishData/fishBits.bin', 'rb')}
 
+        # now ship it
+        response = requests.post(url, files=files, data=data, headers=headers)
 
+        # how did we do?
+        print "POST to", url
+        print "response code:", response.status_code
+        print "--------------------------------------------------"
 
+        # nuke the file
+        out.truncate()
 
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
-        test_output.write('\n')
-        zero, one = fish_stream.get_probabilities()
-        print "O:", zero
-        print "1:", one
-        print "# bits in stream:", fish_stream.get_length()
-        print "printed", bit_count, "to file"
+        out.write(str(fish_stream.stream))
         break
-    
+
+    # if the 'o' key is pressed output current contents of BitStream
+    if key == ord("q"):
+        fish_stream.print_stream()
+        print "--------------------------------------------------"
+
+    # if the 'p' print out stats of the stream
     if key == ord("p"):
         zero, one = fish_stream.get_probabilities()
-        print "O:", zero
+        print "0:", zero
         print "1:", one
-        print "# bits in stream:", fish_stream.get_length()
-        print "printed", bit_count, "to file"
+        print "total bits:", fish_stream.get_length(), "/", totalBits
+        print "--------------------------------------------------"
 
 # cleanup the camera and close any open windows
 cv2.destroyAllWindows()
