@@ -86,13 +86,14 @@ def get_bits():
     #OKAY, now we can fufill our request
 
     try:
-        print 'bitstream: ' + str( myBitStream)
-        usersBytes = myBitStream.read( int8, numBytes )
-
+        print 'bitstream: len=' + str(len(myBitStream))
+        userBytes = myBitStream.read( int8, numBytes )
+        userBytes = binascii.hexlify(userBytes)
+        return userBytes
     except Exception, e:
         print e
         return abort(500)
-    return userBytes
+    
 
 #********************************************************
 #
@@ -144,8 +145,9 @@ def fillByteBuffer():
             i = i + 1
             with open(curFile, 'rb' ) as inFile:
                 data = inFile.read(1)
-                while data != None:
-                    myBitStream.read(data, int8)
+                while data != '':
+                    toAdd = int(binascii.hexlify(data), 16)
+                    myBitStream.write(toAdd, int8)
                     data = inFile.read(1)
             os.remove(curFile)
         return True
