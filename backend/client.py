@@ -23,7 +23,7 @@
 #*******************************************************************
 import requests
 import binascii
-
+import os
 # 64 bits here
 input_data = '1100110010101000100010011101101100111100101000110110000111100111'
 encoded = int(input_data, 2)
@@ -36,5 +36,6 @@ payload = {
     'pub_key': '233taewdzvx',
     'fishBits': encoded
 }
-r = requests.post('http://127.0.0.1:5000/add-bits', data=payload, files={'bits.txt': open('bits.txt',rb)})
+print os.getcwd()
+r = requests.post('http://127.0.0.1:5000/add-bytes', data=payload, files={'file': open('/home/nick/SushiRNG/backend/bits.bin','rb')})
 print r.status_code

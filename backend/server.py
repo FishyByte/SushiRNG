@@ -22,24 +22,36 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #*******************************************************************
 # bitstream page: https://github.com/boisgera/bitstream
-from flask import Flask, request
+from flask import Flask, request, flash, abort
 from werkzeug.utils import secure_filename
 from bitstream import BitStream
 from numpy import *
 import binascii
 import os
+from datetime import datetime
+import time
 
 
-UPLOAD_FOLDER = '/home/rngData'
+
+
+UPLOAD_FOLDER = '/home/nick/SushiRNG/backend/data'
 ALLOWED_EXTENSIONS=['bin']
 MAX_REQUEST_SIZE = 1000 # users may request up to 1MB
-
+MAX_STREAM_SIZE = 8 * 1024 * 1024
 app = Flask(__name__)
-app.confg['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 myBitStream = BitStream()
 
 #pub_key = '' # todo: needs to be an env variable
+
+
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 
 
 #********************************************************
@@ -61,10 +73,10 @@ def main_page():
 #********************************************************
 @app.route("/getBytes")
 def get_bits():
-    numBytes = request.headers.get('number-bytes-requested')
+    numBytes = int(request.headers.get('number-bytes-requested'))
     if ((numBytes == None) or (numBytes < 1) or (numBytes > MAX_REQUEST_SIZE)):
         abort(400) #invalid request, we dont waste time around here, come back when you are prepared.
-    if(numBytes > len(myBitStream)):
+    if(numBytes > (len(myBitStream) / 8)):
         #UH OH WE NEED MOAR BITS IN MEMORY
         if(fillByteBuffer() == False):
 
@@ -72,7 +84,14 @@ def get_bits():
                         #no data is currently available
  
     #OKAY, now we can fufill our request
-    usersBytes = myBitStream.read( int8, numBytes )
+
+    try:
+        print 'bitstream: ' + str( myBitStream)
+        usersBytes = myBitStream.read( int8, numBytes )
+
+    except Exception, e:
+        print e
+        return abort(500)
     return userBytes
 
 #********************************************************
@@ -89,18 +108,23 @@ def set_bits():
         print 'recieved post request:'
         
         # check if the post request has the file part
-        if 'document' not in request.files:
+        if 'file' not in request.files:
             flash('No file part')
-            return redirect(request.url)
-        file = request.files['document']
+            print "DBG: No file part"
+            abort(400)
+            return "no file part"
+        file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
         
         if file.filename == '':
             flash('No selected file')
-            return redirect(request.url)
+            print 'DBG: no seleced file'
+            return "no selected file"
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            current_milli_time = int(round(time.time() * 1000))
+            filename = str(current_milli_time) + filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return 'success'
     else:
@@ -111,11 +135,19 @@ def fillByteBuffer():
     #attempt to bring in a file to read into the buffer
     
     files = os.listdir( UPLOAD_FOLDER )
-    if (len(files) > 0 ):
+    numFiles = len(files)
+    if (numFiles > 0 ):
         #read in a file, we dont care wich one.
-        with open(files[0], 'rb' ) as inFile:
-            data = inFile.read()
-            myBitStream.write(data, bool)
+        i = 0
+        while(len(myBitStream) < MAX_REQUEST_SIZE and i < numFiles):
+            curFile = 'data/' + str(files[i])
+            i = i + 1
+            with open(curFile, 'rb' ) as inFile:
+                data = inFile.read(1)
+                while data != None:
+                    myBitStream.read(data, int8)
+                    data = inFile.read(1)
+            os.remove(curFile)
         return True
     else:
         return False
