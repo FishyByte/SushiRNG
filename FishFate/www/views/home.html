@@ -73,21 +73,45 @@
         </ion-item>
       </div>
 
+
+
       <!-- coin flip input -->
       <div id="coinFlip">
+        <ion-item>
+          <ul id="coin0" class="coin roundCorners">
+            <li class="heads"><img src="../img/coinHeads.png"></li>
+            <li class="coinLayer1 roundCorners"></li>
+          </ul>
+          <ul id="coin1" class="coin roundCorners">
+            <li class="tails"><img src="../img/coinTails.png"></li>
+            <li class="coinLayer1 roundCorners"></li>
+          </ul>
+          <ul id="coin2" class="coin roundCorners">
+            <li class="heads"><img src="../img/coinHeads.png"></li>
+            <li class="coinLayer1 roundCorners"></li>
+          </ul>
+          <ul id="coin3" class="coin roundCorners">
+            <li class="tails"><img src="../img/coinTails.png"></li>
+            <li class="coinLayer1 roundCorners"></li>
+          </ul>
+        </ion-item>
+
+
         <ion-item>
           <div class="list">
             <div class="item range">
               <div class="range-label fixLabel"># coins</div>
-              <input type="range" name="numberCoins" min="1" max="6" ng-model="numberCoins">
-              {{numberCoins}}
+              <input type="range"
+                     min="1"
+                     max="4"
+                     data-ng-model="coinFlip.numberCoins"
+                     ng-change="displayCoins()">
+              {{coinFlip.numberCoins}}
             </div>
           </div>
         </ion-item>
 
-        <ion-item>
 
-        </ion-item>
 
         <ion-item>
           <button class="button button-block button-balanced">submit</button>

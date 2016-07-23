@@ -37,16 +37,22 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
 app.controller('fishController', function ($scope, $ionicHistory) {
 
-  var eightBallRevealed = true;
   var optionOpen = [false, false, false];
   var answers = [
     'do or do not,<br>there is<br>no try'
   ];
 
 
+  $scope.coinFlip = {
+    numberCoins: '4'
+  };
+
+  /* dynamically display the selected number of coins */
+  $scope.displayCoins = function(){ displayNumberCoins(); };
+
   /* go back button */
   $scope.goBack = function () { $ionicHistory.goBack(); };
-  
+
   /* menu selection options */
   $scope.selectEightBall = function () { showEightBall(); };
   $scope.selectDiceRoll  = function () { showDiceRoll();  };
@@ -71,7 +77,7 @@ app.controller('fishController', function ($scope, $ionicHistory) {
     answer.fadeOut('fast');
 
     eightBall.animate({
-        right: '160px'
+      right: '160px'
     }, 300, function (){
       eightBall.animate({
         right: '140px'
@@ -89,22 +95,41 @@ app.controller('fishController', function ($scope, $ionicHistory) {
         });
       });
     });
-
-
-/*    if (eightBallRevealed == false) {
-      triangle.fadeIn('fast');
-      answer.fadeIn('fast');
-      eightBallRevealed = true;
-    }
-    else {
-      triangle.fadeOut('fast');
-      answer.fadeOut('fast');
-      eightBallRevealed = false;
-    }*/
   }
 
-  //
-
+  function displayNumberCoins(){
+    var coinArray = [
+      $('#coin0'),
+      $('#coin1'),
+      $('#coin2'),
+      $('#coin3')
+    ];
+    switch ($scope.coinFlip.numberCoins){
+      case '1':
+        coinArray[1].fadeOut('fast');
+        coinArray[2].fadeOut('fast');
+        coinArray[3].fadeOut('fast');
+        break;
+      case '2':
+        coinArray[1].fadeIn('fast');
+        coinArray[2].fadeOut('fast');
+        coinArray[3].fadeOut('fast');
+        break;
+      case '3':
+        coinArray[1].fadeIn('fast');
+        coinArray[2].fadeIn('fast');
+        coinArray[3].fadeOut('fast');
+        break;
+      case '4':
+        coinArray[1].fadeIn('fast');
+        coinArray[2].fadeIn('fast');
+        coinArray[3].fadeIn('fast');
+        break;
+      default:
+        console.log('error, number of coins out of bounds');
+        break;
+    }
+  }
 
   /**
    *  JQuery effects

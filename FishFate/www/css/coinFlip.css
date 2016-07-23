@@ -58,3 +58,51 @@
     -webkit-border-radius: 100px / 50px;
     border-radius: 100px / 50px;
 }
+
+
+.coin {
+  display: inline-block;
+  position: inherit;
+  width: 80px;
+  height: 80px;
+  background: rgba(204,204,204,1);
+  background: -moz-linear-gradient(-45deg, rgba(204,204,204,1) 0%, rgba(148,148,148,1) 100%);
+  background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(204,204,204,1)), color-stop(100%, rgba(148,148,148,1)));
+  background: -webkit-linear-gradient(-45deg, rgba(204,204,204,1) 0%, rgba(148,148,148,1) 100%);
+  background: -o-linear-gradient(-45deg, rgba(204,204,204,1) 0%, rgba(148,148,148,1) 100%);
+  background: -ms-linear-gradient(-45deg, rgba(204,204,204,1) 0%, rgba(148,148,148,1) 100%);
+  background: linear-gradient(135deg, rgba(204,204,204,1) 0%, rgba(148,148,148,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#949494', GradientType=1 );
+  border: 1px solid #292929;
+}
+.coinLayer1 {
+  width: 74px;
+  height: 74px;
+  margin: 2px;
+  border: 1px solid #999999;
+  -webkit-box-shadow: inset 0px 0px 3px 0px rgba(77,77,77,1);
+  -moz-box-shadow: inset 0px 0px 3px 0px rgba(77,77,77,1);
+  box-shadow: inset 0px 0px 3px 0px rgba(77,77,77,1);
+}
+.heads {
+  position: absolute;
+  z-index: 1;
+  background: url("../img/coinHeads.png");
+}
+.tails {
+  position: absolute;
+  z-index: 1;
+  background: url("../img/coinTails.png");
+}
+#coin0 {
+  margin-left: 50%;
+  left: -170px;
+}
+#coin1 {
+  margin-left: -170px;
+}
+
+
+/*#coinFlip{
+  display: none;
+}*/
