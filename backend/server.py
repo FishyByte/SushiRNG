@@ -76,7 +76,7 @@ def get_bits():
     numBytes = int(request.headers.get('number-bytes-requested'))
     if ((numBytes == None) or (numBytes < 1) or (numBytes > MAX_REQUEST_SIZE)):
         abort(400) #invalid request, we dont waste time around here, come back when you are prepared.
-    if(numBytes > len(myBitStream)):
+    if(numBytes > (len(myBitStream) / 8)):
         #UH OH WE NEED MOAR BITS IN MEMORY
         if(fillByteBuffer() == False):
 
@@ -84,7 +84,14 @@ def get_bits():
                         #no data is currently available
  
     #OKAY, now we can fufill our request
-    usersBytes = myBitStream.read( int8, numBytes )
+
+    try:
+        print 'bitstream: ' + str( myBitStream)
+        usersBytes = myBitStream.read( int8, numBytes )
+
+    except Exception, e:
+        print e
+        return abort(500)
     return userBytes
 
 #********************************************************
@@ -136,8 +143,10 @@ def fillByteBuffer():
             curFile = 'data/' + str(files[i])
             i = i + 1
             with open(curFile, 'rb' ) as inFile:
-                data = inFile.read()
-                myBitStream.write(data, bool)
+                data = inFile.read(1)
+                while data != None:
+                    myBitStream.read(data, int8)
+                    data = inFile.read(1)
             os.remove(curFile)
         return True
     else:
