@@ -3,13 +3,13 @@
 		 COMPUTATIONAL INFORMATION:		  
 		---------------------------------------------
 		(a) Block length    (m) = 16
-		(b) Sequence length (n) = 1017
-		(c) Psi_m               = 64905.643068
-		(d) Psi_m-1             = 32266.524090
-		(e) Psi_m-2             = 15946.964602
-		(f) Del_1               = 32639.118977
-		(g) Del_2               = 16319.559489
+		(b) Sequence length (n) = 16081
+		(c) Psi_m               = 66571.547478
+		(d) Psi_m-1             = 33497.894845
+		(e) Psi_m-2             = 16781.752316
+		(f) Del_1               = 33073.652634
+		(g) Del_2               = 16357.510105
 		---------------------------------------------
-SUCCESS		p_value1 = 0.691990
-SUCCESS		p_value2 = 0.637870
+SUCCESS		p_value1 = 0.116461
+SUCCESS		p_value2 = 0.556749
 
