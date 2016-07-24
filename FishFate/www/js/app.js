@@ -143,7 +143,7 @@ app.controller('fishController', function ($scope, $ionicHistory) {
       }
       document.querySelector("#coin0").classList.toggle("flip");
       flipCount++;
-    }, 100);
+    }, 150);
   }
 
 
