@@ -368,6 +368,10 @@ def main():
 
     # Print the length of the pool.
     print "Current length of the pool", new_pool.get_random_pool_size()
+    # Write the file for NIST
+    new_pool.write_to_file("test_numbers")
+
+    # Try some stuff
     new_pool.dice_roll_return(5, 15)
     new_pool.eight_ball_return()
     new_pool.coin_flip_return()
@@ -379,9 +383,6 @@ def main():
 
     # Ending length to be sure we are using and removing random binary numbers.
     print "Current length of the pool: ", new_pool.get_random_pool_size()
-
-    # Write the pool to a file for NIST testing.
-    new_pool.write_to_file("test_numbers")
 
     # Make the testing list
     # bit_list = new_pool.create_test_list(5, 4096)
