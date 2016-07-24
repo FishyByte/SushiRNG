@@ -108,8 +108,19 @@
 }
 
 #coin1 {
+  display: inline-block;
+  position: inherit;
   margin-left: -170px;
 }
+#coin2 {
+  display: inline-block;
+  position: inherit;
+}
+#coin3 {
+  display: inline-block;
+  position: inherit;
+}
+
 
 /*#coinFlip{
   display: none;

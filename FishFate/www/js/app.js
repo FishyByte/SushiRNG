@@ -68,7 +68,7 @@ app.controller('fishController', function ($scope, $ionicHistory) {
   };
   $scope.submitCoinFlip = function (){
     console.log("hit coin flip");
-    animateCoins();
+    animateCoins(1, 0, 1, 0);
   };
 
   /* animations */
@@ -134,17 +134,49 @@ app.controller('fishController', function ($scope, $ionicHistory) {
         break;
     }
   }
-  function animateCoins () {
-    var flipCount = 0;
-    document.querySelector("#coin0").classList.toggle("flip");
-    var trigger = setInterval(function(){
-      if (flipCount == 10){
-        clearInterval(trigger)
-      }
-      document.querySelector("#coin0").classList.toggle("flip");
-      flipCount++;
+  function animateCoins (zero, one, two, three) {
+    var flipCounts = [0, 0, 0, 0];
+    var coins = ['#coin0', '#coin1' ,'#coin2' , '#coin3'];
+
+    /* initial flip becore interval */
+    flipOnce(coins[0]);
+    flipOnce(coins[1]);
+    flipOnce(coins[2]);
+    flipOnce(coins[3]);
+
+    /* coin 0 */
+    var trigger0 = setInterval(function(){
+      if (flipCounts[0] == 10 + zero)
+        clearInterval(trigger0);
+      flipOnce(coins[0]);
+      flipCounts[0]++;
+    }, 150);
+
+    /* coin 1 */
+    var trigger1 = setInterval(function(){
+      if (flipCounts[1] == 10 + one)
+        clearInterval(trigger1);
+      flipOnce(coins[1]);
+      flipCounts[1]++;
+    }, 150);
+
+    /* coin 2 */
+    var trigger2 = setInterval(function(){
+      if (flipCounts[2] == 10 + two)
+        clearInterval(trigger2);
+      flipOnce(coins[2]);
+      flipCounts[2]++;
+    }, 150);
+
+    /* coin 3 */
+    var trigger3 = setInterval(function(){
+      if (flipCounts[3] == 10 + three)
+        clearInterval(trigger3);
+      flipOnce(coins[3]);
+      flipCounts[3]++;
     }, 150);
   }
+  function flipOnce(element){ document.querySelector(element).classList.toggle("flip"); }
 
 
   /**

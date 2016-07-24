@@ -75,57 +75,84 @@
 
 
 
-      <!-- coin flip input -->
+      <!-- coin flip  -->
       <div id="coinFlip">
         <ion-item>
 
-
-
-
-
-
-          <div  id="coin0" class="flip-container">
+          <!-- coin zero: output -->
+          <div id="coin0" class="flip-container">
             <div class="flipper">
               <div class="front">
-
                 <ul class="coin roundCorners">
                   <li class="heads"><img src="../img/coinHeads.png"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
-
               </div>
               <div class="back">
-
                 <ul class="coin roundCorners">
                   <li class="tails"><img src="../img/coinTails.png"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
-
               </div>
             </div>
           </div>
 
+          <!-- coin one: output -->
+          <div id="coin1" class="flip-container">
+            <div class="flipper">
+              <div class="front">
+                <ul class="coin roundCorners">
+                  <li class="heads"><img src="../img/coinHeads.png"></li>
+                  <li class="coinLayer1 roundCorners"></li>
+                </ul>
+              </div>
+              <div class="back">
+                <ul class="coin roundCorners">
+                  <li class="tails"><img src="../img/coinTails.png"></li>
+                  <li class="coinLayer1 roundCorners"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
+          <!-- coin two: output -->
+          <div id="coin2" class="flip-container">
+            <div class="flipper">
+              <div class="front">
+                <ul class="coin roundCorners">
+                  <li class="heads"><img src="../img/coinHeads.png"></li>
+                  <li class="coinLayer1 roundCorners"></li>
+                </ul>
+              </div>
+              <div class="back">
+                <ul class="coin roundCorners">
+                  <li class="tails"><img src="../img/coinTails.png"></li>
+                  <li class="coinLayer1 roundCorners"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-
-
-
-
-          <ul id="coin1" class="coin roundCorners">
-            <li class="tails"><img src="../img/coinTails.png"></li>
-            <li class="coinLayer1 roundCorners"></li>
-          </ul>
-          <ul id="coin2" class="coin roundCorners">
-            <li class="heads"><img src="../img/coinHeads.png"></li>
-            <li class="coinLayer1 roundCorners"></li>
-          </ul>
-          <ul id="coin3" class="coin roundCorners">
-            <li class="tails"><img src="../img/coinTails.png"></li>
-            <li class="coinLayer1 roundCorners"></li>
-          </ul>
+          <!-- coin three: output -->
+          <div id="coin3" class="flip-container">
+            <div class="flipper">
+              <div class="front">
+                <ul class="coin roundCorners">
+                  <li class="heads"><img src="../img/coinHeads.png"></li>
+                  <li class="coinLayer1 roundCorners"></li>
+                </ul>
+              </div>
+              <div class="back">
+                <ul class="coin roundCorners">
+                  <li class="tails"><img src="../img/coinTails.png"></li>
+                  <li class="coinLayer1 roundCorners"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </ion-item>
 
-
+        <!-- coin flip range slider bar input -->
         <ion-item>
           <div class="list">
             <div class="item range">
@@ -140,12 +167,12 @@
           </div>
         </ion-item>
 
-
-
+        <!-- submit button for coin flip -->
         <ion-item>
           <button class="button button-block button-balanced"  ng-click="submitCoinFlip()">submit</button>
         </ion-item>
       </div>
+
     </div>
   </ion-content>
 </ion-view>
