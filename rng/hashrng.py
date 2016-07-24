@@ -411,18 +411,19 @@ def main():
     print "Current length of the pool: ", new_pool.get_random_pool_size()
 
 
-    # 8 Ball testing.
+    # 8 Ball testing and plotting
     eight_ball_response = []
     for i in range(500):
         eight_ball_response.append(new_pool.eight_ball_return())
     print eight_ball_response
     plot_distribution(eight_ball_response)
 
+    # Counting each eight ball response based on index
     eight_ball_counter = [0]*16
     for i in range(len(eight_ball_response)):
         eight_ball_counter[eight_ball_response[i]] += 1
 
-    print eight_ball_counter
+    print "Count of each possible response", eight_ball_counter
 
 
 
