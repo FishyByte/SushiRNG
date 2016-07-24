@@ -145,9 +145,9 @@ class RngPool:
 
     # Find the corrected length of bits given entropy calculations
     def entropy_correction(self):
-        corrected_bits = math.ceil(1284 * self.entropy)
+        corrected_bits = math.ceil(1315 * self.entropy)
         corrected_bits = int(corrected_bits)
-        corrected_bits = 1284 + (1284-corrected_bits)
+        corrected_bits = 1315 + (1315-corrected_bits)
         self.correct_bits = corrected_bits
 
     # Whitener for the Fish numbers to 160 bits
