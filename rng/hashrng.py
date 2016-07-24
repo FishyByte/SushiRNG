@@ -40,7 +40,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from io import StringIO
 
-fake_size = 20000
+fake_size = 200000
 fake_mod = 3
 
 
@@ -250,9 +250,12 @@ class RngPool:
     def read_from_file(self,text):
 
         with open(text, 'r') as myfile:
-            data = myfile.read().replace('\n', '')
-        test_array = np.array(list(data), dtype=int)
-        return test_array
+            data = myfile.read().replace('\n', ' ')
+
+        data = data.strip()
+        data = " ".join(data.split())
+        data = data.replace(" ", "")
+        return data
 
     # Turn a numpy array into a file
     def write_to_file(self, f_name):
@@ -351,7 +354,8 @@ def main():
     new_pool = RngPool()
 
     # Make a "fake" list of values
-    bit_list = create_test_list(fake_mod, fake_size)
+    # bit_list = create_test_list(fake_mod, fake_size)
+    bit_list = new_pool.read_from_file("fishdata")
 
     # Update the pool with the new data
     new_pool.update_data(bit_list)
