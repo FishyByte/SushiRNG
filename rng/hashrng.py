@@ -271,18 +271,37 @@ class RngPool:
         for i in range(num_dice):
             temp_string = []
             for j in range(bin_length):
-		try:
+                try:
                     temp_string.append(self.random_pool.pop())
-		except:
-		    print "Failed to remove from pool"
+                except:
+                    print "Failed to remove from pool"
 
             temp_number = int(''.join(str(x) for x in temp_string), 2)
             response.append(temp_number)
 
         # Printing responses for testing purposes
-        print response
+        print "This is the dice roll", response
 
         return response
+
+    # This returns a list of random integers of a requested size.
+    def return_random_integers(self, bit_length, amount_of_numbers):
+
+        random_list = []
+
+        for i in range(amount_of_numbers):
+            temp_string = []
+            for j in range(bit_length):
+                try:
+                    temp_string.append(self.random_pool.pop())
+                except:
+                    print "Failed to remove from pool"
+            temp_number = int(''.join(str(x) for x in temp_string), 2)
+            random_list.append(temp_number)
+
+        print "This is the random list: ", random_list
+
+        return random_list
 
     # Returns a response string one time
     def eight_ball_return(self):
@@ -292,10 +311,10 @@ class RngPool:
 
         # Make the string
         for i in range(5):
-	    try:
-            	temp_string.append(self.random_pool.pop())
-	    except:
-		print "Failed to produce enough strings with the current pool"
+            try:
+                temp_string.append(self.random_pool.pop())
+            except:
+                print "Failed to produce enough strings with the current pool"
 
         # Convert into an Int
         temp_number = int(''.join(str(x) for x in temp_string), 2)
@@ -309,10 +328,10 @@ class RngPool:
     # Returns heads or tails
     def coin_flip_return(self):
 
-	try:
+        try:
             next_data = int(self.random_pool.pop())
-	except:
-	    print "Failed to pop from pool"
+        except:
+            print "Failed to pop from pool"
 
         if next_data == 0:
             response = "heads"
@@ -322,6 +341,7 @@ class RngPool:
         print response
 
         return response
+
 
 
 # Main function for testing
@@ -350,6 +370,8 @@ def main():
 
     for i in range(10):
         new_pool.coin_flip_return()
+
+    new_pool.return_random_integers(5,20)
 
     # Ending length to be sure we are using and removing random binary numbers.
     print "Current length of the pool: ", new_pool.get_random_pool_size()
