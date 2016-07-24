@@ -81,6 +81,17 @@ class RngPool:
         self.percent_zeros = 0
         self.entropy = 0
 
+        # The current pools value for %s and size.
+        self.pool_percent_one = 0
+        self.pool_percent_zero = 0
+        self.pool_size = 0
+
+    # Update info
+    def update_pool_information(self):
+        self.pool_percent_one = self.random_pool.count("1")
+        self.pool_percent_zero = self.random_pool.count("0")
+        self.pool_size = len(self.random_pool)
+
     # Report information on pool
     def report_pool_info(self):
         print "Corrected bits: ", self.correct_bits
@@ -160,7 +171,7 @@ class RngPool:
 
                 # Digest the hash, convert into a binary and append to the random_pool
                 temp_number = self.whitener.hexdigest()
-                temp_number = str(bin(int(temp_number,32))[2:].zfill(0))
+                temp_number = str(bin(int(temp_number,16))[2:].zfill(0))
 
                 # Append each binary digit into the pool. Probably need to rework this
                 for j in range(len(temp_number)):
@@ -370,6 +381,9 @@ def main():
     print "Current length of the pool", new_pool.get_random_pool_size()
     # Write the file for NIST
     new_pool.write_to_file("Chris_test_me")
+    new_pool.update_pool_information()
+    print "Pool's % 0s", new_pool.pool_percent_zero
+    print "Pool's % 1s", new_pool.pool_percent_one
 
     # Try some stuff
     new_pool.dice_roll_return(5, 15)
