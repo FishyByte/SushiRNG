@@ -61,6 +61,17 @@ def create_test_list(fake_mod, fake_size):
     return bit_list
 
 
+# Dist used for testing.
+def plot_distribution(num_count):
+    num_selected = []
+    for a in range(len(num_count)):
+        num_selected.append(a)
+    plt.plot(num_selected, num_count)
+    plt.ylabel("Amount of Number")
+    plt.xlabel("Number Randomized")
+    plt.show()
+
+
 class RngPool:
 
     # Data class for pool data.
@@ -317,14 +328,14 @@ class RngPool:
 
         return random_list
 
-    # Returns a response string one time
+    # Returns an integer from 0 to 15
     def eight_ball_return(self):
 
         # Temp String
         temp_string = []
 
         # Make the string
-        for i in range(5):
+        for i in range(4):
             try:
                 temp_string.append(self.random_pool.pop())
             except:
@@ -334,29 +345,27 @@ class RngPool:
         temp_number = int(''.join(str(x) for x in temp_string), 2)
 
         # Get the response from the 8-ball
-        response = self.eight_ball_response(temp_number)
-        print response
+        # response = self.eight_ball_response(temp_number)
+        # print response
+        # print temp_number
 
-        return response
+        # return response
+        return temp_number
 
-    # Returns heads or tails
+    # Returns a list of 1s and 0s as an individual string
     def coin_flip_return(self):
 
+        coin_return = []
+
         try:
-            next_data = int(self.random_pool.pop())
+            for i in range(4):
+                coin_return.append(self.random_pool.pop())
         except:
             print "Failed to pop from pool"
 
-        if next_data == 0:
-            response = "heads"
-        else:
-            response = "tails"
+        coin_return = ''.join(str(x) for x in coin_return)
 
-        print response
-
-        return response
-
-
+        return coin_return
 
 # Main function for testing
 def main():
@@ -391,12 +400,30 @@ def main():
     new_pool.coin_flip_return()
 
     for i in range(10):
-        new_pool.coin_flip_return()
+        print new_pool.coin_flip_return()
 
     new_pool.return_random_integers(5,20)
 
     # Ending length to be sure we are using and removing random binary numbers.
     print "Current length of the pool: ", new_pool.get_random_pool_size()
+
+
+    # 8 Ball testing.
+    eight_ball_response = []
+    for i in range(500):
+        eight_ball_response.append(new_pool.eight_ball_return())
+    print eight_ball_response
+    plot_distribution(eight_ball_response)
+
+    eight_ball_counter = [0]*16
+    for i in range(len(eight_ball_response)):
+        eight_ball_counter[eight_ball_response[i]] += 1
+
+    print eight_ball_counter
+
+
+
+
 
     # Make the testing list
     # bit_list = new_pool.create_test_list(5, 4096)
