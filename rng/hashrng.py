@@ -169,6 +169,9 @@ class RngPool:
                 # new beginning position of the sub list
                 start = i
 
+    def get_random_pool_size(self):
+        return len(self.random_pool)
+
     # Report function for all of the number's information. Stale function
     # def report_stats(self, bit_list, whitener):
 
@@ -268,7 +271,11 @@ class RngPool:
         for i in range(num_dice):
             temp_string = []
             for j in range(bin_length):
-                temp_string.append(self.random_pool.pop())
+		try:
+                    temp_string.append(self.random_pool.pop())
+		except:
+		    print "Failed to remove from pool"
+
             temp_number = int(''.join(str(x) for x in temp_string), 2)
             response.append(temp_number)
 
@@ -285,7 +292,10 @@ class RngPool:
 
         # Make the string
         for i in range(5):
-            temp_string.append(self.random_pool.pop())
+	    try:
+            	temp_string.append(self.random_pool.pop())
+	    except:
+		print "Failed to produce enough strings with the current pool"
 
         # Convert into an Int
         temp_number = int(''.join(str(x) for x in temp_string), 2)
@@ -299,7 +309,10 @@ class RngPool:
     # Returns heads or tails
     def coin_flip_return(self):
 
-        next_data = int(self.random_pool.pop())
+	try:
+            next_data = int(self.random_pool.pop())
+	except:
+	    print "Failed to pop from pool"
 
         if next_data == 0:
             response = "heads"
@@ -330,7 +343,7 @@ def main():
     new_pool.whiten_numbers(bit_list)
 
     # Print the length of the pool.
-    print "Current length of the pool", len(new_pool.random_pool)
+    print "Current length of the pool", new_pool.get_random_pool_size()
     new_pool.dice_roll_return(5, 15)
     new_pool.eight_ball_return()
     new_pool.coin_flip_return()
@@ -339,7 +352,7 @@ def main():
         new_pool.coin_flip_return()
 
     # Ending length to be sure we are using and removing random binary numbers.
-    print "Current length of the pool: ", len(new_pool.random_pool)
+    print "Current length of the pool: ", new_pool.get_random_pool_size()
 
     # Write the pool to a file for NIST testing.
     new_pool.write_to_file("test_numbers")
