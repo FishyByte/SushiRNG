@@ -1,4 +1,16 @@
 				RANK TEST
-		Error: Insuffucient # Of Bits To Define An 32x32 (32x32) Matrix
-FAILURE		p_value = 0.000000
+		---------------------------------------------
+		COMPUTATIONAL INFORMATION:
+		---------------------------------------------
+		(a) Probability P_32 = 0.288788
+		(b)             P_31 = 0.577576
+		(c)             P_30 = 0.133636
+		(d) Frequency   F_32 = 2
+		(e)             F_31 = 11
+		(f)             F_30 = 2
+		(g) # of matrices    = 15
+		(h) Chi^2            = 1.885285
+		(i) NOTE: 721 BITS WERE DISCARDED.
+		---------------------------------------------
+SUCCESS		p_value = 0.389597
 
