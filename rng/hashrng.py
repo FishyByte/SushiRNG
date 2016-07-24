@@ -369,7 +369,7 @@ def main():
     # Print the length of the pool.
     print "Current length of the pool", new_pool.get_random_pool_size()
     # Write the file for NIST
-    new_pool.write_to_file("test_numbers")
+    new_pool.write_to_file("Chris_test_me")
 
     # Try some stuff
     new_pool.dice_roll_return(5, 15)
