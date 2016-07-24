@@ -366,7 +366,7 @@ def main():
 
     # Make a "fake" list of values
     # bit_list = create_test_list(fake_mod, fake_size)
-    bit_list = new_pool.read_from_file("fishdata")
+    bit_list = new_pool.read_from_file("fishBits10.txt")
 
     # Update the pool with the new data
     new_pool.update_data(bit_list)
