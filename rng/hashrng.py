@@ -291,9 +291,10 @@ class RngPool:
         # Find out the binary size of the dice size
         bin_length = len(bin(dice_size)[2:].zfill(0))
         response = []
+        counter = 0
 
         # Make the response list, and remove from pool.
-        for i in range(num_dice):
+        while counter <= num_dice:
             temp_string = []
             for j in range(bin_length):
                 try:
@@ -302,7 +303,9 @@ class RngPool:
                     print "Failed to remove from pool"
 
             temp_number = int(''.join(str(x) for x in temp_string), 2)
-            response.append(temp_number)
+            if temp_number <= dice_size:
+                response.append(temp_number)
+                counter += 1
 
         # Printing responses for testing purposes
         print "This is the dice roll", response
@@ -395,7 +398,7 @@ def main():
     print "Pool's % 1s", new_pool.pool_percent_one
 
     # Try some stuff
-    new_pool.dice_roll_return(5, 15)
+    new_pool.dice_roll_return(20, 15)
     new_pool.eight_ball_return()
     new_pool.coin_flip_return()
 
