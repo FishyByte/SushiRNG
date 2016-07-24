@@ -4,7 +4,7 @@
     <!-- video demo here -->
     <div id="fishBanner">
       <div class="backgroundGif">
-        <img class="stretch" src="../img/fishDemo_2.gif">
+        <img class="stretch" ng-src="{{images.demo}}">
         <div class="videoText">
           ~ Why swim in your thoughts when the fish can do it for you.
         </div>
@@ -74,9 +74,8 @@
       </div>
 
 
-
       <!-- coin flip  -->
-      <div id="coinFlip">
+      <div id="coinFlip" >
         <ion-item>
 
           <!-- coin zero: output -->
@@ -84,13 +83,13 @@
             <div class="flipper">
               <div class="front">
                 <ul class="coin roundCorners">
-                  <li class="heads"><img src="../img/coinHeads.png"></li>
+                  <li class="heads"><img ng-src="{{images.heads}}"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
               <div class="back">
                 <ul class="coin roundCorners">
-                  <li class="tails"><img src="../img/coinTails.png"></li>
+                  <li class="tails"><img ng-src="{{images.tails}}"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
@@ -102,13 +101,13 @@
             <div class="flipper">
               <div class="front">
                 <ul class="coin roundCorners">
-                  <li class="heads"><img src="../img/coinHeads.png"></li>
+                  <li class="heads"><img ng-src="{{images.heads}}"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
               <div class="back">
                 <ul class="coin roundCorners">
-                  <li class="tails"><img src="../img/coinTails.png"></li>
+                  <li class="tails"><img ng-src="{{images.tails}}"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
@@ -120,13 +119,13 @@
             <div class="flipper">
               <div class="front">
                 <ul class="coin roundCorners">
-                  <li class="heads"><img src="../img/coinHeads.png"></li>
+                  <li class="heads"><img ng-src="{{images.heads}}"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
               <div class="back">
                 <ul class="coin roundCorners">
-                  <li class="tails"><img src="../img/coinTails.png"></li>
+                  <li class="tails"><img ng-src="{{images.tails}}"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
@@ -138,13 +137,13 @@
             <div class="flipper">
               <div class="front">
                 <ul class="coin roundCorners">
-                  <li class="heads"><img src="../img/coinHeads.png"></li>
+                  <li class="heads"><img ng-src="{{images.heads}}"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
               <div class="back">
                 <ul class="coin roundCorners">
-                  <li class="tails"><img src="../img/coinTails.png"></li>
+                  <li class="tails"><img ng-src="{{images.tails}}"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
@@ -169,7 +168,7 @@
 
         <!-- submit button for coin flip -->
         <ion-item>
-          <button class="button button-block button-balanced"  ng-click="submitCoinFlip()">submit</button>
+          <button class="button button-block button-balanced" ng-click="submitCoinFlip()">submit</button>
         </ion-item>
       </div>
 

@@ -43,6 +43,12 @@ app.controller('fishController', function ($scope, $ionicHistory) {
   ];
 
 
+  $scope.images = {
+    demo: 'img/fishDemo_2.gif',
+    heads: 'img/coinHeads.png',
+    tails: 'img/coinTails.png',
+  };
+
   $scope.coinFlip = {
     numberCoins: '4'
   };
