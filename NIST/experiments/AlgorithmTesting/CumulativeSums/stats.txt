@@ -2,15 +2,15 @@
 		-------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		-------------------------------------------
-		(a) The maximum partial sum = 27
+		(a) The maximum partial sum = 63
 		-------------------------------------------
-SUCCESS		p_value = 0.772254
+SUCCESS		p_value = 0.154879
 
 		      CUMULATIVE SUMS (REVERSE) TEST
 		-------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		-------------------------------------------
-		(a) The maximum partial sum = 22
+		(a) The maximum partial sum = 54
 		-------------------------------------------
-SUCCESS		p_value = 0.904701
+SUCCESS		p_value = 0.260299
 

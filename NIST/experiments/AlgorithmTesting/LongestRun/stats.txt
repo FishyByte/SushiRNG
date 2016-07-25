@@ -2,12 +2,12 @@
 		---------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		---------------------------------------------
-		(a) N (# of substrings)  = 127
+		(a) N (# of substrings)  = 159
 		(b) M (Substring Length) = 8
-		(c) Chi^2                = 3.562483
+		(c) Chi^2                = 2.457871
 		---------------------------------------------
 		      F R E Q U E N C Y
 		---------------------------------------------
 		  <=1     2     3    >=4   P-value  Assignment
-		  27  54  21   25 SUCCESS		p_value = 0.312748
+		  42  56  35   26 SUCCESS		p_value = 0.482953
 

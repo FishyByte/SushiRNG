@@ -2,8 +2,8 @@
 		--------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		--------------------------------------------
-		(a) Number Of Cycles (J) = 77
-		(b) Sequence Length (n)  = 1017
+		(a) Number Of Cycles (J) = 5
+		(b) Sequence Length (n)  = 1273
 		--------------------------------------------
 
 		WARNING:  TEST NOT APPLICABLE.  THERE ARE AN
