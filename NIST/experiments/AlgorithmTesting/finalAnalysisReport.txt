@@ -1,11 +1,10 @@
 ------------------------------------------------------------------------------
 RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
 ------------------------------------------------------------------------------
-   generator is <../rng/new_test_file>
+   generator is <data/new_test_file.txt>
 ------------------------------------------------------------------------------
  C1  C2  C3  C4  C5  C6  C7  C8  C9 C10  P-VALUE  PROPORTION  STATISTICAL TEST
 ------------------------------------------------------------------------------
-<<<<<<< HEAD
   1   0   0   0   0   0   0   0   0   0     ----       1/1       Frequency
   1   0   0   0   0   0   0   0   0   0     ----       1/1       BlockFrequency
   1   0   0   0   0   0   0   0   0   0     ----       1/1       CumulativeSums
@@ -22,38 +21,6 @@ RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
   0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-=======
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       Frequency
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       BlockFrequency
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       CumulativeSums
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       CumulativeSums
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       Runs
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       LongestRun
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       Rank
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       FFT
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
->>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
   0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
@@ -69,7 +36,6 @@ RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
   0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-<<<<<<< HEAD
   0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
@@ -84,20 +50,8 @@ RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
   0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-=======
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  1   0   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
->>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
   0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-<<<<<<< HEAD
   0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
@@ -141,41 +95,8 @@ RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
   0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-=======
-  1   0   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  1   0   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
->>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
-  0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-<<<<<<< HEAD
   0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
   0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
@@ -207,38 +128,9 @@ RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
   0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-=======
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
->>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
   0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-<<<<<<< HEAD
   0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
@@ -254,51 +146,8 @@ RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
   0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-=======
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  1   0   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  1   0   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  1   0   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
->>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
-  0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   1   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-<<<<<<< HEAD
   1   0   0   0   0   0   0   0   0   0     ----       0/1       NonOverlappingTemplate
   0   0   1   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
   0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
@@ -315,20 +164,6 @@ RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
   0   0   0   0   0   0   0   0   1   0     ----       1/1       OverlappingTemplate
   1   0   0   0   0   0   0   0   0   0     ----       0/1       Universal
   0   0   0   0   0   0   1   0   0   0     ----       1/1       ApproximateEntropy
-=======
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   1   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   1   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   1   0   0     ----       1/1       NonOverlappingTemplate
-  0   0   0   0   0   0   0   0   0   1     ----       1/1       OverlappingTemplate
-  1   0   0   0   0   0   0   0   0   0     ----       0/1       Universal
-  1   0   0   0   0   0   0   0   0   0     ----       1/1       ApproximateEntropy
->>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
   0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
   0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
   0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
@@ -355,15 +190,9 @@ RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
   0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
   0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
   0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
-<<<<<<< HEAD
   0   0   0   0   0   0   0   1   0   0     ----       1/1       Serial
   0   0   0   0   0   0   0   0   1   0     ----       1/1       Serial
   0   0   0   0   0   0   0   1   0   0     ----       1/1       LinearComplexity
-=======
-  0   1   0   0   0   0   0   0   0   0     ----       1/1       Serial
-  0   0   0   0   0   1   0   0   0   0     ----       1/1       Serial
-  0   0   0   0   0   0   1   0   0   0     ----       1/1       LinearComplexity
->>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
 
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

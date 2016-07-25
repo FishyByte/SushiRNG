@@ -2,22 +2,12 @@
 		---------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		---------------------------------------------
-<<<<<<< HEAD
 		(a) N (# of substrings)  = 631
 		(b) M (Substring Length) = 128
 		(c) Chi^2                = 2.692397
-=======
-		(a) N (# of substrings)  = 125
-		(b) M (Substring Length) = 128
-		(c) Chi^2                = 3.236272
->>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
 		---------------------------------------------
 		      F R E Q U E N C Y
 		---------------------------------------------
 		<=4  5  6  7  8  >=9 P-value  Assignment
-<<<<<<< HEAD
 		  65 145 166 110  70   75 SUCCESS		p_value = 0.747281
-=======
-		  15  33  36  15  13   13 SUCCESS		p_value = 0.663612
->>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
 
