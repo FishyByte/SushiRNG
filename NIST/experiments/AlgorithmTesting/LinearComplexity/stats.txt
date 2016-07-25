@@ -2,20 +2,11 @@
 	L I N E A R  C O M P L E X I T Y
 -----------------------------------------------------
 	M (substring length)     = 500
-<<<<<<< HEAD
-	N (number of substrings) = 0
-=======
 	N (number of substrings) = 32
->>>>>>> b8f6e87857df7796c319e5036c243a2a74fc78d2
 -----------------------------------------------------
         F R E Q U E N C Y                            
 -----------------------------------------------------
   C0   C1   C2   C3   C4   C5   C6    CHI2    P-value
 -----------------------------------------------------
-<<<<<<< HEAD
-	Note: 200 bits were discarded!
-   0    0    0    0    0    0    0      -nan     -nan
-=======
 	Note: 81 bits were discarded!
    0    1    6   14   10    0    1  4.251720 0.642653
->>>>>>> b8f6e87857df7796c319e5036c243a2a74fc78d2

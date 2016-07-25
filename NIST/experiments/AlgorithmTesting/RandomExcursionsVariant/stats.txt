@@ -2,13 +2,8 @@
 		--------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		--------------------------------------------
-<<<<<<< HEAD
-		(a) Number Of Cycles (J) = 1
-		(b) Sequence Length (n)  = 200
-=======
 		(a) Number Of Cycles (J) = 42
 		(b) Sequence Length (n)  = 16081
->>>>>>> b8f6e87857df7796c319e5036c243a2a74fc78d2
 		--------------------------------------------
 
 		WARNING:  TEST NOT APPLICABLE.  THERE ARE AN

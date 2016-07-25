@@ -2,11 +2,7 @@
 		-----------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		-----------------------------------------------
-<<<<<<< HEAD
-		(a) n (sequence_length)      = 200
-=======
 		(a) n (sequence_length)      = 16081
->>>>>>> b8f6e87857df7796c319e5036c243a2a74fc78d2
 		(b) m (block length of 1s)   = 9
 		(c) M (length of substring)  = 1032
 		(d) N (number of substrings) = 15
