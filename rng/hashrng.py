@@ -156,9 +156,9 @@ class RngPool:
 
     # Find the corrected length of bits given entropy calculations
     def entropy_correction(self):
-        corrected_bits = math.ceil(256 * self.entropy)
+        corrected_bits = math.ceil(12288 * self.entropy)
         corrected_bits = int(corrected_bits)
-        corrected_bits = 256 + (256-corrected_bits)
+        corrected_bits = 12288 + (12288-corrected_bits)
         self.correct_bits = corrected_bits
 
     # Whitener for the Fish numbers to 160 bits
@@ -401,7 +401,7 @@ def main():
     # Print the length of the pool.
     print "Current length of the pool", new_pool.get_random_pool_size()
     # Write the file for NIST
-    new_pool.write_to_file("mega_fish_data")
+    new_pool.write_to_file("new_test_file")
     new_pool.update_pool_information()
     print "Pool's % 0s", new_pool.pool_percent_zero
     print "Pool's % 1s", new_pool.pool_percent_one
