@@ -13,3 +13,37 @@
   text-align: center;
 }
 
+/*Table Styling*/
+table.nistTable {
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border: 1px solid #000000;
+  font-family: verdana, arial, sans-serif;
+  font-size: 11px;
+  color: #333333;
+  border-width: 1px;
+  border-color: #3A3A3A;
+  border-collapse: collapse;
+}
+table.nistTable th {
+  border-width: 1px;
+  padding: 3px;
+  border-style: solid;
+  border-color: #28a54c;
+  background-color: #33cd5f;
+  color: #ffffff;
+}
+table.nistTable tr:hover td {
+  cursor: pointer;
+}
+table.nistTable tr:nth-child(even) td{
+  background-color: #78ec9a;
+}
+table.nistTable td {
+  border-width: 1px;
+  padding: 3px;
+  border-style: solid;
+  border-color: #28a54c;
+  background-color: #ffffff;
+}
