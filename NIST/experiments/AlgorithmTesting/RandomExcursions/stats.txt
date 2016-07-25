@@ -2,7 +2,7 @@
 		--------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		--------------------------------------------
-		(a) Number Of Cycles (J) = 0005
+		(a) Number Of Cycles (J) = 0011
 		(b) Sequence Length (n)  = 1273
 		---------------------------------------------
 		WARNING:  TEST NOT APPLICABLE.  THERE ARE AN

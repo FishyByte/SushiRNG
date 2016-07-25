@@ -4,14 +4,14 @@
 		--------------------------------------------
 		(a) m (block length)    = 10
 		(b) n (sequence length) = 1273
-		(c) Chi^2               = 944.979401
-		(d) Phi(m)	       = -6.477862
-		(e) Phi(m+1)	       = -6.799847
-		(f) ApEn                = 0.321985
+		(c) Chi^2               = 1000.208493
+		(d) Phi(m)	       = -6.459117
+		(e) Phi(m+1)	       = -6.759410
+		(f) ApEn                = 0.300292
 		(g) Log(2)              = 0.693147
 		--------------------------------------------
 		Note: The blockSize = 10 exceeds recommended value of 5
 		Results are inaccurate!
 		--------------------------------------------
-SUCCESS		p_value = 0.962327
+SUCCESS		p_value = 0.696755
 
