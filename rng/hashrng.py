@@ -156,9 +156,9 @@ class RngPool:
 
     # Find the corrected length of bits given entropy calculations
     def entropy_correction(self):
-        corrected_bits = math.ceil(256 * self.entropy)
+        corrected_bits = math.ceil(12288 * self.entropy)
         corrected_bits = int(corrected_bits)
-        corrected_bits = 256 + (256-corrected_bits)
+        corrected_bits = 12288 + (12288-corrected_bits)
         self.correct_bits = corrected_bits
 
     # Whitener for the Fish numbers to 160 bits
@@ -378,19 +378,19 @@ def main():
 
     # Bit list creation for the pool. Yes this is bad and lazy
     bit_list_one = new_pool.read_from_file("fishBits09.txt")
-    bit_list_two = new_pool.read_from_file("fishBits10.txt")
-    bit_list_three = new_pool.read_from_file("fishBits11.txt")
-    bit_list_four = new_pool.read_from_file("fishBits12.txt")
+    # bit_list_two = new_pool.read_from_file("fishBits10.txt")
+    # bit_list_three = new_pool.read_from_file("fishBits11.txt")
+    # bit_list_four = new_pool.read_from_file("fishBits12.txt")
 
     # Update the pool with the new data. More lazy and bad.
     new_pool.update_data(bit_list_one)
     new_pool.whiten_numbers(bit_list_one)
-    new_pool.update_data(bit_list_two)
-    new_pool.whiten_numbers(bit_list_two)
-    new_pool.update_data(bit_list_three)
-    new_pool.whiten_numbers(bit_list_three)
-    new_pool.update_data(bit_list_four)
-    new_pool.whiten_numbers(bit_list_four)
+    # new_pool.update_data(bit_list_two)
+    # new_pool.whiten_numbers(bit_list_two)
+    # new_pool.update_data(bit_list_three)
+    # new_pool.whiten_numbers(bit_list_three)
+    # new_pool.update_data(bit_list_four)
+    # new_pool.whiten_numbers(bit_list_four)
 
     # Report the current stats of the pool.
     # new_pool.report_pool_info()
@@ -401,7 +401,7 @@ def main():
     # Print the length of the pool.
     print "Current length of the pool", new_pool.get_random_pool_size()
     # Write the file for NIST
-    new_pool.write_to_file("mega_fish_data")
+    new_pool.write_to_file("chris_test_me")
     new_pool.update_pool_information()
     print "Pool's % 0s", new_pool.pool_percent_zero
     print "Pool's % 1s", new_pool.pool_percent_one
