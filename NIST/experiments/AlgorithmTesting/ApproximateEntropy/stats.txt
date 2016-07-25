@@ -14,4 +14,3 @@
 		Results are inaccurate!
 		--------------------------------------------
 SUCCESS		p_value = 1.000000
-

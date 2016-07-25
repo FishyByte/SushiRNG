@@ -2,15 +2,27 @@
 		-------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		-------------------------------------------
+<<<<<<< HEAD
 		(a) The maximum partial sum = 200
 		-------------------------------------------
 FAILURE		p_value = 0.000000
+=======
+		(a) The maximum partial sum = 201
+		-------------------------------------------
+SUCCESS		p_value = 0.225912
+>>>>>>> b8f6e87857df7796c319e5036c243a2a74fc78d2
 
 		      CUMULATIVE SUMS (REVERSE) TEST
 		-------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		-------------------------------------------
+<<<<<<< HEAD
 		(a) The maximum partial sum = 200
 		-------------------------------------------
 FAILURE		p_value = 0.000000
+=======
+		(a) The maximum partial sum = 138
+		-------------------------------------------
+SUCCESS		p_value = 0.550792
+>>>>>>> b8f6e87857df7796c319e5036c243a2a74fc78d2
 
