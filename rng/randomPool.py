@@ -52,7 +52,7 @@ class RngPool:
         self.random_pool = []
 
         # The current "datas" value for entropy bits, %s, and entropy.
-        self.correct_bits = 4096
+        self.correct_bits = 256
         self.percent_ones = 0
         self.percent_zeros = 0
         self.entropy = 0
