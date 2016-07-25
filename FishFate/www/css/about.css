@@ -1,6 +1,5 @@
 #graph {
   width: 100%;
-  padding-bottom: 100%;
 }
 .aboutTextBlock {
   width: 100%;
@@ -13,11 +12,17 @@
   text-align: center;
 }
 
+
 /*Table Styling*/
-table.nistTable {
+.smallBorderRadius {
   border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
+}
+
+
+table.nistTable {
+
   border: 1px solid #000000;
   font-family: verdana, arial, sans-serif;
   font-size: 11px;
