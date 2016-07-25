@@ -2,15 +2,26 @@
 		-----------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		-----------------------------------------------
+<<<<<<< HEAD
 		(a) n (sequence_length)      = 80825
 		(b) m (block length of 1s)   = 9
 		(c) M (length of substring)  = 1032
 		(d) N (number of substrings) = 78
+=======
+		(a) n (sequence_length)      = 16081
+		(b) m (block length of 1s)   = 9
+		(c) M (length of substring)  = 1032
+		(d) N (number of substrings) = 15
+>>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
 		(e) lambda [(M-m+1)/2^m]     = 2.000000
 		(f) eta                      = 1.000000
 		-----------------------------------------------
 		   F R E Q U E N C Y
 		  0   1   2   3   4 >=5   Chi^2   P-value  Assignment
 		-----------------------------------------------
+<<<<<<< HEAD
 		 24  13  14   9   6  12  2.215009 0.818665 SUCCESS
+=======
+		  6   2   1   2   1   3  1.352307 0.929458 SUCCESS
+>>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
 

@@ -2,10 +2,19 @@
 		---------------------------------------------
 		COMPUTATIONAL INFORMATION:
 		---------------------------------------------
+<<<<<<< HEAD
 		(a) Chi^2           = 678.062500
 		(b) # of substrings = 631
 		(c) block length    = 128
 		(d) Note: 57 bits were discarded.
 		---------------------------------------------
 SUCCESS		p_value = 0.094783
+=======
+		(a) Chi^2           = 132.906250
+		(b) # of substrings = 125
+		(c) block length    = 128
+		(d) Note: 81 bits were discarded.
+		---------------------------------------------
+SUCCESS		p_value = 0.297423
+>>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
 

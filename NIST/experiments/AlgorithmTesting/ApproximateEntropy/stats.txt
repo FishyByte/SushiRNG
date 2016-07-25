@@ -3,6 +3,7 @@
 		COMPUTATIONAL INFORMATION:
 		--------------------------------------------
 		(a) m (block length)    = 10
+<<<<<<< HEAD
 		(b) n (sequence length) = 80825
 		(c) Chi^2               = 1008.477185
 		(d) Phi(m)	       = -6.925088
@@ -11,4 +12,17 @@
 		(g) Log(2)              = 0.693147
 		--------------------------------------------
 SUCCESS		p_value = 0.629303
+=======
+		(b) n (sequence length) = 16081
+		(c) Chi^2               = 1093.716789
+		(d) Phi(m)	       = -6.897030
+		(e) Phi(m+1)	       = -7.556171
+		(f) ApEn                = 0.659141
+		(g) Log(2)              = 0.693147
+		--------------------------------------------
+		Note: The blockSize = 10 exceeds recommended value of 8
+		Results are inaccurate!
+		--------------------------------------------
+SUCCESS		p_value = 0.064061
+>>>>>>> 2775c6e2e043d197b8f158ef9fa3eeef0eceb0cd
 
