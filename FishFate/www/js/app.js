@@ -206,7 +206,7 @@ app.controller('fishController', function ($scope, $ionicHistory) {
     var flipCounts = [0, 0, 0, 0];
     var coins = ['#coin0', '#coin1' ,'#coin2' , '#coin3'];
 
-    /* initial flip becore interval */
+    /* initial flip before interval */
     flipOnce(coins[0]);
     flipOnce(coins[1]);
     flipOnce(coins[2]);
@@ -246,8 +246,29 @@ app.controller('fishController', function ($scope, $ionicHistory) {
   }
   function flipOnce(element){ document.querySelector(element).classList.toggle("flip"); }
   function rotateDice(){
-    var diceArray = [$('#die0')];
-    animateDie(diceArray[0]);
+    var diceArray = [$('#die0'), $('#die1'), $('#die2'), $('#die3'), $('#die4')];
+    var diceIndex = 0;
+
+    var diceTrigger = setInterval(function (){
+      if (diceIndex == 5)
+        clearInterval(diceTrigger);
+        if (diceIndex < diceArray.length){
+          animateDie(diceArray[diceIndex]);
+          diceIndex++;
+        }
+
+
+    }, 100);
+
+
+/*    for (var diceIndex = 0; diceIndex < diceArray.length; diceIndex++){
+      setTimeout(function(diceIndex){
+        if (diceIndex < diceArray.length)
+          animateDie(diceArray[diceIndex]);
+      }, 100 * (diceIndex));
+    }*/
+
+
   }
 
   function animateDie(element){
