@@ -108,7 +108,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         # out.write(fish_stream.get_bits(totalBits))
 
         # now lets make a packet with 'requests'
-        url = 'http://127.0.0.1:5000/add-bytes'
+        url = 'https://fish-bit-hub.herokuapp.com/add-bytes'
         data = {'raw-data': str(fish_stream.get_bits(totalBits))}
 
         # headers = {'Content-type': 'multipart/form-data'}
