@@ -6,6 +6,7 @@
 
 #diceBlock{
   height: 95px;
+
 }
 .die {
   display: inline-block;
@@ -21,6 +22,13 @@
   font-size: 40px;
   color: white;
   text-align: center;
+}
+#die0{
+    margin-left: 50%;
+  left: -160px;
+}
+#die1 {
+  margin-left: -160px;
 }
 
 .rounded-10{
