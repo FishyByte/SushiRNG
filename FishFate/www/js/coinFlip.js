@@ -4,13 +4,18 @@
 var app = angular.module('FishFate');
 app.controller('coinController', function ($scope) {
 
+  /* array for coin id's */
   var coinIDs = ['#coin0', '#coin1', '#coin2', '#coin3'];
-  var coinArray = [$('#coin0'), $('#coin1'), $('#coin2'), $('#coin3')];
+
 
   /* dynamically display the selected number of coins */
-  $scope.displayCoins = function () { displayNumberCoins(); };
+  $scope.displayCoins = function () {
+    displayNumberCoins();
+  };
   /* coin submit pressed, animate the coins */
-  $scope.submitCoinFlip = function () { animateCoins(); };
+  $scope.submitCoinFlip = function () {
+    animateCoins();
+  };
 
   $scope.coinFlip = {
     numberCoins: '4',
@@ -24,6 +29,10 @@ app.controller('coinController', function ($scope) {
    * jQuery's fadeIn/fadeOut
    * */
   function displayNumberCoins() {
+    /* array for jQuery elements*/
+    var coinArray = [$('#coin0'), $('#coin1'), $('#coin2'), $('#coin3')];
+
+    /* switch through the four possible states */
     switch ($scope.coinFlip.numberCoins) {
       case '1':
         coinArray[1].fadeOut('fast');
@@ -65,7 +74,7 @@ app.controller('coinController', function ($scope) {
    * each of the coins.
    *
    * @param elementIndex (integer)
-     */
+   */
   function spinCoin(elementIndex) {
     /* init flip counts */
     var flipCounts = [0, 0, 0, 0];
