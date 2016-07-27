@@ -1,3 +1,3 @@
-web:  python backend/server.py --log-file -
+web: gunicorn server:app --log-file -
 
 
