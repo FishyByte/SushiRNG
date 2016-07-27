@@ -5795,7 +5795,7 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
 .item .item-content.active,
 .item .item-content.activated {
   border-color: #ccc;
-  background-color: #D9D9D9; }
+  background-color: #f8ffb0; }
   .item.active.item-complex > .item-content,
   .item.activated.item-complex > .item-content,
   .item-complex.active .item-content.item-complex > .item-content,
