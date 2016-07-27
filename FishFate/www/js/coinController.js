@@ -4,22 +4,27 @@
 var app = angular.module('FishFate');
 app.controller('coinController', function ($scope) {
 
-  var coinIDs    = ['#coin0', '#coin1' ,'#coin2' , '#coin3'];
-  var coinArray  = [ $('#coin0'), $('#coin1'), $('#coin2'), $('#coin3') ];
+  var coinIDs = ['#coin0', '#coin1', '#coin2', '#coin3'];
+  var coinArray = [$('#coin0'), $('#coin1'), $('#coin2'), $('#coin3')];
 
   /* dynamically display the selected number of coins */
-  $scope.displayCoins = function(){ displayNumberCoins(); };
+  $scope.displayCoins = function () { displayNumberCoins(); };
+  /* coin submit pressed, animate the coins */
+  $scope.submitCoinFlip = function () { animateCoins(); };
 
-  $scope.submitCoinFlip = function (){
-    animateCoins();
-  };
   $scope.coinFlip = {
     numberCoins: '4',
     coinValues: [1, 0, 1, 0]
   };
 
-  function displayNumberCoins(){
-    switch ($scope.coinFlip.numberCoins){
+
+  /**
+   * This function is called when use user interacts with the number of coins
+   * slider. It's used to display/hide the coins dynamically, which uses
+   * jQuery's fadeIn/fadeOut
+   * */
+  function displayNumberCoins() {
+    switch ($scope.coinFlip.numberCoins) {
       case '1':
         coinArray[1].fadeOut('fast');
         coinArray[2].fadeOut('fast');
@@ -45,25 +50,32 @@ app.controller('coinController', function ($scope) {
         break;
     }
   }
-  function animateCoins () {
-    for (var i = 0; i < coinIDs.length; i++){
-      if (i < coinIDs.length)
-        spinCoin(i);
-    }
 
+  /**
+   * loop through each of the coins and call spinCoin()
+   * */
+  function animateCoins() {
+    for (var coinIndex = 0; coinIndex < coinIDs.length; coinIndex++)
+      spinCoin(coinIndex);
   }
-  function spinCoin(elementIndex) {
 
+  /**
+   * this function uses css to spin an individual coin, the
+   * only required param is for an index value to represent
+   * each of the coins.
+   *
+   * @param elementIndex (integer)
+     */
+  function spinCoin(elementIndex) {
     /* init flip counts */
     var flipCounts = [0, 0, 0, 0];
-
-      var trigger = setInterval(function () {
-        if (flipCounts[elementIndex] == 10 + $scope.coinFlip.coinValues[elementIndex])
-          clearInterval(trigger);
-        document.querySelector(coinIDs[elementIndex]).classList.toggle("flip");
-        flipCounts[elementIndex]++;
-      }, 150);
+    /* flips the coin on an interval */
+    var trigger = setInterval(function () {
+      if (flipCounts[elementIndex] == 10 + $scope.coinFlip.coinValues[elementIndex])
+        clearInterval(trigger);
+      document.querySelector(coinIDs[elementIndex]).classList.toggle("flip");
+      flipCounts[elementIndex]++;
+    }, 150);
   }
-
 
 });
