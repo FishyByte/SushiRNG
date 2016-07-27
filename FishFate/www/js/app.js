@@ -56,9 +56,16 @@ app.controller('fishController', function ($scope, $ionicHistory) {
   $scope.coinFlip = {
     numberCoins: '4'
   };
+    $scope.diceRoll = {
+    numberDice: '5'
+  };
 
   /* dynamically display the selected number of coins */
   $scope.displayCoins = function(){ displayNumberCoins(); };
+
+  /* dynamically display the selected number of coins */
+  $scope.displayDice = function(){ displayNumberDice(); };
+
 
   /* go back button */
   $scope.goBack = function () { $ionicHistory.goBack(); };
@@ -147,6 +154,54 @@ app.controller('fishController', function ($scope, $ionicHistory) {
         break;
     }
   }
+
+    function displayNumberDice(){
+    var dieArray = [
+      $('#die0'),
+      $('#die1'),
+      $('#die2'),
+      $('#die3'),
+      $('#die4')
+    ];
+    switch ($scope.diceRoll.numberDice){
+      case '1':
+        dieArray[1].fadeOut('fast');
+        dieArray[2].fadeOut('fast');
+        dieArray[3].fadeOut('fast');
+        dieArray[4].fadeOut('fast');
+        break;
+      case '2':
+        dieArray[1].fadeIn('fast');
+        dieArray[2].fadeOut('fast');
+        dieArray[3].fadeOut('fast');
+        dieArray[4].fadeOut('fast');
+        break;
+      case '3':
+        dieArray[1].fadeIn('fast');
+        dieArray[2].fadeIn('fast');
+        dieArray[3].fadeOut('fast');
+        dieArray[4].fadeOut('fast');
+        break;
+      case '4':
+        dieArray[1].fadeIn('fast');
+        dieArray[2].fadeIn('fast');
+        dieArray[3].fadeIn('fast');
+        dieArray[4].fadeOut('fast');
+        break;
+      case '5':
+        dieArray[1].fadeIn('fast');
+        dieArray[2].fadeIn('fast');
+        dieArray[3].fadeIn('fast');
+        dieArray[4].fadeIn('fast');
+        break;
+      default:
+        console.log('error, number of coins out of bounds');
+        break;
+    }
+  }
+
+
+
   function animateCoins (zero, one, two, three) {
     var flipCounts = [0, 0, 0, 0];
     var coins = ['#coin0', '#coin1' ,'#coin2' , '#coin3'];

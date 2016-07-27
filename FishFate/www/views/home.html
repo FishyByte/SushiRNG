@@ -73,18 +73,19 @@
               <div class="range-label fixLabel"># dice</div>
               <input type="range"
                      name="numberDice"
-                     min="1" max="6"
-                     ng-model="numberDice">
-              {{numberDice}}
+                     min="1" max="5"
+                     data-ng-model="diceRoll.numberDice"
+                     ng-change="displayDice()">
+              {{diceRoll.numberDice}}
             </div>
             <div class="item range">
               <div class="range-label fixLabel"># sides</div>
-              <input type="range" n
-                     ame="numberSides"
+              <input type="range"
+                     name="numberSides"
                      min="4" max="20"
                      ng-checked="6"
-                     ng-model="numberSides">
-              {{numberSides}}
+                     data-ng-model="diceRoll.numberSides">
+              {{diceRoll.numberSides}}
             </div>
           </div>
         </ion-item>
