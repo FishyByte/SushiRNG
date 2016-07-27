@@ -29,8 +29,8 @@
       </ion-item>
 
       <!-- magic eight ball -->
-      <div id="eightBall" ng-click="submitEightBall()">
-        <ion-item>
+      <div id="eightBall">
+        <ion-item ng-click="submitEightBall()">
           <ul id="eightBall01" class="roundCorners">
             <li id="eightBall02" class="roundCorners"></li>
             <li id="eightBall03" class="roundCorners"></li>
@@ -42,15 +42,31 @@
       </div>
 
       <!-- dice roll input -->
-      <div id="diceRoll" ng-click="submitRollDice()">
-        <ion-item>
-          <ul id="die0" class="die">
-            <li><img ng-src="{{images.die}}"></li>
-          </ul>
-
-
+      <div id="diceRoll">
+        <ion-item id="diceBlock" ng-click="submitRollDice()">
+          <div id="die0" class="die">
+            <img class="rounded-10" ng-src="{{images.die}}">
+            <div class="dieResult">1</div>
+          </div>
+          <div id="die1" class="die">
+            <img class="rounded-10" ng-src="{{images.die}}">
+            <div class="dieResult">1</div>
+          </div>
+          <div id="die2" class="die">
+            <img class="rounded-10" ng-src="{{images.die}}">
+            <div class="dieResult">1</div>
+          </div>
+          <div id="die3" class="die">
+            <img class="rounded-10" ng-src="{{images.die}}">
+            <div class="dieResult">1</div>
+          </div>
+          <div id="die4" class="die">
+            <img class="rounded-10" ng-src="{{images.die}}">
+            <div class="dieResult">1</div>
+          </div>
 
         </ion-item>
+
         <ion-item>
           <div class="list">
             <div class="item range">
@@ -72,15 +88,12 @@
             </div>
           </div>
         </ion-item>
-        <ion-item>
-          <button class="button button-block button-balanced">submit</button>
-        </ion-item>
       </div>
 
 
       <!-- coin flip  -->
-      <div id="coinFlip" ng-click="submitCoinFlip()">
-        <ion-item>
+      <div id="coinFlip">
+        <ion-item ng-click="submitCoinFlip()">
 
           <!-- coin zero: output -->
           <div id="coin0" class="flip-container">

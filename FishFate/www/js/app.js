@@ -192,28 +192,31 @@ app.controller('fishController', function ($scope, $ionicHistory) {
   function flipOnce(element){ document.querySelector(element).classList.toggle("flip"); }
   function rotateDice(){
     var diceArray = [$('#die0')];
-    diceArray[0].rotate({
+    animateDie(diceArray[0]);
+  }
+
+  function animateDie(element){
+    element.rotate({
       angle: 0,
       animateTo: 360,
       duration: 1900
     });
-    diceArray[0].animate({
+    element.animate({
       top: '-200px'
     }, 500, function(){
-      diceArray[0].animate({
+      element.animate({
         top: 0
       }, 500, function(){
-        diceArray[0].animate({
+        element.animate({
           top: '-10px'
         }, 150, function(){
-          diceArray[0].animate({
+          element.animate({
             top: 0
           }, 150)
         })
       })
     })
   }
-
   /**
    *  JQuery effects
    * */
