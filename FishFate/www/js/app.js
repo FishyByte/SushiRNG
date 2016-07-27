@@ -75,6 +75,9 @@ app.controller('fishController', function ($scope, $ionicHistory) {
   $scope.submitEightBall = function () {
     animateEightBall();
   };
+  $scope.submitRollDice = function (){
+    rotateDice()
+  };
   $scope.submitCoinFlip = function (){
     console.log("hit coin flip");
     animateCoins(1, 0, 1, 0);
@@ -186,14 +189,34 @@ app.controller('fishController', function ($scope, $ionicHistory) {
     }, 150);
   }
   function flipOnce(element){ document.querySelector(element).classList.toggle("flip"); }
-
+  function rotateDice(){
+    document.querySelector('#cube').classList.toggle("back");
+  }
 
   /**
    *  JQuery effects
    * */
   function showEightBall() {
+
+    var viewHeight = $('.view').height();
+    var eightBallHeight = $('#eightBall').height();
+    var menuOptionsHeight = $('#menuOptions').height();
+
+
+
+    var bannerHeight = $('#fishBanner').height();
+
+    console.log('view', viewHeight);
+    console.log('8ball', eightBallHeight);
+    console.log('menuOptions', menuOptionsHeight);
+
+    var dynamicHeight = viewHeight - eightBallHeight - menuOptionsHeight - 78;
+
+    if (dynamicHeight > bannerHeight)
+      dynamicHeight = bannerHeight;
+
     $('#fishBanner').animate({
-      height: '50px'
+      height: dynamicHeight
     }, 'fast', function () {
       if (!optionOpen[0]) {
         $('#diceRoll').fadeOut('fast');

@@ -13,7 +13,7 @@
 
     <div class="whiteOut">
       <!-- buttons -->
-      <ion-item>
+      <ion-item id="menuOptions">
         <div class="row">
           <button class="button button-calm col addMargin shadow"
                   ng-click="selectEightBall()">Magic 8-Ball
@@ -29,7 +29,7 @@
       </ion-item>
 
       <!-- magic eight ball -->
-      <div id="eightBall">
+      <div id="eightBall" ng-click="submitEightBall()">
         <ion-item>
           <ul id="eightBall01" class="roundCorners">
             <li id="eightBall02" class="roundCorners"></li>
@@ -39,14 +39,16 @@
             <li id="triangleOverlay" class="roundCorners"></li>
           </ul>
         </ion-item>
-        <ion-item>
-          <button ng-click="submitEightBall()" id="eightBallButton" class="button button-block button-balanced">submit
-          </button>
-        </ion-item>
       </div>
 
       <!-- dice roll input -->
-      <div id="diceRoll">
+      <div id="diceRoll" ng-click="submitRollDice()">
+        <ion-item>
+
+
+
+
+        </ion-item>
         <ion-item>
           <div class="list">
             <div class="item range">

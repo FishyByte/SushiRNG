@@ -1,0 +1,12 @@
+
+#diceRoll{
+  display: none;
+}
+
+
+.die {
+  display: inline-block;
+  position: inherit;
+  width: 60px;
+  height: 60px;
+}
