@@ -44,9 +44,10 @@ app.controller('fishController', function ($scope, $ionicHistory) {
 
 
   $scope.images = {
-    demo: 'img/fishDemo_2.gif',
+    demo:  'img/fishDemo_2.gif',
     heads: 'img/coinHeads.png',
     tails: 'img/coinTails.png',
+    die:   'img/fishDie.png',
     about: {
       graph: 'img/graph.png'
     }
@@ -190,7 +191,27 @@ app.controller('fishController', function ($scope, $ionicHistory) {
   }
   function flipOnce(element){ document.querySelector(element).classList.toggle("flip"); }
   function rotateDice(){
-    document.querySelector('#cube').classList.toggle("back");
+    var diceArray = [$('#die0')];
+    diceArray[0].rotate({
+      angle: 0,
+      animateTo: 360,
+      duration: 1900
+    });
+    diceArray[0].animate({
+      top: '-200px'
+    }, 500, function(){
+      diceArray[0].animate({
+        top: 0
+      }, 500, function(){
+        diceArray[0].animate({
+          top: '-10px'
+        }, 150, function(){
+          diceArray[0].animate({
+            top: 0
+          }, 150)
+        })
+      })
+    })
   }
 
   /**
