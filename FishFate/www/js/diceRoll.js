@@ -4,15 +4,37 @@
 var app = angular.module('FishFate');
 app.controller('diceController', function ($scope) {
 
-  /* this array holds jQuery id's */
+  /* this arrays holds jQuery id's */
   var diceArray = [$('#die0'), $('#die1'), $('#die2'), $('#die3'), $('#die4')];
+  var diceResults = [$('#dieResult0'), $('#dieResult1'), $('#dieResult2'), $('#dieResult3'), $('#dieResult4')];
 
   $scope.diceRoll = {
-    numberDice: '5'
+    numberDice: '5',
+    numberSides: '6',
+    diceValues: [1, 2, 3, 4, 5]
   };
 
-  /* coin submit pressed, animate the coins */
-  $scope.submitRollDice = function () { rotateDice() };
+  /**
+   *  coin submit pressed:
+   *    1. hide dice values
+   *    2. change to new values
+   *    3. animate the coins
+   *  */
+  $scope.submitRollDice = function () {
+      hideValues(changeValues, rotateDice);
+  };
+  /* callback level two */
+  function hideValues(callbackOne, callbackTwo){
+    $('.dieResult').fadeOut(1);
+    callbackOne(callbackTwo);
+
+  }
+  /* callback level three */
+  function changeValues(callback){
+    $scope.diceRoll.diceValues = [6, 7, 8, 9, 20];// mocked test data
+    callback();
+  }
+
   /* dynamically display the selected number of coins */
   $scope.displayDice = function () { displayNumberDice(); };
 
@@ -67,7 +89,7 @@ app.controller('diceController', function ($scope) {
    * spin: uses css to rotate the die 360 degrees
    * toss: simulates a dice throw
    * */
-  function animateDie(element) {
+  function animateDie(element, index) {
     element.rotate({
       angle: 0,
       animateTo: 360,
@@ -76,6 +98,7 @@ app.controller('diceController', function ($scope) {
     element.animate({
       top: '-200px'
     }, 500, function () {
+      diceResults[index].fadeIn('fast');
       element.animate({
         top: 0
       }, 500, function () {
@@ -97,7 +120,7 @@ app.controller('diceController', function ($scope) {
       if (diceIndex == diceArray.length)
         clearInterval(diceTrigger);
       if (diceIndex < diceArray.length) {
-        animateDie(diceArray[diceIndex]);
+        animateDie(diceArray[diceIndex], diceIndex);
         diceIndex++;
       }
     }, 100);
