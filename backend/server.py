@@ -34,10 +34,11 @@ import time
 
 
 
-UPLOAD_FOLDER = '/home/nick/SushiRNG/backend/data'
+UPLOAD_FOLDER = 'data'
 ALLOWED_EXTENSIONS=['bin']
 MAX_REQUEST_SIZE = 1000 # users may request up to 1MB
 MAX_STREAM_SIZE = 8 * 1024 * 1024
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -131,7 +132,7 @@ def set_bits():
     else:
         abort(401) #access denied only post requests allowed
 
-
+"""
 def fillByteBuffer():
     #attempt to bring in a file to read into the buffer
     
@@ -153,9 +154,9 @@ def fillByteBuffer():
         return True
     else:
         return False
-
+"""
 
 if __name__ == "__main__":
-    fillByteBuffer()
+#    fillByteBuffer()
     app.run()
 
