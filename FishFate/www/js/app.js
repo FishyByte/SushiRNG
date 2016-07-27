@@ -22,21 +22,9 @@ app.run(function ($ionicPlatform) {
   });
 });
 
-app.config(function ($stateProvider, $urlRouterProvider) {
-  $stateProvider
-    .state('home', {
-      url: '/home',
-      templateUrl: 'views/home.html'
-    })
-    .state('about', {
-      url: '/menu',
-      templateUrl: 'views/about.html'
-    });
-  $urlRouterProvider.otherwise('/home')
-});
+
 
 app.controller('fishController', function ($scope, $ionicHistory) {
-
   var optionOpen = [false, false, false];
   var answers = [
     'do or do not,<br>there is<br>no try'
