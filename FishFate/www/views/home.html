@@ -77,7 +77,7 @@
 
 
       <!-- coin flip  -->
-      <div id="coinFlip" >
+      <div id="coinFlip" ng-click="submitCoinFlip()">
         <ion-item>
 
           <!-- coin zero: output -->
@@ -166,11 +166,6 @@
               {{coinFlip.numberCoins}}
             </div>
           </div>
-        </ion-item>
-
-        <!-- submit button for coin flip -->
-        <ion-item>
-          <button class="button button-block button-balanced" ng-click="submitCoinFlip()">submit</button>
         </ion-item>
       </div>
 
