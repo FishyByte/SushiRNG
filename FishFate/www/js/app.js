@@ -26,9 +26,7 @@ app.run(function ($ionicPlatform) {
 
 app.controller('fishController', function ($scope, $ionicHistory) {
   var optionOpen = [false, false, false];
-  var answers = [
-    'do or do not,<br>there is<br>no try'
-  ];
+
 
 
   $scope.images = {
@@ -60,45 +58,6 @@ app.controller('fishController', function ($scope, $ionicHistory) {
   $scope.selectCoinFlip  = function () { showCoinFlip();  };
 
 
-  $scope.eightBall = {
-    answer: answers[0]
-  };
-
-  $scope.submitEightBall = function () {
-    animateEightBall();
-  };
-
-
-
-  /* animations */
-  function animateEightBall() {
-    var triangle = $('#triangle');
-    var answer = $('#answer');
-    var eightBall = $('#eightBall01');
-
-    triangle.fadeOut('fast');
-    answer.fadeOut('fast');
-
-    eightBall.animate({
-      right: '160px'
-    }, 300, function (){
-      eightBall.animate({
-        right: '140px'
-      }, 300, function(){
-        eightBall.animate({
-          right: '160px'
-        }, 300, function(){
-          eightBall.animate({
-            right: '150px'
-          }, 300 ,function (){
-            triangle.fadeIn('slow');
-            answer.fadeIn('slow');
-          });
-
-        });
-      });
-    });
-  }
 
   /**
    *  JQuery effects
