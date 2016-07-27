@@ -13,9 +13,9 @@ from fish_stream import FishStream
 
 fish_stream = FishStream()
 
-# output bitstream to binary file
-out = open('fishData/fishBits.bin', 'wb')
-out.truncate()
+# # output bitstream to binary file
+# out = open('fishData/fishBits.bin', 'wb')
+# out.truncate()
 
 # define the lower and upper boundaries of the "pink"
 # fish in the HSV color space, then initialize the
@@ -36,8 +36,8 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
 # allow camera warmup
 time.sleep(0.3)
 
-# how many bits per file. 32768 bits = 4kb
-totalBits = 32768
+# how many bits per file.
+totalBits = 2048
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -105,16 +105,17 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # sweet, we got enough bits from the fish
     if fish_stream.get_length() > totalBits:
         # first write to file
-        out.write(fish_stream.get_bits(totalBits))
+        # out.write(fish_stream.get_bits(totalBits))
 
         # now lets make a packet with 'requests'
-        url = 'http://127.0.0.1:5000/add-bits'
-        data = {'token': 'auth_token'}
-        headers = {'Content-type': 'multipart/form-data'}
-        files = {'document': open('fishData/fishBits.bin', 'rb')}
+        url = 'http://127.0.0.1:5000/add-bytes'
+        data = {'raw-data': str(fish_stream.get_bits(totalBits))}
+
+        # headers = {'Content-type': 'multipart/form-data'}
+        # files = {'document': open('fishData/fishBits.bin', 'rb')}
 
         # now ship it
-        response = requests.post(url, files=files, data=data, headers=headers)
+        response = requests.post(url, data=data)
 
         # how did we do?
         print "POST to", url
@@ -122,15 +123,16 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         print "--------------------------------------------------"
 
         # nuke the file
-        out.truncate()
+        # out.truncate()
 
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
-        out.write(str(fish_stream.stream))
+        fish_stream.print_stream()
+        "--------------------------------------------------"
         break
 
     # if the 'o' key is pressed output current contents of BitStream
-    if key == ord("q"):
+    if key == ord("o"):
         fish_stream.print_stream()
         print "--------------------------------------------------"
 
