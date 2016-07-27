@@ -63,14 +63,12 @@ $scope.diceRoll = {
     var diceIndex = 0;
 
     var diceTrigger = setInterval(function (){
-      if (diceIndex == 5)
+      if (diceIndex == diceArray.length)
         clearInterval(diceTrigger);
         if (diceIndex < diceArray.length){
           animateDie(diceArray[diceIndex]);
           diceIndex++;
         }
-
-
     }, 100);
   }
 
