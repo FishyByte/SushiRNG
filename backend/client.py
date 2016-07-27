@@ -34,8 +34,8 @@ encoded = int(input_data, 2)
 
 payload = {
     'pub_key': '233taewdzvx',
-    'fishBits': encoded
+    'raw-data': input_data
 }
 print os.getcwd()
-r = requests.post('http://127.0.0.1:5000/add-bytes', data=payload, files={'file': open('/home/nick/SushiRNG/backend/bits.bin','rb')})
+r = requests.post('http://127.0.0.1:5000/add-bytes', data=payload)
 print r.status_code

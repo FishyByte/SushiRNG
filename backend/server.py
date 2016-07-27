@@ -63,9 +63,9 @@ def allowed_file(filename):
 @app.route("/")
 def main_page():
     #TODOXXX
-    
-    return "Hello World!"
-    abort(401)#NOTHING TO SEE HERE
+    myHexStream = binascii.hexlify(str(myBitStream))
+    return str(myBitStream)
+    #abort(401)#NOTHING TO SEE HERE
 
 #********************************************************
 #
@@ -79,9 +79,9 @@ def get_bits():
         abort(400) #invalid request, we dont waste time around here, come back when you are prepared.
     if(numBytes > (len(myBitStream) / 8)):
         #UH OH WE NEED MOAR BITS IN MEMORY
-        if(fillByteBuffer() == False):
+        #if(fillByteBuffer() == False):
 
-            abort(500) #the client has made a valid request but,
+        abort(400) #the client has made a valid request but,
                         #no data is currently available
  
     #OKAY, now we can fufill our request
@@ -97,8 +97,8 @@ def get_bits():
     
 
 #********************************************************
-#
-#
+#this route will allow the upload of data to the server
+#include a string of random bits with the header "raw-data"
 #
 #********************************************************
 #should only allow POST requests from the pi
@@ -109,6 +109,7 @@ def set_bits():
         #TODO: NOW WOULD BE A GREAT TIME TO AUTHENTICATE
         print 'recieved post request:'
         
+        """
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -129,9 +130,18 @@ def set_bits():
             filename = str(current_milli_time) + filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return 'success'
+        """
+
+        bitString = request.form['raw-data']
+        i = 0
+        while i < len(bitString):
+            myBitStream.write(int(bitString[i]), bool)
+            i= i+1
+
+        return 'success'
     else:
         abort(401) #access denied only post requests allowed
-
+    
 """
 def fillByteBuffer():
     #attempt to bring in a file to read into the buffer
