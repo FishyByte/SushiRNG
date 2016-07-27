@@ -63,8 +63,8 @@ def allowed_file(filename):
 @app.route("/")
 def main_page():
     #TODOXXX
-    myHexStream = binascii.hexlify(str(myBitStream))
-    return str(myBitStream)
+    myStream = str(myBitStream)
+    return myStream
     #abort(401)#NOTHING TO SEE HERE
 
 #********************************************************
