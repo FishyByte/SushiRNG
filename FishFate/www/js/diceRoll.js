@@ -31,7 +31,9 @@ app.controller('diceController', function ($scope) {
   }
   /* callback level three */
   function changeValues(callback){
-    $scope.diceRoll.diceValues = [6, 7, 8, 9, 20];// mocked test data
+    for(var i = 0; i < $scope.diceRoll.diceValues.length; i++){
+      $scope.diceRoll.diceValues[i]++;
+    }
     callback();
   }
 
