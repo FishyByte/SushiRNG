@@ -63,7 +63,7 @@ def allowed_file(filename):
 @app.route("/")
 def main_page():
     #TODOXXX
-    myStream = str(myBitStream)
+    myStream = "BitString: " + str(myBitStream)
     return myStream
     #abort(401)#NOTHING TO SEE HERE
 
