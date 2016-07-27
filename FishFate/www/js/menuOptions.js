@@ -75,7 +75,7 @@ app.controller('menuOptionsController', function ($scope) {
    * banner height.
    * */
   function getHeight(elementHeight, offset) {
-    var elementHeight = [
+    var viewHeights = [
       $('.backgroundGif').height(), // demo banner
       $('.view').height(),          // height of entire view
       $('#menuOptions').height(),   // height of menu options
@@ -83,14 +83,14 @@ app.controller('menuOptionsController', function ($scope) {
     ];
 
     /* loop through elements subtracting from the view height */
-    for (var i = 2; i < elementHeight.length; i++)
-      elementHeight[1] -= elementHeight[i];
+    for (var i = 2; i < viewHeights.length; i++)
+      viewHeights[1] -= viewHeights[i];
 
     /* return whichever is bigger */
-    if (elementHeight[1] > elementHeight[0])
-      return elementHeight[0]; // banner height
+    if (viewHeights[1] > viewHeights[0])
+      return viewHeights[0]; // banner height
     else
-      return elementHeight[1]; // calculated height
+      return viewHeights[1]; // calculated height
   }
 
   /**
