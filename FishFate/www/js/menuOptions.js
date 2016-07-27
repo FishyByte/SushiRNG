@@ -4,35 +4,30 @@
 var app = angular.module('FishFate');
 app.controller('menuOptionsController', function ($scope) {
 
+  /* array to keep track of which option is currently selected */
   var optionOpen = [false, false, false];
+
   /* menu selection options */
   $scope.selectEightBall = function () { showEightBall(); };
-  $scope.selectDiceRoll  = function () { showDiceRoll();  };
-  $scope.selectCoinFlip  = function () { showCoinFlip();  };
-
-
+  $scope.selectDiceRoll = function ()  { showDiceRoll();  };
+  $scope.selectCoinFlip = function ()  { showCoinFlip();  };
 
   /**
-   *  JQuery effects
+   *  the following three functions are used to display
+   *  the three menu options. These are animated
+   *  using jQuery.
+   *
+   *  This is the following algorithm that each
+   *  menu option follows:
+   *
+   *    1. animate the banner to shrink so that all the
+   *       option block fits on the display
+   *    2. if any other option is open then fade it out
+   *    3. fade in the selected option
    * */
   function showEightBall() {
-
-    var viewHeight = $('.view').height();
-    var eightBallHeight = $('#eightBall').height();
-    var menuOptionsHeight = $('#menuOptions').height();
-
-
-
-    var bannerHeight = $('#fishBanner').height();
-
-
-    var dynamicHeight = viewHeight - eightBallHeight - menuOptionsHeight - 78;
-
-    if (dynamicHeight > bannerHeight)
-      dynamicHeight = bannerHeight;
-
     $('#fishBanner').animate({
-      height: dynamicHeight
+      height: getHeight($('#eightBall').height())
     }, 'fast', function () {
       if (!optionOpen[0]) {
         $('#diceRoll').fadeOut('fast');
@@ -42,14 +37,11 @@ app.controller('menuOptionsController', function ($scope) {
           optionOpen[1] = optionOpen[2] = false;
         });
       }
-
     });
-
   }
-
   function showDiceRoll() {
     $('#fishBanner').animate({
-      height: $('.backgroundGif').height()
+      height: getHeight($('#diceRoll').height())
     }, 'fast', function () {
       if (!optionOpen[1]) {
         $('#eightBall').fadeOut('fast');
@@ -61,11 +53,9 @@ app.controller('menuOptionsController', function ($scope) {
       }
     });
   }
-
   function showCoinFlip() {
     $('#fishBanner').animate({
-      height: $('.backgroundGif').height()
-
+      height: getHeight($('#coinFlip').height())
     }, 'fast', function () {
       if (!optionOpen[2]) {
         $('#eightBall').fadeOut('fast');
@@ -78,8 +68,35 @@ app.controller('menuOptionsController', function ($scope) {
     });
   }
 
-  function hideAllOptions() {
+  /**
+   * This function is used to calculate the height of all the 8-ball
+   * elements. if the calculated height is greater than the banner
+   * height then return the caluclated height, otherwise return the
+   * banner height.
+   * */
+  function getHeight(elementHeight, offset) {
+    var elementHeight = [
+      $('.backgroundGif').height(), // demo banner
+      $('.view').height(),          // height of entire view
+      $('#menuOptions').height(),   // height of menu options
+      elementHeight + 78            // height of option element + offset
+    ];
 
+    /* loop through elements subtracting from the view height */
+    for (var i = 2; i < elementHeight.length; i++)
+      elementHeight[1] -= elementHeight[i];
+
+    /* return whichever is bigger */
+    if (elementHeight[1] > elementHeight[0])
+      return elementHeight[0]; // banner height
+    else
+      return elementHeight[1]; // calculated height
+  }
+
+  /**
+   * hides all the options (initial start state)
+   * */
+  function hideAllOptions() {
     if (optionOpen[0])
       $('#eightBall').fadeOut('fast');
     if (optionOpen[1])

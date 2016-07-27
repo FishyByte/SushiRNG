@@ -45,6 +45,9 @@
 	transform: rotateY(180deg);
 }
 
+#coinFlip {
+  display:none;
+}
 
 .coin {
   display: inline-block;
