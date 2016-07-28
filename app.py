@@ -103,24 +103,26 @@ def get_bits():
 # ********************************************************
 @app.route("/get-ints")
 def get_ints():
-    try:
-        quantity = int(request.headers.get('quantity'))
-        max_value = int(request.headers.get('max-value'))
-        byte_mult = get_byte_multiplier(max_value)
-        bounds_check = quantity * byte_mult
-        respond = ''
+    quantity = int(request.headers.get('quantity'))
+    max_value = int(request.headers.get('max-value'))
+    byte_mult = get_byte_multiplier(max_value)
+    bounds_check = quantity * byte_mult
+    respond = ''
 
-        # error checking for days
-        if quantity is None:
-            return abort(400)
-        if quantity < 1:
-            return abort(400)
-        if bounds_check > MAX_REQUEST_SIZE:
-            return abort(400)
-        if (len(myBitStream) / 8) < bounds_check:
-            return abort(400)
-        if max > MAX_INT_RANGE:
-            return abort(400)
+    # error checking for days
+    if quantity is None:
+        return abort(400)
+    if max_value is None:
+        return abort(400)
+    if quantity < 1:
+        return abort(400)
+    if bounds_check > MAX_REQUEST_SIZE:
+        return abort(400)
+    if (len(myBitStream) / 8) < bounds_check:
+        return abort(400)
+    if max > MAX_INT_RANGE:
+        return abort(400)
+    try:
 
         # loop till we fill the order
         while True:
@@ -129,7 +131,7 @@ def get_ints():
                 return respond
 
             # grab some byte(s) for one value
-            current = int(myBitStream.read(8 * byte_mult), 2)
+            current = int(str(myBitStream.read(8 * byte_mult)), 2)
 
             # within range? add to return string
             if current < max:
