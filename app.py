@@ -23,7 +23,7 @@
 #*******************************************************************
 # bitstream page: https://github.com/boisgera/bitstream
 from flask import Flask, request, flash, abort
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from bitstream import BitStream
 from numpy import *
