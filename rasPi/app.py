@@ -105,7 +105,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     bitsCaptured = fish_stream.get_length()
     zero, one = fish_stream.get_probabilities()
-    sys.stdout.write("\r" + "0:" + zero + "   1:" + one + "    total:" + bitsCaptured)
+    sys.stdout.write("\r" + "0:" + str(zero) + "   1:" + str(one) + "    total:" + str(bitsCaptured))
     sys.stdout.flush()
 
 
