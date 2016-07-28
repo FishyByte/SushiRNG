@@ -105,24 +105,35 @@ def get_bits():
 def get_ints():
     quantity = int(request.headers.get('quantity'))
     max_value = int(request.headers.get('max-value'))
-    byte_mult = get_byte_multiplier(max_value)
-    bounds_check = quantity * byte_mult
+    # byte_mult = get_byte_multiplier(max_value)
+    # bounds_check = quantity * byte_mult
     respond = ''
 
     # error checking for days
-    if quantity is None:
-        return abort(400)
-    if max_value is None:
-        return abort(400)
-    if quantity < 1:
-        return abort(400)
-    if bounds_check > MAX_REQUEST_SIZE:
-        return abort(400)
-    if (len(myBitStream) / 8) < bounds_check:
-        return abort(400)
-    if max > MAX_INT_RANGE:
-        return abort(400)
+    # if quantity is None:
+    #     return abort(400)
+    # if max_value is None:
+    #     return abort(400)
+    # if quantity < 1:
+    #     return abort(400)
+    # if bounds_check > MAX_REQUEST_SIZE:
+    #     return abort(400)
+    # if (len(myBitStream) / 8) < bounds_check:
+    #     return abort(400)
+    # if max > MAX_INT_RANGE:
+    #     return abort(400)
     try:
+
+        # i know this is dumb.. just want to get it working
+        if max_value < 8:       # 111 = 7
+            number_bits = 3
+        elif max_value < 16:    # 1111 = 15
+            number_bits = 4
+        elif max_value < 32:     # 11111 = 31
+            number_bits = 4
+        else:
+            number_bits = 5
+
 
         # loop till we fill the order
         while True:
@@ -131,7 +142,7 @@ def get_ints():
                 return respond
 
             # grab some byte(s) for one value
-            current = int(str(myBitStream.read(8 * byte_mult)), 2)
+            current = int(str(myBitStream.read(number_bits)), 2)
 
             # within range? add to return string
             if current < max:
