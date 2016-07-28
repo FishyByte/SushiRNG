@@ -28,14 +28,15 @@ from werkzeug.utils import secure_filename
 from bitstream import BitStream
 from numpy import *
 import binascii
+import math
 import os
 from datetime import datetime
 import time
 
 UPLOAD_FOLDER = 'data'
 ALLOWED_EXTENSIONS = ['bin']
-MAX_REQUEST_SIZE = 1000  # users may request up to 1MB
-MAX_INT_RANGE = 2147483647
+MAX_REQUEST_SIZE = 1000     # users may request up to 1MB
+MAX_INT_RANGE = 2147483647  # max value for an integer
 
 app = Flask(__name__)
 CORS(app)
@@ -102,26 +103,29 @@ def get_bits():
 #
 # ********************************************************
 @app.route("/get-ints")
-def get_bits():
+def get_ints():
+    quantity = int(request.headers.get('quantity'))
+    max_value = int(request.headers.get('max-value'))
+    bits_requested = get_number_bits(max_value)
+
+    respond = ''
+
+    # empty request
+    if quantity is None or max_value is None:
+        return abort(400)
+
+    # param value to small
+    if quantity < 1 or max_value < 2:
+        return abort(400)
+
+    # limit request size to 1000 bytes/8000 bits
+    if bits_requested > (MAX_REQUEST_SIZE * 8):
+        return abort(400)
+
+    # too large of a range
+    if max_value > MAX_INT_RANGE:
+        return abort(400)
     try:
-        quantity = int(request.headers.get('quantity'))
-        max_value = int(request.headers.get('max-value'))
-        byte_mult = get_byte_multiplier(max_value)
-        bounds_check = quantity * byte_mult
-        respond = ''
-
-        # error checking for days
-        if quantity is None:
-            return abort(400)
-        if quantity < 1:
-            return abort(400)
-        if bounds_check > MAX_REQUEST_SIZE:
-            return abort(400)
-        if (len(myBitStream) / 8) < bounds_check:
-            return abort(400)
-        if max > MAX_INT_RANGE:
-            return abort(400)
-
         # loop till we fill the order
         while True:
             # ship it
@@ -129,25 +133,34 @@ def get_bits():
                 return respond
 
             # grab some byte(s) for one value
-            current = int(myBitStream.read(8 * byte_mult))
+            current = int(str(myBitStream.read(bits_requested)), 2)
 
             # within range? add to return string
-            if current < max:
+            if current < max_value:
                 respond += str(current) + ' '  # white space delimiter
                 quantity -= 1
+            # lets not be wasteful, write unused value back to stream
+            else:
+                myBitStream.write(str(current))
 
     except Exception, e:
         print e
         return abort(500)
 
 
-def get_byte_multiplier(int):
-    counter = 1
+# calculate the required number of bits
+def get_number_bits(upper_bound):
+    exponent = 1
+    number_bits = 1
     while True:
-        if int < 256:  # one bye is 0-255
-            return counter
-        int -= 256
-        counter += 1
+
+        if upper_bound >= pow(2, exponent):  # 2, 4, 8, 16
+            number_bits += 1
+        else:
+            print '**********', 'number of bits:', number_bits, '************'  # testing
+            return number_bits
+
+        exponent += 1
 
 
 # ********************************************************
