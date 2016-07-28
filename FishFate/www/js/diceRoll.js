@@ -2,11 +2,12 @@
  * Created by asakawa on 7/26/16.
  */
 var app = angular.module('FishFate');
-app.controller('diceController', function ($scope) {
+app.controller('diceController', function ($scope, $http) {
 
   /* this arrays holds jQuery id's */
   var diceArray = [$('#die0'), $('#die1'), $('#die2'), $('#die3'), $('#die4')];
   var diceResults = [$('#dieResult0'), $('#dieResult1'), $('#dieResult2'), $('#dieResult3'), $('#dieResult4')];
+  var responseArray = [0, 0, 0, 0, 0];
 
   $scope.diceRoll = {
     numberDice: '5',
@@ -21,21 +22,40 @@ app.controller('diceController', function ($scope) {
    *    3. animate the coins
    *  */
   $scope.submitRollDice = function () {
-      hideValues(changeValues, rotateDice);
+    $('.dieResult').fadeOut(100);
+      delete $http.defaults.headers.common['X-Requested-With'];
+      $http({
+        method: "GET",
+        url: 'https://fish-bit-hub.herokuapp.com/getBytes',
+        headers: {'number-bytes-requested': 1},
+        crossDomain: true
+      }).then(function successCallback(response) {
+        console.log(parseInt(response.data, 16));
+        var test = parseInt(response.data, 16);
+        $scope.diceRoll.diceValues = [test, test, test, test, test]; // replace with response.data
+        rotateDice();
+
+      }, function errorCallback(response) {
+        console.log(response);
+      });
+
+
   };
-  /* callback level two */
+/*
+  /!* callback level two *!/
   function hideValues(callbackOne, callbackTwo){
-    $('.dieResult').fadeOut(1);
-    callbackOne(callbackTwo);
+    $('.dieResult').fadeOut(50);
+    setTimeout(function (){
+      callbackOne(callbackTwo);
+    }, 50);
 
   }
-  /* callback level three */
+  /!* callback level three *!/
   function changeValues(callback){
-    for(var i = 0; i < $scope.diceRoll.diceValues.length; i++){
-      $scope.diceRoll.diceValues[i]++;
-    }
+    $scope.diceRoll.diceValues = responseArray;
     callback();
   }
+*/
 
   /* dynamically display the selected number of coins */
   $scope.displayDice = function () { displayNumberDice(); };

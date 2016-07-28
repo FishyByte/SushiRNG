@@ -7,6 +7,11 @@ app.controller('coinController', function ($scope, $http) {
   /* array for coin id's */
   var coinIDs = ['#coin0', '#coin1', '#coin2', '#coin3'];
 
+  $scope.coinFlip = {
+    numberCoins: '4',
+    coinValues: [0, 0, 0, 0]
+  };
+
 
   /* dynamically display the selected number of coins */
   $scope.displayCoins = function () {
@@ -21,19 +26,13 @@ app.controller('coinController', function ($scope, $http) {
       headers: {'number-bytes-requested': 1},
       crossDomain: true
     }).then(function successCallback(response) {
-      console.log(response);
+      console.log(parseInt(response.data, 16));
+      $scope.coinFlip.coinValues = [1, 1, 1, 1]; // replace with response.data
+      animateCoins();
 
     }, function errorCallback(response) {
       console.log(response);
     });
-
-    animateCoins();
-
-  };
-
-  $scope.coinFlip = {
-    numberCoins: '4',
-    coinValues: [1, 0, 1, 0]
   };
 
 
