@@ -2,7 +2,7 @@
  * Created by asakawa on 7/26/16.
  */
 var app = angular.module('FishFate');
-app.controller('coinController', function ($scope) {
+app.controller('coinController', function ($scope, $http) {
 
   /* array for coin id's */
   var coinIDs = ['#coin0', '#coin1', '#coin2', '#coin3'];
@@ -14,7 +14,21 @@ app.controller('coinController', function ($scope) {
   };
   /* coin submit pressed, animate the coins */
   $scope.submitCoinFlip = function () {
+    delete $http.defaults.headers.common['X-Requested-With'];
+    $http({
+      method: "GET",
+      url: 'https://fish-bit-hub.herokuapp.com/getBytes',
+      headers: {'number-bytes-requested': 1},
+      crossDomain: true
+    }).then(function successCallback(response) {
+      console.log(response);
+
+    }, function errorCallback(response) {
+      console.log(response);
+    });
+
     animateCoins();
+
   };
 
   $scope.coinFlip = {
