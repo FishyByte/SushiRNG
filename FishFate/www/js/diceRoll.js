@@ -34,6 +34,7 @@ app.controller('diceController', function ($scope, $http) {
         crossDomain: true
       }).then(function successCallback(response) {
         console.log(response.data);
+        $scope.diceRoll.diceValues = response.data.split(' ');
 /*        var test = parseInt(response.data, 16);
         test = (test % parseInt($scope.diceRoll.numberSides)) + 1;
         $scope.diceRoll.diceValues = [test, test, test, test, test]; // replace with response.data*/

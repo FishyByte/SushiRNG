@@ -54,12 +54,14 @@ app.controller('eightBallController', function ($scope, $http) {
     delete $http.defaults.headers.common['X-Requested-With'];
     $http({
       method: "GET",
-      url: 'https://fish-bit-hub.herokuapp.com/getBytes',
-      headers: {'number-bytes-requested': 1},
-      crossDomain: true
+      url: 'https://fish-bit-hub.herokuapp.com/get-ints',
+      headers: {
+          'quantity': '1',
+          'max_value': '20'
+        },      crossDomain: true
     }).then(function successCallback(response) {
-      console.log(parseInt(response.data, 16));
-      $scope.eightBall.resultIndex = parseInt(response.data, 16) % 21; // replace with response.data
+      console.log(response.data);
+      $scope.eightBall.resultIndex = parseInt(response.data) % 21; //TODO REMOVE MOD
       animateEightBall();
     }, function errorCallback(response) {
       console.log(response);

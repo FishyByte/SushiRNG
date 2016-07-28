@@ -22,12 +22,15 @@ app.controller('coinController', function ($scope, $http) {
     delete $http.defaults.headers.common['X-Requested-With'];
     $http({
       method: "GET",
-      url: 'https://fish-bit-hub.herokuapp.com/getBytes',
-      headers: {'number-bytes-requested': 1},
+      url: 'https://fish-bit-hub.herokuapp.com/get-ints',
+      headers: {
+          'quantity': '4',
+          'max_value': '1'
+        },
       crossDomain: true
     }).then(function successCallback(response) {
-      console.log(parseInt(response.data, 16));
-      $scope.coinFlip.coinValues = [1, 1, 1, 1]; // replace with response.data
+      console.log(response.data);
+      $scope.coinFlip.coinValues = response.data.split(' ');
       animateCoins();
 
     }, function errorCallback(response) {
@@ -93,7 +96,7 @@ app.controller('coinController', function ($scope, $http) {
     var flipCounts = [0, 0, 0, 0];
     /* flips the coin on an interval */
     var trigger = setInterval(function () {
-      if (flipCounts[elementIndex] == 10 + $scope.coinFlip.coinValues[elementIndex])
+      if (flipCounts[elementIndex] == 1 + $scope.coinFlip.coinValues[elementIndex])
         clearInterval(trigger);
       document.querySelector(coinIDs[elementIndex]).classList.toggle("flip");
       flipCounts[elementIndex]++;
