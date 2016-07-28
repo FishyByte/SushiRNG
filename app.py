@@ -115,7 +115,7 @@ def get_ints():
         return abort(400)
 
     # param value to small
-    if quantity < 1 or max_value < 2:
+    if quantity < 1 or max_value < 1:
         return abort(400)
 
     # limit request size to 1000 bytes/8000 bits
@@ -136,7 +136,7 @@ def get_ints():
             current = int(str(myBitStream.read(bits_requested)), 2)
 
             # within range? add to return string
-            if current < max_value:
+            if current <= max_value:
                 respond += str(current) + ' '  # white space delimiter
                 quantity -= 1
             # lets not be wasteful, write unused value back to stream
@@ -154,10 +154,9 @@ def get_number_bits(upper_bound):
     number_bits = 1
     while True:
 
-        if upper_bound >= pow(2, exponent):  # 2, 4, 8, 16
+        if upper_bound >= pow(2, exponent):
             number_bits += 1
         else:
-            print '**********', 'number of bits:', number_bits, '************'  # testing
             return number_bits
 
         exponent += 1
