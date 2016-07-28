@@ -126,6 +126,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         response = requests.post(url, data=data)
 
         # how did we do?
+        print ''
         print "POST to", url
         print "response code:", response.status_code
         print "--------------------------------------------------"
