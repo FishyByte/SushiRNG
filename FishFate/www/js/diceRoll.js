@@ -26,18 +26,21 @@ app.controller('diceController', function ($scope, $http) {
       delete $http.defaults.headers.common['X-Requested-With'];
       $http({
         method: "GET",
-        url: 'https://fish-bit-hub.herokuapp.com/getBytes',
-        headers: {'number-bytes-requested': 1},
+        url: 'https://fish-bit-hub.herokuapp.com/get-ints',
+        headers: {
+          'quantity': $scope.diceRoll.numberDice,
+          'max_value': $scope.diceRoll.numberSides
+        },
         crossDomain: true
       }).then(function successCallback(response) {
-        console.log(parseInt(response.data, 16));
-        var test = parseInt(response.data, 16);
+        console.log(response.data);
+/*        var test = parseInt(response.data, 16);
         test = (test % parseInt($scope.diceRoll.numberSides)) + 1;
-        $scope.diceRoll.diceValues = [test, test, test, test, test]; // replace with response.data
+        $scope.diceRoll.diceValues = [test, test, test, test, test]; // replace with response.data*/
         rotateDice();
 
       }, function errorCallback(response) {
-        console.log(response);
+        console.log('fail');
       });
 
 
