@@ -102,7 +102,7 @@ def get_bits():
 #
 # ********************************************************
 @app.route("/get-ints")
-def get_bits():
+def get_ints():
     try:
         quantity = int(request.headers.get('quantity'))
         max_value = int(request.headers.get('max-value'))
@@ -141,12 +141,12 @@ def get_bits():
         return abort(500)
 
 
-def get_byte_multiplier(int):
+def get_byte_multiplier(int_value):
     counter = 1
     while True:
-        if int < 256:  # one bye is 0-255
+        if int_value < 256:  # one bye is 0-255
             return counter
-        int -= 256
+        int_value -= 256
         counter += 1
 
 
