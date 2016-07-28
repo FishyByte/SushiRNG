@@ -23,6 +23,7 @@
 #*******************************************************************
 # bitstream page: https://github.com/boisgera/bitstream
 from flask import Flask, request, flash, abort
+from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
 from bitstream import BitStream
 from numpy import *
@@ -40,6 +41,7 @@ MAX_REQUEST_SIZE = 1000 # users may request up to 1MB
 MAX_STREAM_SIZE = 8 * 1024 * 1024
 
 app = Flask(__name__)
+CORS(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 myBitStream = BitStream()
