@@ -32,6 +32,7 @@ app.controller('diceController', function ($scope, $http) {
       }).then(function successCallback(response) {
         console.log(parseInt(response.data, 16));
         var test = parseInt(response.data, 16);
+        test = (test % parseInt($scope.diceRoll.numberSides)) + 1;
         $scope.diceRoll.diceValues = [test, test, test, test, test]; // replace with response.data
         rotateDice();
 
@@ -41,24 +42,15 @@ app.controller('diceController', function ($scope, $http) {
 
 
   };
-/*
-  /!* callback level two *!/
-  function hideValues(callbackOne, callbackTwo){
-    $('.dieResult').fadeOut(50);
-    setTimeout(function (){
-      callbackOne(callbackTwo);
-    }, 50);
 
-  }
-  /!* callback level three *!/
-  function changeValues(callback){
-    $scope.diceRoll.diceValues = responseArray;
-    callback();
-  }
-*/
 
   /* dynamically display the selected number of coins */
   $scope.displayDice = function () { displayNumberDice(); };
+
+  $scope.changeSides = function(){
+
+  };
+
 
   /**
    * This function is called when use user interacts with the number of dice

@@ -84,7 +84,8 @@
                      name="numberSides"
                      min="4" max="20"
                      ng-checked="6"
-                     data-ng-model="diceRoll.numberSides">
+                     data-ng-model="diceRoll.numberSides"
+                     ng-change="changeSides()">
               {{diceRoll.numberSides}}
             </div>
           </div>
