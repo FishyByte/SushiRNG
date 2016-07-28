@@ -25,7 +25,7 @@ app.controller('coinController', function ($scope, $http) {
       url: 'https://fish-bit-hub.herokuapp.com/get-ints',
       headers: {
           'quantity': '4',
-          'max_value': '2'
+          'max_value': '1'
         },
       crossDomain: true
     }).then(function successCallback(response) {
