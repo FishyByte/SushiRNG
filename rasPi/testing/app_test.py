@@ -10,7 +10,7 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 
 # call constructors
-from fish_stream import FishStream
+from rasPi.fish_stream import FishStream
 
 fish_stream = FishStream()
 
@@ -69,6 +69,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if len(cnts) > 0:
         # lets count the fishies on the screen
         fish_count = 0
+        x_compare = -1
+        y_compare = -1
+
+        first_bit = 0
+        second_bit = 0
 
         # loop through all the contours in the mask
         for c in cnts:
@@ -92,6 +97,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             # update the points queue
             pts.appendleft(center)
 
+    # show the frame to our screen
+    # cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in prep for next frame
@@ -104,19 +111,44 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     # sweet, we got enough bits from the fish
     if bitsCaptured > totalBits:
+        # first write to file
+        # out.write(fish_stream.get_bits(totalBits))
+
         # now lets add that bit stream to the header
-        data = {
-            'raw-data': str(fish_stream.get_bits(totalBits)),
-            'secret-key': os.environ.get('SECRET_KEY')
-        }
+        data = {'raw-data': str(fish_stream.get_bits(totalBits))}
+
+        # headers = {'Content-type': 'multipart/form-data'}
+        # files = {'document': open('fishData/fishBits.bin', 'rb')}
 
         # now ship it
         response = requests.post(url, data=data)
 
         # how did we do?
         print ''
-        print time.time()
+        print "POST to", url
         print "response code:", response.status_code
+        print "--------------------------------------------------"
+
+        # nuke the file
+        # out.truncate()
+
+    # if the 'q' key is pressed, stop the loop
+    if key == ord("q"):
+        fish_stream.print_stream()
+        "--------------------------------------------------"
+        break
+
+    # if the 'o' key is pressed output current contents of BitStream
+    if key == ord("o"):
+        fish_stream.print_stream()
+        print "--------------------------------------------------"
+
+    # if the 'p' print out stats of the stream
+    if key == ord("p"):
+        zero, one = fish_stream.get_probabilities()
+        print "0:", zero
+        print "1:", one
+        print "total bits:", fish_stream.get_length(), "/", totalBits
         print "--------------------------------------------------"
 
 # cleanup the camera and close any open windows
