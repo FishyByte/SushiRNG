@@ -2,6 +2,7 @@
 import requests
 import time
 from collections import deque
+import sys
 
 import cv2
 import imutils
@@ -37,12 +38,12 @@ rawCapture = PiRGBArray(camera, size=(640, 368))
 time.sleep(0.3)
 
 # how many bits per file.
-totalBits = 2048
+totalBits = 8192
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
    
-    # grab the raw NumPy array representing the image 
+    # grab the raw NumPy array representing the image
     frame = frame.array
 
     # resize the frame, blur it, and convert it to the HSV color space
@@ -66,13 +67,13 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # only proceed if at least one contour was found
     if len(cnts) > 0:
         # lets count the fishies on the screen
-        fish_count = 0    
+        fish_count = 0
         x_compare = -1
         y_compare = -1
 
         first_bit = 0
         second_bit = 0
-        
+
         # loop through all the contours in the mask
         for c in cnts:
             ((x, y), radius) = cv2.minEnclosingCircle(c)
@@ -80,7 +81,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
             # only proceed if the radius meets a minimum  and max size
-            if radius > 10: 
+            if radius > 10:
                 # if a video path was not supplied, grab the reference:
                 # draw the circle and centroid on the frame,
                 # then update the list of tracked points
@@ -96,14 +97,21 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             pts.appendleft(center)
 
     # show the frame to our screen
-    cv2.imshow("Frame", frame)
+    # cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in prep for next frame
     rawCapture.truncate(0)
 
+    bitsCaptured = fish_stream.get_length()
+    zero, one = fish_stream.get_probabilities()
+    sys.stdout.write("\r" + "0:" + zero + "   1:" + one + "    total:" + bitsCaptured)
+    sys.stdout.flush()
+
+
+
     # sweet, we got enough bits from the fish
-    if fish_stream.get_length() > totalBits:
+    if bitsCaptured > totalBits:
         # first write to file
         # out.write(fish_stream.get_bits(totalBits))
 
