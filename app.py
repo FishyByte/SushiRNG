@@ -129,7 +129,7 @@ def get_ints():
                 return respond
 
             # grab some byte(s) for one value
-            current = int(myBitStream.read(8 * byte_mult))
+            current = int(myBitStream.read(8 * byte_mult), 2)
 
             # within range? add to return string
             if current < max:
