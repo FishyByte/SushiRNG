@@ -38,7 +38,7 @@ app.controller('eightBallController', function ($scope, $http) {
       '&emsp;&nbsp;Outlook<br>&emsp;&nbsp;good',
       '&emsp;&ensp;&nbsp;Don&#39;t<br>&emsp;&ensp;&nbsp;count<br>&emsp;&ensp;&nbsp;on it'
     ],
-    resultIndex: 20
+    resultIndex: 0
   };
 
   /**
@@ -57,11 +57,11 @@ app.controller('eightBallController', function ($scope, $http) {
       url: 'https://fish-bit-hub.herokuapp.com/get-ints',
       headers: {
           'quantity': '1',
-          'max_value': '20'
+          'max_value': $scope.eightBall.answers.length
         },      crossDomain: true
     }).then(function successCallback(response) {
       console.log(response.data);
-      $scope.eightBall.resultIndex = parseInt(response.data) % 21; //TODO REMOVE MOD
+      $scope.eightBall.resultIndex = parseInt(response.data); //TODO REMOVE MOD
       animateEightBall();
     }, function errorCallback(response) {
       console.log(response);

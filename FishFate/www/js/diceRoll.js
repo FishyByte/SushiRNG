@@ -34,14 +34,15 @@ app.controller('diceController', function ($scope, $http) {
         crossDomain: true
       }).then(function successCallback(response) {
         console.log(response.data);
-        $scope.diceRoll.diceValues = response.data.split(' ');
-/*        var test = parseInt(response.data, 16);
-        test = (test % parseInt($scope.diceRoll.numberSides)) + 1;
-        $scope.diceRoll.diceValues = [test, test, test, test, test]; // replace with response.data*/
+        var tempArray = response.data.split(' ');
+        /* dice don't start at zero, lets correct that */
+        for (var i = 0; i < tempArray.length; i++)
+          tempArray[i]++
+        $scope.diceRoll.diceValues = tempArray;
         rotateDice();
 
       }, function errorCallback(response) {
-        console.log('fail');
+        console.log('fail') ;
       });
 
 
