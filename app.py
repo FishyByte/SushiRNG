@@ -1,26 +1,26 @@
-#*********************************************************************
-#The MIT License (MIT)
+# *********************************************************************
+# The MIT License (MIT)
 #
-#Copyright (c) 2016 Christopher Asakawa, Mathew O'Brien, Nicholas McHale, Corey Aing
+# Copyright (c) 2016 Christopher Asakawa, Mathew O'Brien, Nicholas McHale, Corey Aing
 #
-#Permission is hereby granted, free of charge, to any person obtaining
+# Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files
 # (the "Software"), to deal in the Software without restriction, including
 # without limitation the rights to use, copy, modify, merge, publish,
 # permit persons to whom the Software is furnished to do so, subject 
 # to the following conditions:
 #
-#The above copyright notice and this permission notice shall be 
+# The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
 #
-#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 # OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
 # NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
 # OTHER DEALINGS IN THE SOFTWARE.
-#*******************************************************************
+# *******************************************************************
 # bitstream page: https://github.com/boisgera/bitstream
 from flask import Flask, request, flash, abort
 from flask_cors import CORS
@@ -32,13 +32,10 @@ import os
 from datetime import datetime
 import time
 
-
-
-
 UPLOAD_FOLDER = 'data'
-ALLOWED_EXTENSIONS=['bin']
-MAX_REQUEST_SIZE = 1000 # users may request up to 1MB
-MAX_STREAM_SIZE = 8 * 1024 * 1024
+ALLOWED_EXTENSIONS = ['bin']
+MAX_REQUEST_SIZE = 1000  # users may request up to 1MB
+MAX_INT_RANGE = 2147483647
 
 app = Flask(__name__)
 CORS(app)
@@ -46,7 +43,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 myBitStream = BitStream()
 
-#pub_key = '' # todo: needs to be an env variable
+
+# pub_key = '' # todo: needs to be an env variable
 
 
 
@@ -56,61 +54,114 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-
-#********************************************************
+# ********************************************************
 #
 #
 #
-#********************************************************
+# ********************************************************
 @app.route("/")
 def main_page():
-    #TODOXXX
+    # TODOXXX
     myStream = "BitString: " + str(myBitStream)
     return myStream
-    #abort(401)#NOTHING TO SEE HERE
+    # abort(401)#NOTHING TO SEE HERE
 
-#********************************************************
+
+# ********************************************************
 #
 #
 #
-#********************************************************
+# ********************************************************
 @app.route("/getBytes")
 def get_bits():
     numBytes = int(request.headers.get('number-bytes-requested'))
     if ((numBytes == None) or (numBytes < 1) or (numBytes > MAX_REQUEST_SIZE)):
-        abort(400) #invalid request, we dont waste time around here, come back when you are prepared.
-    if(numBytes > (len(myBitStream) / 8)):
-        #UH OH WE NEED MOAR BITS IN MEMORY
-        #if(fillByteBuffer() == False):
+        abort(400)  # invalid request, we dont waste time around here, come back when you are prepared.
+    if (numBytes > (len(myBitStream) / 8)):
+        # UH OH WE NEED MOAR BITS IN MEMORY
+        # if(fillByteBuffer() == False):
 
-        abort(400) #the client has made a valid request but,
-                        #no data is currently available
- 
-    #OKAY, now we can fufill our request
+        abort(400)  # the client has made a valid request but,
+        # no data is currently available
+
+    # OKAY, now we can fufill our request
 
     try:
         print 'bitstream: len=' + str(len(myBitStream))
-        userBytes = myBitStream.read( int8, numBytes )
+        userBytes = myBitStream.read(int8, numBytes)
         userBytes = binascii.hexlify(userBytes)
         return userBytes
     except Exception, e:
         print e
         return abort(500)
-    
 
-#********************************************************
-#this route will allow the upload of data to the server
-#include a string of random bits with the header "raw-data"
+
+# ********************************************************
 #
-#********************************************************
-#should only allow POST requests from the pi
+#
+#
+# ********************************************************
+@app.route("/get-ints")
+def get_bits():
+    try:
+        quantity = int(request.headers.get('quantity'))
+        max_value = int(request.headers.get('max-value'))
+        byte_mult = get_byte_multiplier(max_value)
+        bounds_check = quantity * byte_mult
+        respond = ''
+
+        # error checking for days
+        if quantity is None:
+            return abort(400)
+        if quantity < 1:
+            return abort(400)
+        if bounds_check > MAX_REQUEST_SIZE:
+            return abort(400)
+        if (len(myBitStream) / 8) < bounds_check:
+            return abort(400)
+        if max > MAX_INT_RANGE:
+            return abort(400)
+
+        # loop till we fill the order
+        while True:
+            # ship it
+            if quantity == 0:
+                return respond
+
+            # grab some byte(s) for one value
+            current = int(myBitStream.read(8 * byte_mult))
+
+            # within range? add to return string
+            if current < max:
+                respond += str(current) + ' '  # white space delimiter
+                quantity -= 1
+
+    except Exception, e:
+        print e
+        return abort(500)
+
+
+def get_byte_multiplier(int):
+    counter = 1
+    while True:
+        if int < 256:  # one bye is 0-255
+            return counter
+        int -= 256
+        counter += 1
+
+
+# ********************************************************
+# this route will allow the upload of data to the server
+# include a string of random bits with the header "raw-data"
+#
+# ********************************************************
+# should only allow POST requests from the pi
 @app.route("/add-bytes", methods=['POST'])
 def set_bits():
-    
     if request.method == 'POST':
-        #TODO: NOW WOULD BE A GREAT TIME TO AUTHENTICATE
+        # TODO: NOW WOULD BE A GREAT TIME TO AUTHENTICATE
         print 'recieved post request:'
-        
+
         """
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -138,12 +189,13 @@ def set_bits():
         i = 0
         while i < len(bitString):
             myBitStream.write(int(bitString[i]), bool)
-            i= i+1
+            i = i + 1
 
         return 'success'
     else:
-        abort(401) #access denied only post requests allowed
-    
+        abort(401)  # access denied only post requests allowed
+
+
 """
 def fillByteBuffer():
     #attempt to bring in a file to read into the buffer
@@ -169,6 +221,5 @@ def fillByteBuffer():
 """
 
 if __name__ == "__main__":
-#    fillByteBuffer()
+    #    fillByteBuffer()
     app.run()
-
