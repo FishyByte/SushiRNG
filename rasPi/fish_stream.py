@@ -130,6 +130,8 @@ class FishStream:
     def get_probabilities(self):
         # calculate total (we use it twice)
         total = self.zero_count + self.one_count
+        if total == 0:
+            return 0, 0
         # returns the probability of a zero and a one
         return float(self.zero_count) / total, \
             float(self.one_count) / total
