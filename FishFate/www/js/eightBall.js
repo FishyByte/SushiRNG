@@ -12,11 +12,33 @@ app.controller('eightBallController', function ($scope, $http) {
   /* scope variables, holds the eight ball responses */
   $scope.eightBall = {
     /* answers array, these strings are pre-formatted for html */
+    /*
+     Don't count on it.
+     */
     answers: [
       'do or do not,<br>there is<br>no try',
-      'asdfasdfasdf,<br>asdfasdfsdf'
+      '&emsp;&nbsp;Signs<br>&emsp;&nbsp;point to<br>&emsp;&nbsp;yes',
+      '&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;<br>Yes',
+      '&emsp;&nbsp;Reply<br>&emsp;&nbsp;hazy, try<br>&emsp;&nbsp;again',
+      '&emsp;&nbsp;Without<br>&emsp;&nbsp;a<br>&emsp;&nbsp;doubt',
+      '&emsp;&nbsp;My<br>&emsp;&nbsp;sources<br>&emsp;&nbsp;say<br>&emsp;&nbsp;no<br>',
+      '&emsp;&ensp;&nbsp;As I<br>&emsp;&ensp;&nbsp;see it<br>&emsp;&ensp;&nbsp;yes',
+      '&emsp;You may<br>&emsp;rely<br>&emsp;on it',
+      '&nbsp;Concentrate<br>&nbsp;and ask<br>&nbsp;again',
+      '&emsp;&nbsp;Outlook<br>&emsp;&nbsp;not so<br>&emsp;&nbsp;good',
+      '&ensp;&nbsp;It is<br>&emsp;decidedly<br>&ensp;&nbsp;so',
+      '&ensp;&nbsp;Better not<br>&emsp;tell you<br>&emsp;now',
+      '&emsp;Very<br>&emsp;doubtful',
+      '&ensp;&nbsp;Yes<br>&emsp;definitely',
+      '&emsp;&ensp;It is<br>&emsp;&ensp;certain',
+      '&emsp;&ensp;Cannot<br>&emsp;&ensp;predict<br>&emsp;&ensp;now',
+      '&emsp;&ensp;&nbsp;Most<br>&emsp;&ensp;&nbsp;likely',
+      '&emsp;&ensp;&nbsp;Ask<br>&emsp;&ensp;&nbsp;again<br>&emsp;&emsp;later',
+      '&emsp;&nbsp;My reply<br>&emsp;is<br>&emsp;no',
+      '&emsp;&nbsp;Outlook<br>&emsp;&nbsp;good',
+      '&emsp;&ensp;&nbsp;Don&#39;t<br>&emsp;&ensp;&nbsp;count<br>&emsp;&ensp;&nbsp;on it'
     ],
-    resultIndex: 0
+    resultIndex: 20
   };
 
   /**
