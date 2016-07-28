@@ -59,7 +59,7 @@ app.controller('eightBallController', function ($scope, $http) {
       crossDomain: true
     }).then(function successCallback(response) {
       console.log(parseInt(response.data, 16));
-      $scope.eightBall.resultIndex = parseInt(response.data, 16) % 2; // replace with response.data
+      $scope.eightBall.resultIndex = parseInt(response.data, 16) % 21; // replace with response.data
       animateEightBall();
     }, function errorCallback(response) {
       console.log(response);
