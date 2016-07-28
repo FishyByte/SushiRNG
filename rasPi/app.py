@@ -40,6 +40,7 @@ time.sleep(0.3)
 # the number of bits per POST.
 totalBits = 8192
 url = 'https://fish-bit-hub.herokuapp.com/add-bytes'
+SECRET_KEY = ''
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -107,7 +108,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         # now lets add that bit stream to the header
         data = {
             'raw-data': str(fish_stream.get_bits(totalBits)),
-            'secret-key': os.environ.get('SECRET_KEY')
+            'secret-key': SECRET_KEY
         }
 
         # now ship it
@@ -115,7 +116,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
         # how did we do?
         print ''
-        print time.time()
+        print time.asctime(time.localtime(time.time()))
         print "response code:", response.status_code
         print "--------------------------------------------------"
 
