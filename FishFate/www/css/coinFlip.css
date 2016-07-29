@@ -76,14 +76,17 @@
 }
 
 .heads {
+  margin: 2px;
+  height: 74px;
+  width: 74px;
   position: absolute;
   z-index: 1;
 }
 
 .tails {
+  margin: 2px;
   height: 74px;
   width: 74px;
-  margin:2px;
   position: absolute;
   z-index: 1;
 }
