@@ -21,10 +21,11 @@ app.run(function ($ionicPlatform) {
 app.controller('fishController', function ($scope, $ionicHistory) {
 
   $scope.images = {
-    demo:  'img/fishDemo_2.gif',
-    heads: 'img/coinHeads.png',
-    tails: 'img/coinTails.png',
-    die:   'img/fishDie.png',
+    demo:         'img/fishDemo_2.gif',
+    heads:        'img/coinHeads.png',
+    tails:        'img/coinTails.png',
+    die:          'img/fishDie.png',
+    fishFateIcon: 'img/iconMed.png',
     about: {
       graph: 'img/graph.png'
     }

@@ -73,3 +73,43 @@ a {
 #fishBanner {
   top: 0;
 }
+
+.menuHeader {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 130px;
+}
+
+.menuLayerOne{
+  position: absolute;
+  height: 70px;
+  width: 100%;
+  background-color: #801399;
+
+}
+.menuLayerTwo{
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 100% 100%;
+    background-color: #801399;
+    right: -7px;
+    top: 10px;
+}
+.menuLayerThree{
+    position: absolute;
+    height: 80px;
+    width: 150px;
+    border-radius: 100% 100%;
+    background-color: white;
+    left: -40px;
+    top: 39px;
+}
+.fishFateIcon {
+  width: 60px;
+  height: 70px;
+  position: absolute;
+  right: 15px;
+  top: 30px;
+}

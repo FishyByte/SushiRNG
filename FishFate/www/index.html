@@ -62,7 +62,15 @@
   </ion-side-menu-content>
 
   <!-- Right menu -->
-  <ion-side-menu width="200" class="purple" side="right" expose-aside-when="large">
+  <ion-side-menu width="200" class="" side="right" expose-aside-when="large">
+    <div class="menuHeader">
+      <div class="menuLayerOne"></div>
+      <div class="menuLayerTwo"></div>
+      <div class="menuLayerThree"></div>
+      <div class="fishFateIcon">
+        <img ng-src="{{images.fishFateIcon}}">
+      </div>
+    </div>
     <ion-list>
       <a menu-close="true" ui-sref="home">
         <ion-item class="purple">Fish Fate</ion-item>
