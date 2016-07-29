@@ -43,8 +43,8 @@ class FishPool:
     def dist_calculations(self):
 
         # get counts of ones zeros and total
-        zero_count = self.raw_data.count['0']
-        one_count = self.raw_data.count['1']
+        zero_count = self.raw_data.count('0')
+        one_count = self.raw_data.count('1')
         self.total_count = zero_count + one_count
 
         # now lets get the probabilities of each
