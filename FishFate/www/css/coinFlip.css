@@ -74,6 +74,14 @@
   -moz-box-shadow: inset 0px 0px 3px 0px rgba(77, 77, 77, 1);
   box-shadow: inset 0px 0px 3px 0px rgba(77, 77, 77, 1);
 }
+.coinImageOverlay{
+  width: 74px;
+  height: 74px;
+  margin: 2px;
+  border: 0;
+  position: absolute;
+  z-index: 2;
+}
 
 .heads {
   margin: 2px;
