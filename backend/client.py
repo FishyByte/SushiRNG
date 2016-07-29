@@ -37,5 +37,5 @@ payload = {
     'raw-data': input_data
 }
 print os.getcwd()
-r = requests.post('http://127.0.0.1:5000/add-bytes', data=payload)
+r = requests.post('https://fish-bit-hub.herokuapp.com/add-bytes', data=payload)
 print r.status_code
