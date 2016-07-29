@@ -176,7 +176,10 @@ def get_number_bits(upper_bound):
 @app.route("/add-bytes", methods=['POST'])
 def set_bits():
     if request.method == 'POST':
-        # TODO: NOW WOULD BE A GREAT TIME TO AUTHENTICATE
+
+        if os.environ['SECRET_KEY'] != request.form['secret-key']:
+            return abort(401)
+
         print 'recieved post request:'
 
         """
