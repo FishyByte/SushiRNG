@@ -47,17 +47,30 @@ class FishPool:
         one_count = self.raw_data.count('1')
         self.total_count = zero_count + one_count
 
+        # lets avoid that dividing by zero
+        if self.total_count == 0:
+            self.finish_processing = True
+            return
+
         # now lets get the probabilities of each
-        self.percent_ones = one_count / float(self.total_count)
         self.percent_zeros = zero_count / float(self.total_count)
+        self.percent_ones = one_count / float(self.total_count)
 
     # Entropy calculations
     def entropy_calculations(self):
+        # we done?
+        if self.finish_processing:
+            return
+        # calculate entropy
         self.entropy = (-self.percent_ones * math.log(self.percent_ones, 2)) + \
                        (-self.percent_zeros * math.log(self.percent_zeros, 2))
 
     # Find the corrected length of bits given entropy calculations
     def entropy_correction(self):
+        # we done?
+        if self.finish_processing:
+            return
+
         corrected_bits = math.ceil(256 * self.entropy)
         corrected_bits = int(corrected_bits)
         corrected_bits = 256 + (256 - corrected_bits)
@@ -65,8 +78,11 @@ class FishPool:
 
     # Whitener for the Fish numbers to 160 bits
     def whiten_numbers(self):
+        # we done?
+        if self.finish_processing:
+            return
 
-        # lets ensure we have enough bits left before continuing
+        # lets ensure we have enough bits left before continugsing
         if self.total_count < self.correct_bits:
             self.finish_processing = True
             return
