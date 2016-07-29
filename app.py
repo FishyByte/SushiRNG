@@ -22,6 +22,7 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 # *******************************************************************
 # bitstream page: https://github.com/boisgera/bitstream
+
 from flask import Flask, request, flash, abort
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
@@ -32,20 +33,24 @@ import math
 import os
 from datetime import datetime
 import time
+from fish_pool import FishPool
 
 UPLOAD_FOLDER = 'data'
 ALLOWED_EXTENSIONS = ['bin']
 MAX_REQUEST_SIZE = 1000     # users may request up to 1MB
 MAX_INT_RANGE = 2147483647  # max value for an integer
-
+   
+# init flask app
 app = Flask(__name__)
 CORS(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-myBitStream = BitStream()
 
+# init class objects
+fish_stream = BitStream()   # class that holds processed bits in stream
+fish_pool = FishPool()      # class that processes raw bits from fish tank
 
-# pub_key = '' # todo: needs to be an env variable
+# SECRET_KEY = '' # todo: needs to be an env variable
 
 
 
@@ -63,7 +68,7 @@ def allowed_file(filename):
 @app.route("/")
 def main_page():
     # TODOXXX
-    myStream = "BitString: " + str(myBitStream)
+    myStream = "BitString: " + str(fish_stream)
     return myStream
     # abort(401)#NOTHING TO SEE HERE
 
@@ -78,7 +83,7 @@ def get_bits():
     numBytes = int(request.headers.get('number-bytes-requested'))
     if ((numBytes == None) or (numBytes < 1) or (numBytes > MAX_REQUEST_SIZE)):
         abort(400)  # invalid request, we dont waste time around here, come back when you are prepared.
-    if (numBytes > (len(myBitStream) / 8)):
+    if (numBytes > (len(fish_stream) / 8)):
         # UH OH WE NEED MOAR BITS IN MEMORY
         # if(fillByteBuffer() == False):
 
@@ -88,8 +93,8 @@ def get_bits():
     # OKAY, now we can fufill our request
 
     try:
-        print 'bitstream: len=' + str(len(myBitStream))
-        userBytes = myBitStream.read(int8, numBytes)
+        print 'bitstream: len=' + str(len(fish_stream))
+        userBytes = fish_stream.read(int8, numBytes)
         userBytes = binascii.hexlify(userBytes)
         return userBytes
     except Exception, e:
@@ -133,7 +138,7 @@ def get_ints():
                 return respond
 
             # grab some byte(s) for one value
-            current = int(str(myBitStream.read(bits_requested)), 2)
+            current = int(str(fish_stream.read(bits_requested)), 2)
 
             # within range? add to return string
             if current <= max_value:
@@ -141,7 +146,7 @@ def get_ints():
                 quantity -= 1
             # lets not be wasteful, write unused value back to stream
             else:
-                myBitStream.write(str(current))
+                fish_stream.write(str(current))
 
     except Exception, e:
         print e
@@ -196,12 +201,15 @@ def set_bits():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return 'success'
         """
+        # grab the raw bits from the header
+        raw_bits = str(request.form['raw-data'])
 
-        bitString = request.form['raw-data']
-        i = 0
-        while i < len(bitString):
-            myBitStream.write(int(bitString[i]), bool)
-            i = i + 1
+        # process those raw bits
+        processed_bits = fish_pool.process_bits(raw_bits)
+
+        # lets loop through the processed string and add it to the fish_stream
+        for i in range(len(processed_bits)):
+            fish_stream.write(int(processed_bits[i]), bool)
 
         return 'success'
     else:
@@ -217,14 +225,14 @@ def fillByteBuffer():
     if (numFiles > 0 ):
         #read in a file, we dont care wich one.
         i = 0
-        while(len(myBitStream) < MAX_REQUEST_SIZE and i < numFiles):
+        while(len(fish_stream) < MAX_REQUEST_SIZE and i < numFiles):
             curFile = 'data/' + str(files[i])
             i = i + 1
             with open(curFile, 'rb' ) as inFile:
                 data = inFile.read(1)
                 while data != '':
                     toAdd = int(binascii.hexlify(data), 16)
-                    myBitStream.write(toAdd, int8)
+                    fish_stream.write(toAdd, int8)
                     data = inFile.read(1)
             os.remove(curFile)
         return True
