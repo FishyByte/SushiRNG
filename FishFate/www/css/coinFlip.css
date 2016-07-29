@@ -1,0 +1,114 @@
+/* entire container, keeps perspective */
+.flip-container {
+  perspective: 1000px;
+}
+
+/* flip the pane when hovered */
+.flip-container:focus .flipper, .flip-container.hover .flipper {
+  transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+  width: 80px;
+  height: 80px;
+}
+
+/* flip speed goes here */
+.flipper {
+  transition: 0.3s;
+  transform-style: preserve-3d;
+
+  position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+  z-index: 2;
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+  transform: rotateY(180deg);
+}
+
+.flip-container:focus .flipper, .flip-container.hover .flipper, .flip-container.flip .flipper {
+	transform: rotateY(180deg);
+}
+
+#coinFlip {
+  display:none;
+}
+
+.coin {
+  display: inline-block;
+  position: inherit;
+  width: 80px;
+  height: 80px;
+  background: rgba(204, 204, 204, 1);
+  background: -moz-linear-gradient(-45deg, rgba(204, 204, 204, 1) 0%, rgba(148, 148, 148, 1) 100%);
+  background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(204, 204, 204, 1)), color-stop(100%, rgba(148, 148, 148, 1)));
+  background: -webkit-linear-gradient(-45deg, rgba(204, 204, 204, 1) 0%, rgba(148, 148, 148, 1) 100%);
+  background: -o-linear-gradient(-45deg, rgba(204, 204, 204, 1) 0%, rgba(148, 148, 148, 1) 100%);
+  background: -ms-linear-gradient(-45deg, rgba(204, 204, 204, 1) 0%, rgba(148, 148, 148, 1) 100%);
+  background: linear-gradient(135deg, rgba(204, 204, 204, 1) 0%, rgba(148, 148, 148, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#949494', GradientType=1);
+  border: 1px solid #292929;
+}
+
+.coinLayer1 {
+  width: 74px;
+  height: 74px;
+  margin: 2px;
+  border: 1px solid #999999;
+  -webkit-box-shadow: inset 0px 0px 3px 0px rgba(77, 77, 77, 1);
+  -moz-box-shadow: inset 0px 0px 3px 0px rgba(77, 77, 77, 1);
+  box-shadow: inset 0px 0px 3px 0px rgba(77, 77, 77, 1);
+}
+
+.heads {
+  position: absolute;
+  z-index: 1;
+  background: url("../img/coinHeads.png");
+}
+
+.tails {
+  position: absolute;
+  z-index: 1;
+  background: url("../img/coinTails.png");
+}
+
+#coin0 {
+  display: inline-block;
+  position: inherit;
+  margin-left: 50%;
+  left: -170px;
+}
+
+#coin1 {
+  display: inline-block;
+  position: inherit;
+  margin-left: -170px;
+}
+#coin2 {
+  display: inline-block;
+  position: inherit;
+}
+#coin3 {
+  display: inline-block;
+  position: inherit;
+}
+
+
+/*#coinFlip{
+  display: none;
+}*/

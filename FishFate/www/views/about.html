@@ -1,0 +1,103 @@
+<!--
+Corey Aing
+07/24/2016
+-->
+
+<ion-view class="moveDown" style="overflow-y: auto">
+
+<ion-list>
+
+  <ion-item>
+    <div class="aboutTextBlock">
+      <h2>How do the fish make a random number?</h2>
+      <ol class="rectangle-list">
+         <li><a href="">This is the second item</a></li>
+         <li><a href="">This is the third item</a></li>
+         <li><a href="">This is the fourth item</a></li>
+         <li><a href="">This is the fifth item</a></li>
+         <li><a href="">This is the sixth item</a></li>
+      </ol>
+    </div>
+  </ion-item>
+
+  <ion-item>
+    <!-- graph here -->
+    <div class="aboutTextBlock">
+      Below is a scatter plot graph that shows the
+      distribution of randomly generated x and y values
+      which are then plotted onto the graph.
+    </div>
+
+    <div id="graph">
+      <img ng-src="{{images.about.graph}}" class="stretch">
+    </div>
+
+  </ion-item>
+
+  <ion-item>
+    <div class="aboutTextBlock">
+    <!-- short description about NIST -->
+      ASDFASDFASD
+    </div>
+
+    <div class="borderRadius">
+      <table class="nistTable smallBorderRadius">
+        <tr>
+          <th align="left"><b>Statistical Test</b></th>
+          <th><b>Successful Proportion</b></th>
+        </tr>
+        <tr>
+          <td>Frequency</td>
+          <td align="center">1/1</td>
+        </tr>
+        <tr>
+          <td>Block Frequency</td>
+          <td align="center">1/1</td>
+        </tr>
+        <tr>
+          <td>Cumulative Sums</td>
+          <td align="center">2/2</td>
+        </tr>
+        <tr>
+          <td>Runs</td>
+          <td align="center">1/1</td>
+        </tr>
+        <tr>
+          <td>Longest Run</td>
+          <td align="center">1/1</td>
+        </tr>
+        <tr>
+          <td>Random Binary Matrix Rank</td>
+          <td align="center">1/1</td>
+        </tr>
+        <tr>
+          <td>Discrete Fourier Transform (Spectral)</td>
+          <td align="center">1/1</td>
+        </tr>
+        <tr>
+          <td>Non-Overlapping (Aperiodic) Template Matching</td>
+          <td align="center">146/148</td>
+        </tr>
+        <tr>
+          <td>Overlapping (Periodic) Template Matching</td>
+          <td align="center">1/1</td>
+        </tr>
+        <tr>
+          <td>Approximate Entropy</td>
+          <td align="center">1/1</td>
+        </tr>
+        <tr>
+          <td>Serial</td>
+          <td align="center">2/2</td>
+        </tr>
+        <tr>
+          <td>Linear Complexity</td>
+          <td align="center">1/1</td>
+        </tr>
+      </table>
+    </div>
+  </ion-item>
+
+  <!-- more content explaining how our RNG works -->
+</ion-list>
+</ion-view>

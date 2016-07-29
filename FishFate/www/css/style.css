@@ -1,0 +1,60 @@
+/* Empty. Add your own CSS if you like */
+a {
+  text-decoration: none;
+}
+
+.addMargin {
+  margin: 5px;
+}
+
+.fixLabel {
+  width: 60px;
+}
+
+.moveDown {
+  top: 43px;
+}
+
+.stretch {
+  width: 100%;
+  height: 100%;
+}
+
+.shadow {
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.backgroundGif {
+  width: 100%;
+  color: white;
+}
+
+/**/
+
+.videoText {
+  color: white;
+  position: absolute;
+  top: 0;
+  margin: 5px;
+}
+
+.roundCorners {
+  border-radius: 300px 300px 300px 300px;
+  -moz-border-radius: 300px 300px 300px 300px;
+  -webkit-border-radius: 300px 300px 300px 300px;
+}
+
+.whiteOut {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  padding-bottom: 0;
+
+}
+
+#preloadGif {
+  background: url("../img/fishDemo_2.gif") no-repeat -9999px -9999px;
+}
+
