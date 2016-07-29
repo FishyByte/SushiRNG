@@ -64,7 +64,10 @@ a {
   color: white;
 }
 .purple {
-  background-color: #941e78;
+  /*border-color: #601174;*/
+  border-color: #9d6db1;
+  background-color: #801399;
+  color: white;
 }
 
 #fishBanner {

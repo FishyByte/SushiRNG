@@ -42,7 +42,7 @@
     <!-- Main content, usually <ion-nav-view> -->
     <!-- The nav bar that will be updated as we navigate -->
     <ion-nav-bar class="bar-royal" align-title="center">
-      <ion-nav-title>Fish Fate</ion-nav-title>
+
       <ion-nav-back-button class="button-clear"
                            ng-click="goBack();"
                            style="margin-left:10px;">
@@ -62,14 +62,14 @@
   </ion-side-menu-content>
 
   <!-- Right menu -->
-  <ion-side-menu side="right" expose-aside-when="large">
+  <ion-side-menu width="200" class="purple" side="right" expose-aside-when="large">
     <ion-list>
       <a menu-close="true" ui-sref="home">
-        <ion-item>home</ion-item>
+        <ion-item class="purple">fish fate</ion-item>
       </a>
 
       <a menu-close="true" ui-sref="about">
-        <ion-item>about</ion-item>
+        <ion-item class="purple">about</ion-item>
       </a>
 
     </ion-list>
