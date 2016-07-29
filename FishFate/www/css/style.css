@@ -58,3 +58,15 @@ a {
   background: url("../img/fishDemo_2.gif") no-repeat -9999px -9999px;
 }
 
+
+.red {
+  background-color: #c10835;
+  color: white;
+}
+.purple {
+  background-color: #941e78;
+}
+
+#fishBanner {
+  top: 0;
+}
