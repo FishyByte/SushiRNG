@@ -59,7 +59,9 @@ app.controller('menuOptionsController', function ($scope) {
   function showCoinFlip() {
     // coin flip div changes height, this corrects that
     if (COIN_HEIGHT === 0)
-      COIN_HEIGHT = getHeight($('#coinFlip').height()) + 9;
+      COIN_HEIGHT = getHeight($('#coinFlip').height()) - 9;
+
+    console.log(getHeight($('#coinFlip').height()));
 
     $('#fishBanner').animate({
       height: COIN_HEIGHT
