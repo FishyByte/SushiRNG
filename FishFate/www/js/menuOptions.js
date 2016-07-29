@@ -7,6 +7,9 @@ app.controller('menuOptionsController', function ($scope) {
   /* array to keep track of which option is currently selected */
   var optionOpen = [false, false, false];
 
+  /* variable to make height of element static */
+  var COIN_HEIGHT = 0
+
   /* menu selection options */
   $scope.selectEightBall = function () { showEightBall(); };
   $scope.selectDiceRoll = function ()  { showDiceRoll();  };
@@ -54,8 +57,12 @@ app.controller('menuOptionsController', function ($scope) {
     });
   }
   function showCoinFlip() {
+    // coin flip div changes height, this corrects that
+    if (COIN_HEIGHT === 0)
+      COIN_HEIGHT = getHeight($('#coinFlip').height()) + 9;
+
     $('#fishBanner').animate({
-      height: getHeight($('#coinFlip').height())
+      height: COIN_HEIGHT
     }, 'fast', function () {
       if (!optionOpen[2]) {
         $('#eightBall').fadeOut('fast');
@@ -79,12 +86,15 @@ app.controller('menuOptionsController', function ($scope) {
       $('.backgroundGif').height(), // demo banner
       $('.view').height(),          // height of entire view
       $('#menuOptions').height(),   // height of menu options
-      elementHeight + 78            // height of option element + offset
+      elementHeight + 78,
+                 // height of option element + offset
     ];
-
+    console.log(viewHeights);
     /* loop through elements subtracting from the view height */
-    for (var i = 2; i < viewHeights.length; i++)
+    for (var i = 2; i < viewHeights.length; i++) {
+
       viewHeights[1] -= viewHeights[i];
+    }
 
     /* return whichever is bigger */
     if (viewHeights[1] > viewHeights[0])
