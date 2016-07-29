@@ -78,13 +78,14 @@
 .heads {
   position: absolute;
   z-index: 1;
-  background: url("../img/coinHeads.png");
 }
 
 .tails {
+  height: 74px;
+  width: 74px;
+  margin:2px;
   position: absolute;
   z-index: 1;
-  background: url("../img/coinTails.png");
 }
 
 #coin0 {
