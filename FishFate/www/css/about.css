@@ -55,7 +55,7 @@ ol {
   left: -2.5em;
   top: 50%;
   margin-top: -1em;
-  background: #33cd5f;
+  background: #ef473a;
   height: 2em;
   width: 2em;
   line-height: 2em;
@@ -106,20 +106,20 @@ table.nistTable th {
   border-width: 1px;
   padding: 3px;
   border-style: solid;
-  border-color: #28a54c;
-  background-color: #33cd5f;
+  border-color: #c127e4;/*#28a54c*/
+  background-color: #801399;/*#33cd5f*/
   color: #ffffff;
 }
 table.nistTable tr:hover td {
   cursor: pointer;
 }
 table.nistTable tr:nth-child(even) td{
-  background-color: #78ec9a;
+  background-color: #c191cc;/*#78ec9a*/
 }
 table.nistTable td {
   border-width: 1px;
   padding: 3px;
   border-style: solid;
-  border-color: #28a54c;
+  border-color: #c127e4;
   background-color: #ffffff;
 }
