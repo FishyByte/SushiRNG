@@ -120,7 +120,7 @@ def get_binary():
 
     # ship it
     try:
-        return fish_stream.read(int(quantity))
+        return str(fish_stream.read(quantity))
     except Exception, e:
         print e
         return abort(500)

@@ -4,10 +4,14 @@
 
 var app = angular.module('FishFate');
 app.controller('randomController', function ($scope, $http, $ionicPopup) {
-  /* used for formatting the pop up responses */
+  /* these arrays are used for formatting the pop up responses */
   var titleArray = [
     'The fish retrieved this number for you',
     'The fish retrieved this binary string for you'
+  ];
+  var responseArray = [
+    '<h1 style="text-align: center">{{randoms.getInt.response}}</h1>',
+    '<h1 style="text-align: center">{{randoms.getBinary.response}}</h1>'
   ];
 
 
@@ -17,7 +21,10 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
       maxValue: '255',
       response: ''
     },
-    getBinary: { quantity: '20' }
+    getBinary: {
+      quantity: '20',
+      response: ''
+    }
   };
   // When button is clicked, the popup will be shown...
   $scope.getInt = function () {
@@ -53,8 +60,8 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
      },
      crossDomain: true
      }).then(function successCallback(response) {
-        console.log('max:', $scope.randoms.getInt.maxValue, '   returned:', response.data);
-        $scope.randoms.getInt.response = response.data;
+        console.log(response.data);
+        $scope.randoms.getBinary.response = response.data;
         popUpResponse(1);
 
      }, function errorCallback(response) {
@@ -69,7 +76,7 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
 
     // Custom popup
     var myPopup = $ionicPopup.prompt({
-      template: '<h1 style="text-align: center">{{randoms.getInt.response}}</h1>',
+      template: responseArray[index],
       scope: $scope,
       title: titleArray[index],
       buttons: [
@@ -85,6 +92,7 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
 
     myPopup.then(function (res) {
       $scope.randoms.getInt.response = '';
+      $scope.randoms.getBinary.response = '';
     });
   }
 
