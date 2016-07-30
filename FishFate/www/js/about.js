@@ -16,4 +16,9 @@ app.controller('aboutViewController', function ($scope) {
     }
   };
 
+  $scope.clickAboutBlock = function(){
+    for (var i = 0; i < listItems.length; i++)
+      listItems[i].fadeOut('fast');
+  }
+
 });
