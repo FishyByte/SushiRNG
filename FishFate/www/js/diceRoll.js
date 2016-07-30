@@ -7,7 +7,6 @@ app.controller('diceController', function ($scope, $http) {
   /* this arrays holds jQuery id's */
   var diceArray = [$('#die0'), $('#die1'), $('#die2'), $('#die3'), $('#die4')];
   var diceResults = [$('#dieResult0'), $('#dieResult1'), $('#dieResult2'), $('#dieResult3'), $('#dieResult4')];
-  var responseArray = [0, 0, 0, 0, 0];
 
   $scope.diceRoll = {
     numberDice: '5',
@@ -33,7 +32,6 @@ app.controller('diceController', function ($scope, $http) {
         },
         crossDomain: true
       }).then(function successCallback(response) {
-        console.log(response.data);
         var tempArray = response.data.split(' ');
         /* dice don't start at zero, lets correct that */
         for (var i = 0; i < tempArray.length; i++)
@@ -42,20 +40,12 @@ app.controller('diceController', function ($scope, $http) {
         rotateDice();
 
       }, function errorCallback(response) {
-        console.log('fail') ;
+        console.log(response) ;
       });
-
-
   };
-
 
   /* dynamically display the selected number of coins */
   $scope.displayDice = function () { displayNumberDice(); };
-
-  $scope.changeSides = function(){
-
-  };
-
 
   /**
    * This function is called when use user interacts with the number of dice
@@ -144,6 +134,4 @@ app.controller('diceController', function ($scope, $http) {
       }
     }, 100);
   }
-
-
 });

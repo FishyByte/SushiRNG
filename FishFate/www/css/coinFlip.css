@@ -74,38 +74,56 @@
   -moz-box-shadow: inset 0px 0px 3px 0px rgba(77, 77, 77, 1);
   box-shadow: inset 0px 0px 3px 0px rgba(77, 77, 77, 1);
 }
+.coinImageOverlay{
+  width: 74px;
+  height: 74px;
+  margin: 2px;
+  border: 0;
+  position: absolute;
+  z-index: 2;
+}
 
 .heads {
+  margin: 2px;
+  height: 74px;
+  width: 74px;
   position: absolute;
   z-index: 1;
-  background: url("../img/coinHeads.png");
 }
 
 .tails {
+  margin: 2px;
+  height: 74px;
+  width: 74px;
   position: absolute;
   z-index: 1;
-  background: url("../img/coinTails.png");
 }
 
 #coin0 {
   display: inline-block;
   position: inherit;
   margin-left: 50%;
-  left: -170px;
+  left: -175px;
 }
 
 #coin1 {
   display: inline-block;
-  position: inherit;
-  margin-left: -170px;
+  position: absolute;
+  margin-left: 50%;
+  left: -85px;
 }
 #coin2 {
   display: inline-block;
-  position: inherit;
+  position: absolute;
+  margin-left: 50%;
+  left: 5px;
 }
 #coin3 {
   display: inline-block;
-  position: inherit;
+
+  position: absolute;
+  margin-left: 50%;
+  left: 95px;
 }
 
 

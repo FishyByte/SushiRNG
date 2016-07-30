@@ -12,7 +12,6 @@ app.controller('coinController', function ($scope, $http) {
     coinValues: [0, 0, 0, 0]
   };
 
-
   /* dynamically display the selected number of coins */
   $scope.displayCoins = function () {
     displayNumberCoins();
@@ -29,7 +28,6 @@ app.controller('coinController', function ($scope, $http) {
         },
       crossDomain: true
     }).then(function successCallback(response) {
-      console.log(response.data);
       $scope.coinFlip.coinValues = response.data.split(' ');
       animateCoins();
 
@@ -37,7 +35,6 @@ app.controller('coinController', function ($scope, $http) {
       console.log(response);
     });
   };
-
 
   /**
    * This function is called when use user interacts with the number of coins
@@ -102,5 +99,4 @@ app.controller('coinController', function ($scope, $http) {
       flipCounts[elementIndex]++;
     }, 150);
   }
-
 });

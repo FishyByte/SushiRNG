@@ -1,13 +1,15 @@
 <ion-view>
+  <ion-nav-title>
+    <a style="font-size: 20px">Fish Fate</a>
+  </ion-nav-title>
+
   <ion-content>
 
     <!-- video demo here -->
     <div id="fishBanner">
       <div class="backgroundGif">
         <img class="stretch" ng-src="{{images.demo}}">
-        <div class="videoText">
-          ~ Why swim in your thoughts when the fish can do it for you.
-        </div>
+        <div class="videoText"></div>
       </div>
     </div>
 
@@ -15,13 +17,13 @@
       <!-- buttons -->
       <ion-item id="menuOptions" ng-controller="menuOptionsController">
         <div class="row">
-          <button class="button button-calm col addMargin shadow"
+          <button class="button button-assertive col addMargin shadow"
                   ng-click="selectEightBall()">8-Ball
           </button>
-          <button class="button button-calm col addMargin shadow"
+          <button class="button button-assertive col addMargin shadow"
                   ng-click="selectDiceRoll()">Dice Roll
           </button>
-          <button class="button button-calm col addMargin shadow"
+          <button class="button button-assertive col addMargin shadow"
                   ng-click="selectCoinFlip()">Coin Flip
           </button>
         </div>
@@ -103,12 +105,14 @@
               <div class="front">
                 <ul class="coin roundCorners">
                   <li class="heads"><img ng-src="{{images.heads}}"></li>
+                  <li class="coinImageOverlay"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
               <div class="back">
                 <ul class="coin roundCorners">
                   <li class="tails"><img ng-src="{{images.tails}}"></li>
+                  <li class="coinImageOverlay"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
@@ -121,12 +125,14 @@
               <div class="front">
                 <ul class="coin roundCorners">
                   <li class="heads"><img ng-src="{{images.heads}}"></li>
+                  <li class="coinImageOverlay"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
               <div class="back">
                 <ul class="coin roundCorners">
                   <li class="tails"><img ng-src="{{images.tails}}"></li>
+                  <li class="coinImageOverlay"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
@@ -139,12 +145,14 @@
               <div class="front">
                 <ul class="coin roundCorners">
                   <li class="heads"><img ng-src="{{images.heads}}"></li>
+                  <li class="coinImageOverlay"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
               <div class="back">
                 <ul class="coin roundCorners">
                   <li class="tails"><img ng-src="{{images.tails}}"></li>
+                  <li class="coinImageOverlay"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
@@ -157,12 +165,14 @@
               <div class="front">
                 <ul class="coin roundCorners">
                   <li class="heads"><img ng-src="{{images.heads}}"></li>
+                  <li class="coinImageOverlay"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>
               <div class="back">
                 <ul class="coin roundCorners">
                   <li class="tails"><img ng-src="{{images.tails}}"></li>
+                  <li class="coinImageOverlay"></li>
                   <li class="coinLayer1 roundCorners"></li>
                 </ul>
               </div>

@@ -60,7 +60,6 @@ app.controller('eightBallController', function ($scope, $http) {
           'max_value': (($scope.eightBall.answers.length) - 1)
         },      crossDomain: true
     }).then(function successCallback(response) {
-      console.log(response.data);
       $scope.eightBall.resultIndex = parseInt(response.data);
       animateEightBall();
     }, function errorCallback(response) {

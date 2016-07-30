@@ -58,3 +58,65 @@ a {
   background: url("../img/fishDemo_2.gif") no-repeat -9999px -9999px;
 }
 
+
+.red {
+  background-color: #c10835;
+  color: white;
+}
+.purple {
+  /*border-color: #601174;*/
+  border-color: #9d6db1;
+  background-color: #801399;
+  color: white;
+}
+
+#fishBanner {
+  top: 0;
+}
+
+.menuHeader {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 130px;
+}
+
+.menuLayerOne{
+  position: absolute;
+  height: 44px;
+  width: 100%;
+  background-color: #801399;
+
+
+}
+.menuLayerTwo{
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 100% 100%;
+    background-color: #801399;
+    right: -7px;
+    top: 10px;
+  border: 1px #9d6db1;
+
+}
+/*.menuLayerThree{
+    position: absolute;
+    height: 170px;
+    width: 170px;
+    border-radius: 100% 100%;
+    background-color: white;
+    left: -46px;
+    top: 35px;
+}*/
+.fishFateIcon {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+right: 14px;
+    top: 31px;
+  border-radius: 100% 100%;
+    -webkit-box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
+}

@@ -3976,9 +3976,9 @@ a.subdued {
     .bar.bar-energized.bar-footer {
       background-image: linear-gradient(180deg, #e6b500, #e6b500 50%, transparent 50%); }
   .bar.bar-royal {
-    border-color: #6b46e5;
-    background-color: #886aea;
-    background-image: linear-gradient(0deg, #6b46e5, #6b46e5 50%, transparent 50%);
+    border-color: #601174;
+    background-color: #801399;
+    background-image: linear-gradient(0deg, #801399, #601174 50%, transparent 50%);
     color: #fff; }
     .bar.bar-royal .title {
       color: #fff; }
@@ -5699,7 +5699,6 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
   position: relative;
   z-index: 2;
   display: block;
-  margin: -1px;
   padding: 16px;
   border-width: 1px;
   border-style: solid;
@@ -5795,7 +5794,7 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
 .item .item-content.active,
 .item .item-content.activated {
   border-color: #ccc;
-  background-color: #f8ffb0; }
+  background-color: #fffc7f; }
   .item.active.item-complex > .item-content,
   .item.activated.item-complex > .item-content,
   .item-complex.active .item-content.item-complex > .item-content,
@@ -8349,11 +8348,20 @@ input:checked + .checkbox-icon:after {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     -webkit-appearance: none;
-    border: 0; }
+    border: 0;
+
+    background: rgba(255,74,60,1);
+    background: -moz-linear-gradient(top, rgba(255,74,60,1) 0%, rgba(239,71,58,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,74,60,1)), color-stop(100%, rgba(239,71,58,1)));
+    background: -webkit-linear-gradient(top, rgba(255,74,60,1) 0%, rgba(239,71,58,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,74,60,1) 0%, rgba(239,71,58,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,74,60,1) 0%, rgba(239,71,58,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,74,60,1) 0%, rgba(239,71,58,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff4a3c', endColorstr='#ef473a', GradientType=0 );
+  }
   .range input::-webkit-slider-thumb:before {
     /* what creates the colorful line on the left side of the slider */
     position: absolute;
