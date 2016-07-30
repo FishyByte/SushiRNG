@@ -9,11 +9,11 @@ Corey Aing
 </ion-nav-title>
 
 
-<ion-list>
+<div id="aboutBlock">
+  <div ng-controller="aboutViewController" >
+  <div ng-click="clickAboutBlock()" class="aboutOverlay"></div>
 
-  <ion-item ng-controller="aboutViewController">
-    <div class="aboutTextBlock">
-      <h2>How do the fish make a random number?</h2>
+      <h4>How do the fish make a random number?</h4>
       <ol class="rectangle-list">
          <li>
            <a href="" ng-click="clickListItem(0)"><b>Fish Setup</b>
@@ -56,8 +56,7 @@ Corey Aing
            </a>
          </li>
       </ol>
-    </div>
-  </ion-item>
+  </div>
 
   <ion-item>
     <!-- graph here -->
@@ -139,6 +138,7 @@ Corey Aing
     </div>
   </ion-item>
 
+
   <!-- more content explaining how our RNG works -->
-</ion-list>
+</div>
 </ion-view>
