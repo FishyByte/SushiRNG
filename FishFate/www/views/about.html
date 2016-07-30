@@ -24,7 +24,7 @@ Corey Aing
            </a>
          </li>
          <li>
-           <a href="" ng-click="clickListItem(1)">Fish Tracking
+           <a href="" ng-click="clickListItem(1)"><b>Fish Tracking</b>
              <div id="listItem1">
                <img ng-src="../img/fishPosition.png" style="height: 50%; width: 50%; margin-left:22.5%;"><br><br>
                Fish movements are tracked by their initial position on an x/y plane, where their
@@ -35,7 +35,7 @@ Corey Aing
          </li>
 
          <li>
-           <a href="" ng-click="clickListItem(2)">Generating Randomness
+           <a href="" ng-click="clickListItem(2)"><b>Generating Randomness</b>
              <div id="listItem2">
 
              </div>
@@ -43,107 +43,78 @@ Corey Aing
          </li>
 
          <li>
-           <a href="" ng-click="clickListItem(3)">How Random?
+           <a href="" ng-click="clickListItem(3)"><b>How Random?</b>
              <div id="listItem3">
                <img ng-src="{{images.about.graph}}" style="height:65%; width:65%; margin-left:17.5%;"class="stretch"><br>
                Above is a scatter plot graph that shows the
                distribution of about 2000 randomly generated x and y values
-               between 0 to 128.
+                from the fish between 0 to 128.
              </div>
            </a>
          </li>
 
          <li>
-           <a href="" ng-click="clickListItem(4)">The Stats
+           <a href="" ng-click="clickListItem(4)"><b>The Stats</b>
              <div id="listItem4">
-
+               <table class="nistTable smallBorderRadius" style="line-height: 9px; margin: 0 auto;">
+                 <tr>
+                   <th align="left"><b>Statistical Test</b></th>
+                   <th><b>Successful Proportion</b></th>
+                 </tr>
+                 <tr>
+                   <td>Frequency</td>
+                   <td align="center">1/1</td>
+                 </tr>
+                 <tr>
+                   <td>Block Frequency</td>
+                   <td align="center">1/1</td>
+                 </tr>
+                 <tr>
+                   <td>Cumulative Sums</td>
+                   <td align="center">2/2</td>
+                 </tr>
+                 <tr>
+                   <td>Runs</td>
+                   <td align="center">1/1</td>
+                 </tr>
+                 <tr>
+                   <td>Longest Run</td>
+                   <td align="center">1/1</td>
+                 </tr>
+                 <tr>
+                   <td>Random Binary Matrix Rank</td>
+                   <td align="center">1/1</td>
+                 </tr>
+                 <tr>
+                   <td>Discrete Fourier Transform (Spectral)</td>
+                   <td align="center">1/1</td>
+                 </tr>
+                 <tr>
+                   <td>Non-Overlapping (Aperiodic) Template Matching</td>
+                   <td align="center">146/148</td>
+                 </tr>
+                 <tr>
+                   <td>Overlapping (Periodic) Template Matching</td>
+                   <td align="center">1/1</td>
+                 </tr>
+                 <tr>
+                   <td>Approximate Entropy</td>
+                   <td align="center">1/1</td>
+                 </tr>
+                 <tr>
+                   <td>Serial</td>
+                   <td align="center">2/2</td>
+                 </tr>
+                 <tr>
+                   <td>Linear Complexity</td>
+                   <td align="center">1/1</td>
+                 </tr>
+               </table>
+               Above are NIST Tests used to determine the authenticity of the app's randomness
              </div>
            </a>
          </li>
       </ol>
   </div>
-
-  <ion-item>
-    <!-- graph here -->
-    <div class="aboutTextBlock">
-      Below is a scatter plot graph that shows the
-      distribution of randomly generated x and y values
-      which are then plotted onto the graph.
-    </div>
-    <div class="aboutImgBlock">
-      <img ng-src="{{images.about.graph}}" class="stretch">
-    </div>
-    <div class="aboutImgBlock">
-      <img ng-src="{{images.about.fishPosition}}" class="stretch">
-    </div>
-
-  </ion-item>
-
-  <ion-item>
-    <div class="aboutTextBlock">
-    <!-- short description about NIST -->
-      ASDFASDFASD
-    </div>
-
-    <div class="borderRadius">
-      <table class="nistTable smallBorderRadius">
-        <tr>
-          <th align="left"><b>Statistical Test</b></th>
-          <th><b>Successful Proportion</b></th>
-        </tr>
-        <tr>
-          <td>Frequency</td>
-          <td align="center">1/1</td>
-        </tr>
-        <tr>
-          <td>Block Frequency</td>
-          <td align="center">1/1</td>
-        </tr>
-        <tr>
-          <td>Cumulative Sums</td>
-          <td align="center">2/2</td>
-        </tr>
-        <tr>
-          <td>Runs</td>
-          <td align="center">1/1</td>
-        </tr>
-        <tr>
-          <td>Longest Run</td>
-          <td align="center">1/1</td>
-        </tr>
-        <tr>
-          <td>Random Binary Matrix Rank</td>
-          <td align="center">1/1</td>
-        </tr>
-        <tr>
-          <td>Discrete Fourier Transform (Spectral)</td>
-          <td align="center">1/1</td>
-        </tr>
-        <tr>
-          <td>Non-Overlapping (Aperiodic) Template Matching</td>
-          <td align="center">146/148</td>
-        </tr>
-        <tr>
-          <td>Overlapping (Periodic) Template Matching</td>
-          <td align="center">1/1</td>
-        </tr>
-        <tr>
-          <td>Approximate Entropy</td>
-          <td align="center">1/1</td>
-        </tr>
-        <tr>
-          <td>Serial</td>
-          <td align="center">2/2</td>
-        </tr>
-        <tr>
-          <td>Linear Complexity</td>
-          <td align="center">1/1</td>
-        </tr>
-      </table>
-    </div>
-  </ion-item>
-
-
-  <!-- more content explaining how our RNG works -->
 </div>
 </ion-view>
