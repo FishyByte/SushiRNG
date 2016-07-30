@@ -12,7 +12,7 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
     }
   };
   // When button is clicked, the popup will be shown...
-  $scope.showPopup = function () {
+  $scope.getInt = function () {
 
      delete $http.defaults.headers.common['X-Requested-With'];
      $http({
