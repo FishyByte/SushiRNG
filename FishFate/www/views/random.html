@@ -1,0 +1,48 @@
+
+<ion-view>
+<ion-nav-title>
+  <a style="font-size: 20px">Get Random Values</a>
+</ion-nav-title>
+
+  <ion-content ng-controller="randomController">
+    <ion-list>
+      <ion-item>
+        <h2>Need some more random values?</h2>
+      </ion-item>
+
+      <!-- get random integer -->
+      <ion-item>
+        <button class="button button-block button-assertive" ng-click="getInt()">Random Number</button>
+        <div class="list">
+          <div class="item range">
+            <div class="range-label">0</div>
+            <input type="range"
+                   min="1"
+                   max="255"
+                   data-ng-model="randoms.getInt.maxValue">
+            {{randoms.getInt.maxValue}}
+          </div>
+        </div>
+      </ion-item>
+
+      <!-- get binary string -->
+      <ion-item>
+        <button class="button button-block button-assertive" ng-click="getBinary()">Random Binary String</button>
+        <div class="list">
+          <div class="item range">
+            <div class="range-label"># bits:</div>
+            <input type="range"
+                   min="1"
+                   max="500"
+                   data-ng-model="randoms.getBinary.quantity">
+            {{randoms.getBinary.quantity}}
+          </div>
+        </div>
+      </ion-item>
+
+    </ion-list>
+
+
+  </ion-content>
+
+</ion-view>
