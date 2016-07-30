@@ -7,14 +7,13 @@ app.controller('aboutViewController', function ($scope) {
   var listItems = [ $('#listItem0'), $('#listItem1'), $('#listItem2'), $('#listItem3'), $('#listItem4') ];
 
   /* this click function is called from the about view */
-  $scope.clickListItem = function(index){  hideAllItems( showOneItem(index) );  };
+  $scope.clickListItem = function(index){
 
-  function hideAllItems (callback, index) {
-    for (var i = 0; i < listItems.length; i++){
-      listItems[i].fadeOut('fast');
-      callback(index);
+    listItems[index].fadeIn('fast');
+      for (var i = 0; i < listItems.length; i++){
+        if (i != index)
+          listItems[i].fadeOut('fast');
     }
-  }
-  /* helper function to show just one element */
-  function showOneItem(index){ listItems[index].fadeIn('fast'); }
+  };
+
 });
