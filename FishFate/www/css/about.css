@@ -11,8 +11,10 @@
   height: 22px;
   text-align: center;
 }
+/*#listItem0,  #listItem1{
+  display:none;
+}*/
 
-/*List Styling*/
 ol {
   counter-reset: li; /* Initiate a counter */
   list-style: none; /* Remove default numbering */
@@ -33,10 +35,17 @@ ol {
   color: #444;
   text-decoration: none;
   transition: all .3s ease-out;
+  height: 30px;
+
 }
 
 .rectangle-list a:hover{
   background: #eee;
+  height: 300px;
+  transition: all .5s ease-out;
+}
+#listItem0 + .rectangle-list a:hover{
+  display: inline-block;
 }
 
 .rectangle-list a:before{
