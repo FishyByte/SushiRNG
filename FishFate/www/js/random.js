@@ -11,7 +11,7 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
   ];
   var responseArray = [
     '<h1 style="text-align: center">{{randoms.getInt.response}}</h1>',
-    '<h1 style="text-align: center">{{randoms.getBinary.response}}</h1>'
+    '<h4 style="text-align: center">{{randoms.getBinary.response}}</h4>'
   ];
 
 
@@ -22,7 +22,7 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
       response: ''
     },
     getBinary: {
-      quantity: '20',
+      quantity: '32',
       response: ''
     }
   };
