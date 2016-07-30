@@ -101,6 +101,30 @@ def get_bits():
         print e
         return abort(500)
 
+# ********************************************************
+#
+#
+#
+# ********************************************************
+@app.route("/get-binary")
+def get_binary():
+    quantity = int(request.headers.get('quantity'))
+
+    # empty request
+    if quantity is None:
+        return abort(400)
+
+    # param value too small or too large
+    if quantity < 1 or quantity > MAX_REQUEST_SIZE:
+        return abort(400)
+
+    # ship it
+    try:
+        return str(fish_stream.read(quantity))
+    except Exception, e:
+        print e
+        return abort(500)
+
 
 # ********************************************************
 #
