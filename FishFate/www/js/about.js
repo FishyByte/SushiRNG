@@ -17,7 +17,8 @@ app.controller('aboutViewController', function ($scope) {
 
   /* this click function is called from the about view */
   $scope.clickListItem = function (index) {
-    closeAll(openOne(index), index);
+    closeAll(index);
+    openOne(index);
   };
 
   function openOne(index) {
@@ -43,12 +44,11 @@ app.controller('aboutViewController', function ($scope) {
     });
   }
 
-  function closeAll(index, callback) {
+  function closeAll(index) {
     for (var i = 0; i < listItems.length; i++) {
       if (isDisplayed[i] && i != index)
         closeOne(i);
     }
-    callback();
   }
 
 
