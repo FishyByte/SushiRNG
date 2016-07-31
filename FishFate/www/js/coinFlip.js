@@ -95,7 +95,7 @@ app.controller('coinController', function ($scope, $http) {
     var trigger = setInterval(function () {
       if (flipCounts[elementIndex] == 1 + $scope.coinFlip.coinValues[elementIndex])
         clearInterval(trigger);
-      document.querySelector(coinIDs[elementIndex]).classList.toggle("flip");
+        document.querySelector(coinIDs[elementIndex]).classList.toggle("flip");
       flipCounts[elementIndex]++;
     }, 150);
   }

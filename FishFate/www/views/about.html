@@ -3,7 +3,7 @@ Corey Aing
 07/24/2016
 -->
 
-<ion-view class="moveDown" style="overflow-y: auto">
+<ion-view class="moveDown hideOverFlow" id="aboutView">
 <ion-nav-title>
   <a style="font-size: 20px">About</a>
 </ion-nav-title>
@@ -11,20 +11,18 @@ Corey Aing
 
 <div id="aboutBlock">
   <div ng-controller="aboutViewController" >
-  <div ng-click="clickAboutBlock()" class="aboutOverlay"></div>
-
       <h4>How do the fish make a random number?</h4>
       <ol class="rectangle-list">
          <li>
-           <a href="" ng-click="clickListItem(0)"><b>Fish Setup</b>
+           <a ng-click="clickListItem(0)" id="listElement0"><b>Fish Setup</b>
              <div id="listItem0">
                <!-- add content here -->
 
              </div>
            </a>
          </li>
-         <li>
-           <a href="" ng-click="clickListItem(1)"><b>Fish Tracking</b>
+         <li >
+           <a ng-click="clickListItem(1)" id="listElement1"><b>Fish Tracking</b>
              <div id="listItem1">
                <img id="fishPosition" ng-src="../img/fishPosition.png"><br><br>
                Fish movements are tracked by their initial position on an x/y plane, where their
@@ -35,7 +33,7 @@ Corey Aing
          </li>
 
          <li>
-           <a href="" ng-click="clickListItem(2)"><b>Generating Randomness</b>
+           <a ng-click="clickListItem(2)" id="listElement2"><b>Generating Randomness</b>
              <div id="listItem2">
                <br>We read in a certain number of bits from the bitstream and then calculate the
                distribution of the 1's and 0's.<br><br>From that we calculate the Shannon Entropy which tells
@@ -47,8 +45,8 @@ Corey Aing
            </a>
          </li>
 
-         <li>
-           <a href="" ng-click="clickListItem(3)"><b>How Random?</b>
+         <li >
+           <a ng-click="clickListItem(3)" id="listElement3"><b>How Random?</b>
              <div id="listItem3">
                <img id="scatter" ng-src="{{images.about.graph}}" class="stretch"><br>
                Above is a scatter plot graph that shows the
@@ -59,7 +57,7 @@ Corey Aing
          </li>
 
          <li>
-           <a href="" ng-click="clickListItem(4)"><b>The Stats</b>
+           <a ng-click="clickListItem(4)" id="listElement4"><b>The Stats</b>
              <div id="listItem4">
                <table id="listItemTable" class="nistTable smallBorderRadius">
                  <tr>
