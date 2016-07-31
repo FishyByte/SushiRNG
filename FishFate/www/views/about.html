@@ -37,7 +37,12 @@ Corey Aing
          <li>
            <a href="" ng-click="clickListItem(2)"><b>Generating Randomness</b>
              <div id="listItem2">
-
+               <br>We read in a certain number of bits from the bitstream and then calculate the
+               distribution of the 1's and 0's.<br><br>From that we calculate the Shannon Entropy which tells
+               the amount of entropy in the bits. Entropy is then calculated
+               until there are 256 bits of entropy to be inputted into a SHA1 Hash Function.<br><br>The hash
+               function then outputs a 160 bit Hex number and finally this Hex number is converted to
+               a Binary number to send to the server.
              </div>
            </a>
          </li>
