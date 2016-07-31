@@ -4,6 +4,9 @@
 var app = angular.module('FishFate');
 app.controller('coinController', function ($scope, $http) {
 
+  /* boolean used to stop rapid button presses */
+  var isActivated = false;
+
   /* array for coin id's */
   var coinIDs = ['#coin0', '#coin1', '#coin2', '#coin3'];
 
@@ -29,7 +32,9 @@ app.controller('coinController', function ($scope, $http) {
       crossDomain: true
     }).then(function successCallback(response) {
       $scope.coinFlip.coinValues = response.data.split(' ');
-      animateCoins();
+
+      if (!isActivated)
+        animateCoins();
 
     }, function errorCallback(response) {
       console.log(response);
@@ -77,6 +82,7 @@ app.controller('coinController', function ($scope, $http) {
    * loop through each of the coins and call spinCoin()
    * */
   function animateCoins() {
+    isActivated = true;
     for (var coinIndex = 0; coinIndex < coinIDs.length; coinIndex++)
       spinCoin(coinIndex);
   }
@@ -98,5 +104,6 @@ app.controller('coinController', function ($scope, $http) {
         document.querySelector(coinIDs[elementIndex]).classList.toggle("flip");
       flipCounts[elementIndex]++;
     }, 150);
+    isActivated = false;
   }
 });
