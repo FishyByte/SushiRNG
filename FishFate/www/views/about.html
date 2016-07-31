@@ -26,7 +26,7 @@ Corey Aing
          <li>
            <a href="" ng-click="clickListItem(1)"><b>Fish Tracking</b>
              <div id="listItem1">
-               <img ng-src="../img/fishPosition.png" style="height: 50%; width: 50%; margin-left:22.5%;"><br><br>
+               <img id="fishPosition" ng-src="../img/fishPosition.png"><br><br>
                Fish movements are tracked by their initial position on an x/y plane, where their
                next position they move to will generate a binary number as
                shown on the the picture above.
@@ -50,7 +50,7 @@ Corey Aing
          <li>
            <a href="" ng-click="clickListItem(3)"><b>How Random?</b>
              <div id="listItem3">
-               <img ng-src="{{images.about.graph}}" style="height:65%; width:65%; margin-left:17.5%;"class="stretch"><br>
+               <img id="scatter" ng-src="{{images.about.graph}}" class="stretch"><br>
                Above is a scatter plot graph that shows the
                distribution of about 2000 randomly generated x and y values
                 from the fish between 0 to 128.
@@ -61,7 +61,7 @@ Corey Aing
          <li>
            <a href="" ng-click="clickListItem(4)"><b>The Stats</b>
              <div id="listItem4">
-               <table class="nistTable smallBorderRadius" style="line-height: 9px; margin: 0 auto;">
+               <table id="listItemTable" class="nistTable smallBorderRadius">
                  <tr>
                    <th align="left"><b>Statistical Test</b></th>
                    <th><b>Successful Proportion</b></th>

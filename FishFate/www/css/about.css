@@ -15,6 +15,22 @@
   display:none;
 }
 
+/*List item specific css*/
+#fishPosition {
+  height: 50%;
+  width: 50%;
+  margin-left:22.5%;
+}
+#scatter {
+  height:65%;
+  width:65%;
+  margin-left:17.5%;
+}
+#listItemTable {
+  line-height: 9px;
+  margin: 0 auto;
+}
+
 .aboutOverlay{
   position: absolute;
   width: 100%;
