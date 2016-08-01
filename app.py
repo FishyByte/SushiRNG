@@ -227,7 +227,6 @@ if __name__ == "__main__":
 
 
 def stream_analysis():
-    print 'hit stream analysis'
     analyze_stream = str(fish_stream)
     # get counts of ones zeros and total
     zero_count = analyze_stream.count('0')
@@ -245,14 +244,11 @@ def stream_analysis():
     entropy = (-percent_ones * math.log(percent_ones, 2)) + \
               (-percent_zeros * math.log(percent_zeros, 2))
 
-    print 'calculations completed'
-
     # now return a string with the calculated analysis
-    response = '<h3>ANALYSIS</h3> <br> total bits in stream:' + str(total_count) + \
-               '<br> percentage of zeros:' + str(percent_zeros) + \
-               '<br> percentage of ones:' + str(percent_ones) + \
-               '<br> entropy calculation:' + str(entropy)
-    print response
+    response = '<h3>Fish Bit Hub Analysis</h3> total bits in stream: ' + str(total_count) + \
+               '<br> percentage of zeros: ' + str(percent_zeros) + \
+               '<br> percentage of ones: ' + str(percent_ones) + \
+               '<br> entropy calculation: ' + str(entropy)
     return response
 
 
