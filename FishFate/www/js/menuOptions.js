@@ -11,9 +11,15 @@ app.controller('menuOptionsController', function ($scope) {
   var COIN_HEIGHT = 0
 
   /* menu selection options */
-  $scope.selectEightBall = function () { showEightBall(); };
-  $scope.selectDiceRoll = function ()  { showDiceRoll();  };
-  $scope.selectCoinFlip = function ()  { showCoinFlip();  };
+  $scope.selectEightBall = function () {
+    showEightBall();
+  };
+  $scope.selectDiceRoll = function () {
+    showDiceRoll();
+  };
+  $scope.selectCoinFlip = function () {
+    showCoinFlip();
+  };
 
   /**
    *  the following three functions are used to display
@@ -42,6 +48,7 @@ app.controller('menuOptionsController', function ($scope) {
       }
     });
   }
+
   function showDiceRoll() {
     $('#fishBanner').animate({
       height: getHeight($('#diceRoll').height())
@@ -56,12 +63,11 @@ app.controller('menuOptionsController', function ($scope) {
       }
     });
   }
+
   function showCoinFlip() {
     // coin flip div changes height, this corrects that
     if (COIN_HEIGHT === 0)
       COIN_HEIGHT = $('.backgroundGif').height();
-
-    console.log(getHeight($('#coinFlip').height()));
 
     $('#fishBanner').animate({
       height: COIN_HEIGHT
@@ -89,9 +95,8 @@ app.controller('menuOptionsController', function ($scope) {
       $('.view').height(),          // height of entire view
       $('#menuOptions').height(),   // height of menu options
       elementHeight + 78,
-                 // height of option element + offset
+      // height of option element + offset
     ];
-    console.log(viewHeights);
     /* loop through elements subtracting from the view height */
     for (var i = 2; i < viewHeights.length; i++) {
 

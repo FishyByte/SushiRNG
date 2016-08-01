@@ -15,7 +15,6 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
   ];
 
 
-
   $scope.randoms = {
     getInt: {
       maxValue: '255',
@@ -29,47 +28,43 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
   // When button is clicked, the popup will be shown...
   $scope.getInt = function () {
 
-     delete $http.defaults.headers.common['X-Requested-With'];
-     $http({
-     method: "GET",
-     url: 'https://fish-bit-hub.herokuapp.com/get-ints',
-     headers: {
-     'quantity': '1',
-     'max_value': $scope.randoms.getInt.maxValue
-     },
-     crossDomain: true
-     }).then(function successCallback(response) {
-        console.log('max:', $scope.randoms.getInt.maxValue, '   returned:', response.data);
-        $scope.randoms.getInt.response = response.data;
-        popUpResponse(0);
+    delete $http.defaults.headers.common['X-Requested-With'];
+    $http({
+      method: "GET",
+      url: 'https://fish-bit-hub.herokuapp.com/get-ints',
+      headers: {
+        'quantity': '1',
+        'max_value': $scope.randoms.getInt.maxValue
+      },
+      crossDomain: true
+    }).then(function successCallback(response) {
+      $scope.randoms.getInt.response = response.data;
+      popUpResponse(0);
 
-     }, function errorCallback(response) {
-     console.log(response);
-     });
+    }, function errorCallback(response) {
+      console.log(response);
+    });
   };
 
 
-    $scope.getBinary = function () {
+  $scope.getBinary = function () {
 
-     delete $http.defaults.headers.common['X-Requested-With'];
-     $http({
-     method: "GET",
-     url: 'https://fish-bit-hub.herokuapp.com/get-binary',
-     headers: {
-     'quantity': $scope.randoms.getBinary.quantity
-     },
-     crossDomain: true
-     }).then(function successCallback(response) {
-        console.log(response.data);
-        $scope.randoms.getBinary.response = response.data;
-        popUpResponse(1);
+    delete $http.defaults.headers.common['X-Requested-With'];
+    $http({
+      method: "GET",
+      url: 'https://fish-bit-hub.herokuapp.com/get-binary',
+      headers: {
+        'quantity': $scope.randoms.getBinary.quantity
+      },
+      crossDomain: true
+    }).then(function successCallback(response) {
+      $scope.randoms.getBinary.response = response.data;
+      popUpResponse(1);
 
-     }, function errorCallback(response) {
-     console.log(response);
-     });
+    }, function errorCallback(response) {
+      console.log(response);
+    });
   };
-
-
 
 
   var popUpResponse = function (index) {

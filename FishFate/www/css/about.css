@@ -1,50 +1,61 @@
-#aboutBlock{
+#aboutBlock {
   overflow: hidden;
 }
 
 .aboutImgBlock {
   width: 100%;
 }
+
 .aboutTextBlock {
   width: 100%;
   white-space: normal;
 }
+
 .listNumber {
   background-color: #0a9dc7;
   width: 22px;
   height: 22px;
   text-align: center;
 }
-#listItem0, #listItem1,  #listItem2,  #listItem3,  #listItem4{
-  display:none;
+
+#listItem0, #listItem1, #listItem2, #listItem3, #listItem4 {
+  display: none;
 }
 
 /*List item specific css*/
 #fishPosition {
-  height: 50%;
-  width: 50%;
-  margin-left:22.5%;
-}
-#scatter {
-  height:65%;
-  width:65%;
-  margin-left:17.5%;
-}
-#listItemTable {
-  line-height: 9px;
-  margin: 0 auto;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 5px;
 }
 
+#scatter {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5px;
+}
+
+#listItemTable {
+  line-height: 9px;
+  margin: 5px;
+}
+
+#tankSetup {
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 5px;
+}
 
 ol {
   counter-reset: li; /* Initiate a counter */
   list-style: none; /* Remove default numbering */
   *list-style: decimal; /* Keep using default numbering for IE6/7 */
   padding: 0;
-  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+  margin: 5px;
 }
 
-.rectangle-list a{
+.rectangle-list a {
   position: relative;
   display: block;
   padding: .4em .4em .4em .8em;
@@ -54,7 +65,7 @@ ol {
   color: #444;
   text-decoration: none;
   transition: all .3s ease-out;
-  height: 30px;
+  height: 40px;
 
 }
 
@@ -67,7 +78,7 @@ ol {
   display: inline-block;
 }*/
 
-.rectangle-list a:before{
+.rectangle-list a:before {
   content: counter(li);
   counter-increment: li;
   position: absolute;
@@ -82,6 +93,7 @@ ol {
   font-weight: bold;
   color: white;
 }
+
 /*
 .rectangle-list a:after{
   position: absolute;
@@ -112,31 +124,33 @@ ol {
   -webkit-border-radius: 5px 5px 5px 5px;
 }
 
-
 table.nistTable {
 
   border: 1px solid #000000;
-  font-family: verdana, arial, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   color: #333333;
   border-width: 1px;
   border-color: #3A3A3A;
   border-collapse: collapse;
 }
+
 table.nistTable th {
   border-width: 1px;
   padding: 3px;
   border-style: solid;
-  border-color: #c127e4;/*#28a54c*/
-  background-color: #801399;/*#33cd5f*/
+  border-color: #c127e4; /*#28a54c*/
+  background-color: #801399; /*#33cd5f*/
   color: #ffffff;
 }
+
 table.nistTable tr:hover td {
   cursor: pointer;
 }
-table.nistTable tr:nth-child(even) td{
-  background-color: #c191cc;/*#78ec9a*/
+
+table.nistTable tr:nth-child(even) td {
+  background-color: #c191cc; /*#78ec9a*/
 }
+
 table.nistTable td {
   border-width: 1px;
   padding: 3px;

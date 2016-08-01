@@ -101,7 +101,7 @@
 
 #coin0 {
   display: inline-block;
-  position: inherit;
+  position: absolute;
   margin-left: 50%;
   left: -175px;
 }
@@ -126,6 +126,10 @@
   left: 95px;
 }
 
+#coinFlipBlock{
+  width: 100%;
+  height: 120px;
+}
 
 /*#coinFlip{
   display: none;
