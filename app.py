@@ -248,9 +248,9 @@ def stream_analysis():
     print 'calculations completed'
 
     # now return a string with the calculated analysis
-    response = '--ANALYSIS-- <br> total bits in stream:', str(total_count), \
-               '<br> percentage of zeros:', str(percent_zeros), '<br> percentage of ones: percent_ones', \
-               '<br> entropy calculation:', str(entropy)
+    response = '--ANALYSIS-- <br> total bits in stream:' + str(total_count) + \
+               '<br> percentage of zeros:' + str(percent_zeros) + '<br> percentage of ones: percent_ones' + \
+               '<br> entropy calculation:' + str(entropy)
     print response
     return response
 
