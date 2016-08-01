@@ -16,15 +16,17 @@ Corey Aing
         <li>
           <a ng-click="clickListItem(0)" id="listElement0"><b>Fish Setup</b>
             <div id="listItem0">
-              <!-- add content here -->
-
+              <img id="tankSetup" ng-src="{{images.about.tankSetup}}"><br>
+              We used a raspberry pi and a raspberry pi fish eye camera to stream a video of the fish.
+              We then processes this video to give us an x and y position of each fish for each frame of
+              the video.
             </div>
           </a>
         </li>
         <li>
           <a ng-click="clickListItem(1)" id="listElement1"><b>Fish Tracking</b>
             <div id="listItem1">
-              <img id="fishPosition" ng-src="../img/fishPosition.png"><br><br>
+              <img id="fishPosition" ng-src="{{images.about.position}}"><br>
               Fish movements are tracked by their initial position on an x/y plane, where their
               next position they move to will generate a binary number as
               shown on the the picture above.

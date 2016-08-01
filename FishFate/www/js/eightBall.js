@@ -19,27 +19,26 @@ app.controller('eightBallController', function ($scope, $http) {
      Don't count on it.
      */
     answers: [
-      'do or do not,<br>there is<br>no try',
-      '&emsp;&nbsp;Signs<br>&emsp;&nbsp;point to<br>&emsp;&nbsp;yes',
-      '&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;<br>Yes',
-      '&emsp;&nbsp;Reply<br>&emsp;&nbsp;hazy, try<br>&emsp;&nbsp;again',
-      '&emsp;&nbsp;Without<br>&emsp;&nbsp;a<br>&emsp;&nbsp;doubt',
-      '&emsp;&nbsp;My<br>&emsp;&nbsp;sources<br>&emsp;&nbsp;say<br>&emsp;&nbsp;no<br>',
-      '&emsp;&ensp;&nbsp;As I<br>&emsp;&ensp;&nbsp;see it<br>&emsp;&ensp;&nbsp;yes',
-      '&emsp;You may<br>&emsp;rely<br>&emsp;on it',
-      '&nbsp;Concentrate<br>&nbsp;and ask<br>&nbsp;again',
-      '&emsp;&nbsp;Outlook<br>&emsp;&nbsp;not so<br>&emsp;&nbsp;good',
-      '&ensp;&nbsp;It is<br>&emsp;decidedly<br>&ensp;&nbsp;so',
-      '&ensp;&nbsp;Better not<br>&emsp;tell you<br>&emsp;now',
-      '&emsp;Very<br>&emsp;doubtful',
-      '&ensp;&nbsp;Yes<br>&emsp;definitely',
-      '&emsp;&ensp;It is<br>&emsp;&ensp;certain',
-      '&emsp;&ensp;Cannot<br>&emsp;&ensp;predict<br>&emsp;&ensp;now',
-      '&emsp;&ensp;&nbsp;Most<br>&emsp;&ensp;&nbsp;likely',
-      '&emsp;&ensp;&nbsp;Ask<br>&emsp;&ensp;&nbsp;again<br>&emsp;&emsp;later',
-      '&emsp;&nbsp;My reply<br>&emsp;is<br>&emsp;no',
-      '&emsp;&nbsp;Outlook<br>&emsp;&nbsp;good',
-      '&emsp;&ensp;&nbsp;Don&#39;t<br>&emsp;&ensp;&nbsp;count<br>&emsp;&ensp;&nbsp;on it'
+      '&emsp;&nbsp;Fins<br>&emsp;&nbsp;point to<br>&emsp;&nbsp;yes',//0
+      '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br>Aye!',//1
+      '&nbsp;Trouble<br>&ensp;Herring you<br>&nbsp;try again',//2
+      '&emsp;Without<br>&emsp;&nbsp;a Trout&#39;s<br>&emsp;doubt',//3
+      '&ensp;&nbsp;My<br>&emsp;fishes say<br>&ensp;&nbsp;no<br>',//4
+      '&emsp;&ensp;&nbsp;As I<br>&emsp;&ensp;&nbsp;sea it<br>&emsp;&ensp;&nbsp;yes',//5
+      '&emsp;You may<br>&emsp;Ray-ly<br>&emsp;on it',//6
+      '&emsp;Gather<br>&emsp;your fish<br>&emsp;&nbsp;and ask<br>&emsp;&nbsp;again',//7
+      '&emsp;Outhook<br>&emsp;not so<br>&emsp;good',//8
+      '&emsp;It is Dace<br>&emsp;-cidedly<br>&ensp;&nbsp;so',//9
+      '&emsp;&emsp;Dear<br>&emsp;&emsp;Cod<br>&emsp;&emsp;no',//10
+      '&emsp;Very<br>&emsp;Flounder<br>&emsp;-ing',//11
+      '&nbsp;Yes<br>&nbsp;Dolphinitely',//12
+      '&ensp;&nbsp;It is certain<br>as a<br>&ensp;Sturgeon',//13
+      '&emsp;Fish can&#39;t<br>&emsp;forecast<br>&emsp;now',//14
+      '&nbsp;Most<br>&nbsp;bay-lievable',//15
+      '&emsp;&ensp;&nbsp;Nope<br>&emsp;&ensp;&nbsp;Go<br>&emsp;&ensp;&nbsp;Fish',//16
+      '&ensp;&nbsp;No oppor-<br>&ensp;&nbsp;Tuna-ty',//17
+      '&ensp;&nbsp;The<br>&ensp;&nbsp;tides look<br>&emsp;good',//18
+      '&emsp;&ensp;&nbsp;Don&#39;t<br>&emsp;&ensp;&nbsp;reel<br>&emsp;&ensp;&nbsp;on it'//19
     ],
     resultIndex: 0
   };
