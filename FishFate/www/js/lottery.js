@@ -47,7 +47,6 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
   };
 
   function displayLottery(){
-
     timeLocked = true;
     for (var i = 0; i < $scope.lottery.quantity; i++){
       lotteryLines[i].fadeIn(400 * (i+1));
@@ -60,12 +59,8 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
   }
   function hideLottery(){
       for (var i = 4; i >= 0; i--) {
-        lotteryLines[i].fadeOut(100 * (i + 1));
+        lotteryLines[i].fadeOut(300);
       }
   }
-  function getButtonString(){
-
-  }
-
 
 });
