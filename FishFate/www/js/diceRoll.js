@@ -4,6 +4,9 @@
 var app = angular.module('FishFate');
 app.controller('diceController', function ($scope, $http) {
 
+  /* boolean used to stop rapid button presses */
+  var isActivated = false;
+
   /* this arrays holds jQuery id's */
   var diceArray = [$('#die0'), $('#die1'), $('#die2'), $('#die3'), $('#die4')];
   var diceResults = [$('#dieResult0'), $('#dieResult1'), $('#dieResult2'), $('#dieResult3'), $('#dieResult4')];
@@ -22,30 +25,33 @@ app.controller('diceController', function ($scope, $http) {
    *  */
   $scope.submitRollDice = function () {
     $('.dieResult').fadeOut(100);
-      delete $http.defaults.headers.common['X-Requested-With'];
-      $http({
-        method: "GET",
-        url: 'https://fish-bit-hub.herokuapp.com/get-ints',
-        headers: {
-          'quantity': '5',
-          'max_value': (String($scope.diceRoll.numberSides) - 1)
-        },
-        crossDomain: true
-      }).then(function successCallback(response) {
-        var tempArray = response.data.split(' ');
-        /* dice don't start at zero, lets correct that */
-        for (var i = 0; i < tempArray.length; i++)
-          tempArray[i]++
-        $scope.diceRoll.diceValues = tempArray;
+    delete $http.defaults.headers.common['X-Requested-With'];
+    $http({
+      method: "GET",
+      url: 'https://fish-bit-hub.herokuapp.com/get-ints',
+      headers: {
+        'quantity': '5',
+        'max_value': (String($scope.diceRoll.numberSides) - 1)
+      },
+      crossDomain: true
+    }).then(function successCallback(response) {
+      var tempArray = response.data.split(' ');
+      /* dice don't start at zero, lets correct that */
+      for (var i = 0; i < tempArray.length; i++)
+        tempArray[i]++
+      $scope.diceRoll.diceValues = tempArray;
+      if (!isActivated)
         rotateDice();
 
-      }, function errorCallback(response) {
-        console.log(response) ;
-      });
+    }, function errorCallback(response) {
+      console.log(response);
+    });
   };
 
   /* dynamically display the selected number of coins */
-  $scope.displayDice = function () { displayNumberDice(); };
+  $scope.displayDice = function () {
+    displayNumberDice();
+  };
 
   /**
    * This function is called when use user interacts with the number of dice
@@ -99,6 +105,7 @@ app.controller('diceController', function ($scope, $http) {
    * toss: simulates a dice throw
    * */
   function animateDie(element, index) {
+    isActivated = true;
     element.rotate({
       angle: 0,
       animateTo: 360,
@@ -116,7 +123,9 @@ app.controller('diceController', function ($scope, $http) {
         }, 150, function () {
           element.animate({
             top: 0
-          }, 150)
+          }, 150, function () {
+            isActivated = false;
+          })
         })
       })
     })

@@ -4,6 +4,9 @@
 var app = angular.module('FishFate');
 app.controller('eightBallController', function ($scope, $http) {
 
+  /* boolean used to stop rapid button presses */
+  var isActivated = false;
+
   /* jQuery id's */
   var triangle = $('#triangle');
   var answer = $('#answer');
@@ -61,7 +64,9 @@ app.controller('eightBallController', function ($scope, $http) {
         },      crossDomain: true
     }).then(function successCallback(response) {
       $scope.eightBall.resultIndex = parseInt(response.data);
-      animateEightBall();
+      if (!isActivated){
+        animateEightBall();
+      }
     }, function errorCallback(response) {
       console.log(response);
     });
@@ -73,6 +78,7 @@ app.controller('eightBallController', function ($scope, $http) {
    *    2. reveal triangle/answer
    * */
   function animateEightBall() {
+    isActivated = true;
     eightBall.animate({
       right: '160px'
     }, 200, function () {
@@ -87,6 +93,7 @@ app.controller('eightBallController', function ($scope, $http) {
           }, 200, function () {
             triangle.fadeIn('slow');
             answer.fadeIn('slow');
+            isActivated = false;
           });
         });
       });

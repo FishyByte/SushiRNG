@@ -1,3 +1,7 @@
+#aboutBlock{
+  overflow: hidden;
+}
+
 .aboutImgBlock {
   width: 100%;
 }
@@ -15,21 +19,28 @@
   display:none;
 }
 
-.aboutOverlay{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
+/*List item specific css*/
+#fishPosition {
+  height: 50%;
+  width: 50%;
+  margin-left:22.5%;
 }
+#scatter {
+  height:65%;
+  width:65%;
+  margin-left:17.5%;
+}
+#listItemTable {
+  line-height: 9px;
+  margin: 0 auto;
+}
+
 
 ol {
   counter-reset: li; /* Initiate a counter */
   list-style: none; /* Remove default numbering */
   *list-style: decimal; /* Keep using default numbering for IE6/7 */
-  font: 15px 'trebuchet MS', 'lucida sans';
   padding: 0;
-  margin-bottom: 4em;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
 }
 
@@ -47,14 +58,14 @@ ol {
 
 }
 
-.rectangle-list a:hover{
+/*.rectangle-list a:hover{
   background: #eee;
   height: 300px;
   transition: all .5s ease-out;
 }
 #listItem0 + .rectangle-list a:hover{
   display: inline-block;
-}
+}*/
 
 .rectangle-list a:before{
   content: counter(li);
@@ -63,7 +74,7 @@ ol {
   left: -2.5em;
   top: 50%;
   margin-top: -1em;
-  background: #33cd5f;
+  background: #ef473a;
   height: 2em;
   width: 2em;
   line-height: 2em;
@@ -71,7 +82,7 @@ ol {
   font-weight: bold;
   color: white;
 }
-
+/*
 .rectangle-list a:after{
   position: absolute;
   content: '';
@@ -80,12 +91,14 @@ ol {
   top: 50%;
   margin-top: -.5em;
   transition: all .3s ease-out;
-}
+}*/
+/*
 
 .rectangle-list a:hover:after{
   left: -.5em;
-  border-left-color: #33cd5f;
+  border-left-color: #ef473a;
 }
+*/
 
 .rngInfo {
   list-style-type: disc;
@@ -114,20 +127,20 @@ table.nistTable th {
   border-width: 1px;
   padding: 3px;
   border-style: solid;
-  border-color: #28a54c;
-  background-color: #33cd5f;
+  border-color: #c127e4;/*#28a54c*/
+  background-color: #801399;/*#33cd5f*/
   color: #ffffff;
 }
 table.nistTable tr:hover td {
   cursor: pointer;
 }
 table.nistTable tr:nth-child(even) td{
-  background-color: #78ec9a;
+  background-color: #c191cc;/*#78ec9a*/
 }
 table.nistTable td {
   border-width: 1px;
   padding: 3px;
   border-style: solid;
-  border-color: #28a54c;
+  border-color: #c127e4;
   background-color: #ffffff;
 }
