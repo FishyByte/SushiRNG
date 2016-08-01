@@ -255,7 +255,6 @@ def get_lottery_lines(quantity, white, red):
     print 'hit lottery function'
     # loop through the quantity specified
     for i in range(0, quantity):
-        print 'gathering line:', i, '   current response:', response
         # number list, used to avoid duplicates
         numbers = []
 
@@ -269,21 +268,15 @@ def get_lottery_lines(quantity, white, red):
 
             # sweet we got enough values
             if len(numbers) == 5:
-                print numbers
                 # sort the list
                 numbers.sort()
-                print numbers
 
                 # append the red ball
                 numbers.append(int(get_ints_with_range(red, 1)) + 1)
-                print numbers
 
                 response += ' '.join(str(x) for x in numbers)
                 response += ' '
-
-                print response
                 break
 
     # were done, return the response string
-    print 'response before return:', response
     return response
