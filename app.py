@@ -189,7 +189,7 @@ def get_lottery():
         return abort(400)
 
     try:
-        get_lottery_lines(quantity, white_range, red_range)
+        return get_lottery_lines(quantity, white_range, red_range)
     except Exception, e:
         print e
         return abort(500)
@@ -255,7 +255,7 @@ def get_lottery_lines(quantity, white, red):
     print 'hit lottery function'
     # loop through the quantity specified
     for i in range(0, quantity):
-        print 'gathering line', i
+        print 'gathering line:', i, '   current response:', response
         # number list, used to avoid duplicates
         numbers = []
 
@@ -285,4 +285,5 @@ def get_lottery_lines(quantity, white, red):
                 break
 
     # were done, return the response string
+    print 'response before return:', response
     return response
