@@ -1,0 +1,97 @@
+
+<ion-view>
+<ion-nav-title>
+  <a style="font-size: 20px">Feeling Lucky?</a>
+</ion-nav-title>
+
+  <ion-content ng-controller="lotteryController">
+    <ion-list>
+      <ion-item>
+        <h2>Let the fish pick your lottery ticket!</h2>
+      </ion-item>
+
+      <!-- get lottery -->
+      <ion-item>
+        <ul id="lotteryBlock">
+
+          <li class="lotteryToggleBlock">
+            <div class="whichLotteryHeader powerballHeader">powerball</div>
+             <label class="lotteryToggle toggle toggle-light">
+                <input type="checkbox"
+                       ng-model="lottery.isPowerball"
+                       ng-change="toggleLottery()" >
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+             </label>
+            <div class="whichLotteryHeader megamillionsHeader">megamillions</div>
+
+          </li>
+          <li class="list lotteryLines">
+          <div class="item range">
+            <div class="range-label">How many Lines?</div>
+            <input type="range"
+                   min="1"
+                   max="5"
+                   data-ng-model="lottery.quantity">
+            {{lottery.quantity}}
+          </div>
+        </li>
+
+          <li>
+            <button class="button button-block button-assertive" ng-click="getLottery()">Retrieve {{lottery.quantity}} lines for {{lottery.whichLottery}}</button>
+          </li>
+        </ul>
+      </ion-item>
+
+      <!-- lottery results -->
+      <ion-item>
+        <ul class="lotteryResultsBlock">
+          <li id="lotteryLine0" class="lotteryLine">
+            <div class="lotteryBall whiteBall lotteryBall0">{{lottery.results[0]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall1">{{lottery.results[1]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall2">{{lottery.results[2]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall3">{{lottery.results[3]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall4">{{lottery.results[4]}}</div>
+            <div class="lotteryBall redBall   lotteryBall5">{{lottery.results[5]}}</div>
+          </li>
+          <li id="lotteryLine1" class="lotteryLine">
+            <div class="lotteryBall whiteBall lotteryBall0">{{lottery.results[6]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall1">{{lottery.results[7]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall2">{{lottery.results[8]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall3">{{lottery.results[9]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall4">{{lottery.results[10]}}</div>
+            <div class="lotteryBall redBall   lotteryBall5">{{lottery.results[11]}}</div>
+          </li>
+          <li id="lotteryLine2" class="lotteryLine">
+            <div class="lotteryBall whiteBall lotteryBall0">{{lottery.results[12]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall1">{{lottery.results[13]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall2">{{lottery.results[14]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall3">{{lottery.results[15]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall4">{{lottery.results[16]}}</div>
+            <div class="lotteryBall redBall   lotteryBall5">{{lottery.results[17]}}</div>
+          </li>
+          <li id="lotteryLine3" class="lotteryLine">
+            <div class="lotteryBall whiteBall lotteryBall0">{{lottery.results[18]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall1">{{lottery.results[19]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall2">{{lottery.results[20]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall3">{{lottery.results[21]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall4">{{lottery.results[22]}}</div>
+            <div class="lotteryBall redBall   lotteryBall5">{{lottery.results[23]}}</div>
+          </li>
+          <li id="lotteryLine4" class="lotteryLine">
+            <div class="lotteryBall whiteBall lotteryBall0">{{lottery.results[24]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall1">{{lottery.results[25]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall2">{{lottery.results[26]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall3">{{lottery.results[27]}}</div>
+            <div class="lotteryBall whiteBall lotteryBall4">{{lottery.results[28]}}</div>
+            <div class="lotteryBall redBall   lotteryBall5">{{lottery.results[29]}}</div>
+          </li>
+        </ul>
+
+      </ion-item>
+
+
+    </ion-list>
+  </ion-content>
+</ion-view>

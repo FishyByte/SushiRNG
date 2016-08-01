@@ -8,6 +8,10 @@ angular.module('FishFate').config(function ($stateProvider, $urlRouterProvider) 
       url: '/home',
       templateUrl: 'views/home.html'
     })
+    .state('lottery', {
+      url: '/lottery',
+      templateUrl: 'views/lottery.html'
+    })
     .state('random', {
       url: '/random',
       templateUrl: 'views/random.html'
