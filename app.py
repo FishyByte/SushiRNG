@@ -248,7 +248,11 @@ def stream_analysis():
     print 'calculations completed'
 
     # now return a string with the calculated analysis
-    return '--ANALYSIS-- <br>', 'total bits in stream:', total_count, '<br>', 'percentage of zeros:', percent_zeros, '<br>', 'percentage of ones:', percent_ones, '<br>', 'entropy calculation:', entropy
+    response = '--ANALYSIS-- <br> total bits in stream:', total_count, \
+               '<br> percentage of zeros:', percent_zeros, '<br> percentage of ones: percent_ones', \
+               '<br> entropy calculation:', entropy
+    print response
+    return response
 
 
 def get_ints_with_range(max_value, quantity):
