@@ -29,6 +29,7 @@ from bitstream import BitStream
 from numpy import *
 import binascii
 import os
+import math
 from fish_pool import FishPool
 
 MAX_REQUEST_SIZE = 1000     # users may request up to 1MB
@@ -217,6 +218,34 @@ def set_bits():
 if __name__ == "__main__":
     #    fillByteBuffer()
     app.run()
+
+
+def stream_analysis(stream):
+    print 'hit stream analysis'
+    # get counts of ones zeros and total
+    zero_count = stream.count('0')
+    one_count = stream.count('1')
+    total_count = zero_count + one_count
+
+    # lets avoid that divide by zero
+    if total_count == 0:
+        return 'empty stream :('
+
+    # now lets get the probabilities of each
+    percent_zeros = zero_count / float(total_count)
+    percent_ones = one_count / float(total_count)
+
+    entropy = (-percent_ones * math.log(percent_ones, 2)) + \
+              (-percent_zeros * math.log(percent_zeros, 2))
+
+    print 'calculations completed'
+
+    # now return a string with the calculated analysis
+    return '--ANALYSIS-- <br>', \
+           'total bits in stream:', total_count, '<br>', \
+           'percentage of zeros:', percent_zeros, '<br>', \
+           'percentage of ones:', percent_ones, '<br>', \
+           'entropy calculation:', entropy
 
 
 def get_ints_with_range(max_value, quantity):
