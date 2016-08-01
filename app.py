@@ -254,7 +254,7 @@ def get_lottery_lines(quantity, white, red):
     response = ''
     print 'hit lottery function'
     # loop through the quantity specified
-    for i in range(1, quantity):
+    for i in range(0, quantity):
         print 'gathering line', i
         # number list, used to avoid duplicates
         numbers = []
