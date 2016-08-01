@@ -179,12 +179,14 @@ def get_lottery():
     # only allow one to five rows
     if quantity < 1 or quantity > 5:
         return abort(400)
-    if which_lottery == 'powerball':
-        white_range = 69
-        red_range = 26
-    elif which_lottery == 'megamillions':
-        white_range = 75
-        red_range = 15
+
+    # grab lottery numbers ranges, fix offset by one
+    if which_lottery == 'Powerball':
+        white_range = 68        # 1-69
+        red_range = 25          # 1-26
+    elif which_lottery == 'MegaMillions':
+        white_range = 74        # 1-75
+        red_range = 14          # 1-15
     else:
         return abort(400)
 

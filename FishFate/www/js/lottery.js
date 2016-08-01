@@ -11,7 +11,7 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
 
   $scope.lottery = {
     quantity: 5,
-    whichLottery: 'powerball',
+    whichLottery: 'Powerball',
     isMegamillions: false,
     results: []
   };
@@ -41,9 +41,9 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
   $scope.toggleLottery = function(){
     $scope.lottery.isPowerBall = !$scope.lottery.isPowerBall;
     if ($scope.lottery.isPowerBall)
-      $scope.lottery.whichLottery = 'megamillions';
+      $scope.lottery.whichLottery = 'MegaMillions';
     else
-      $scope.lottery.whichLottery = 'powerball';
+      $scope.lottery.whichLottery = 'Powerball';
   };
 
   function displayLottery(){
