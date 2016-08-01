@@ -43,22 +43,10 @@ MAX_INT_RANGE = 2147483647  # max value for an integer
 # init flask app
 app = Flask(__name__)
 CORS(app)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 # init class objects
 fish_stream = BitStream()   # class that holds processed bits in stream
 fish_pool = FishPool()      # class that processes raw bits from fish tank
-
-# SECRET_KEY = '' # todo: needs to be an env variable
-
-
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
 
 # ********************************************************
 #
@@ -137,8 +125,6 @@ def get_ints():
     max_value = int(request.headers.get('max-value'))
     bits_requested = get_number_bits(max_value)
 
-    respond = ''
-
     # empty request
     if quantity is None or max_value is None:
         return abort(400)
@@ -154,23 +140,9 @@ def get_ints():
     # too large of a range
     if max_value > MAX_INT_RANGE:
         return abort(400)
+
     try:
-        # loop till we fill the order
-        while True:
-            # ship it
-            if quantity == 0:
-                return respond
-
-            # grab some byte(s) for one value
-            current = int(str(fish_stream.read(bits_requested)), 2)
-
-            # within range? add to return string
-            if current <= max_value:
-                respond += str(current) + ' '  # white space delimiter
-                quantity -= 1
-            # lets not be wasteful, write unused value back to stream
-            else:
-                fish_stream.write(str(current))
+        get_ints_with_range(max_value, quantity)
 
     except Exception, e:
         print e
@@ -206,28 +178,6 @@ def set_bits():
 
         print 'recieved post request:'
 
-        """
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            print "DBG: No file part"
-            abort(400)
-            return "no file part"
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        
-        if file.filename == '':
-            flash('No selected file')
-            print 'DBG: no seleced file'
-            return "no selected file"
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            current_milli_time = int(round(time.time() * 1000))
-            filename = str(current_milli_time) + filename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return 'success'
-        """
         # grab the raw bits from the header
         raw_bits = str(request.form['raw-data'])
 
@@ -243,30 +193,28 @@ def set_bits():
         abort(401)  # access denied only post requests allowed
 
 
-"""
-def fillByteBuffer():
-    #attempt to bring in a file to read into the buffer
-    
-    files = os.listdir( UPLOAD_FOLDER )
-    numFiles = len(files)
-    if (numFiles > 0 ):
-        #read in a file, we dont care wich one.
-        i = 0
-        while(len(fish_stream) < MAX_REQUEST_SIZE and i < numFiles):
-            curFile = 'data/' + str(files[i])
-            i = i + 1
-            with open(curFile, 'rb' ) as inFile:
-                data = inFile.read(1)
-                while data != '':
-                    toAdd = int(binascii.hexlify(data), 16)
-                    fish_stream.write(toAdd, int8)
-                    data = inFile.read(1)
-            os.remove(curFile)
-        return True
-    else:
-        return False
-"""
-
 if __name__ == "__main__":
     #    fillByteBuffer()
     app.run()
+
+
+def get_ints_with_range(max_value, quantity):
+    bits_requested = get_number_bits(max_value)
+    respond = ''
+
+    # loop till we fill the order
+    while True:
+        # ship it
+        if quantity == 0:
+            return respond
+
+        # grab some byte(s) for one value
+        current = int(str(fish_stream.read(bits_requested)), 2)
+
+        # within range? add to return string
+        if current <= max_value:
+            respond += str(current) + ' '  # white space delimiter
+            quantity -= 1
+        # lets not be wasteful, write unused value back to stream
+        else:
+            fish_stream.write(str(current))
