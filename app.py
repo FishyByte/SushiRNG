@@ -252,8 +252,10 @@ def get_ints_with_range(max_value, quantity):
 
 def get_lottery_lines(quantity, white, red):
     response = ''
+    print 'hit lottery function'
     # loop through the quantity specified
     for i in range(1, quantity):
+        print 'gathering line', i
         # number list, used to avoid duplicates
         numbers = []
 
@@ -267,6 +269,7 @@ def get_lottery_lines(quantity, white, red):
 
             # sweet we got enough values
             if len(numbers) == 5:
+                print numbers
                 # sort the list
                 numbers.sort()
                 # append the red ball

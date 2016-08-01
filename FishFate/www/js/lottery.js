@@ -13,7 +13,7 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
     quantity: 5,
     whichLottery: 'powerball',
     isMegamillions: false,
-    results: [1, 2, 3, 69, 12, 7],
+    results: []
   };
   // When button is clicked, the popup will be shown...
   $scope.getLottery = function () {
@@ -33,11 +33,7 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
         displayLottery();
       }, function errorCallback(response) {
         console.log(response);
-              displayLottery();
-
       });
-
-
     }
 
   };
@@ -64,7 +60,6 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
   }
   function hideLottery(){
       for (var i = 4; i >= 0; i--) {
-        console.log(i);
         lotteryLines[i].fadeOut(100 * (i + 1));
       }
   }
