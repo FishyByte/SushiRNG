@@ -28,7 +28,7 @@ app.controller('fishController', function ($scope, $ionicHistory) {
     fishFateIcon: 'img/iconMed.png',
 
     about: {
-      position:   'img/fishPosition',
+      position:   'img/fishPosition.png',
       graph:      'img/graph.png',
       tankSetup:  'img/tankSetup.png'
     }
