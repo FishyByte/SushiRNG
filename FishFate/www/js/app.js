@@ -37,7 +37,8 @@ app.controller('fishController', function ($scope, $ionicHistory, $ionicPopup) {
     title: '<h3 style="text-align:center">Forgot to feed the fish...</h3>',
     body: [
       "<h4>The fish haven't gathered enough data, please try again later.</h4>",
-      "<h4>You don't have internet connection, unable to communicate with the fish.</h4>"
+      "<h4>You don't have internet connection, unable to communicate with the fish.</h4>",
+      "<h4>The fish are not cooperating right now, please try again later.</h4>"
     ]
   };
 
@@ -47,10 +48,26 @@ app.controller('fishController', function ($scope, $ionicHistory, $ionicPopup) {
   $scope.goBack = function () { $ionicHistory.goBack(); };
 
   /* error message */
-  $scope.displayError = function (){
-    // Custom popup
+  $scope.displayError = function (status){
+    var messageIndex = 2;
+    switch(status){
+      /* no internet connection */
+      case -1:
+        messageIndex = 1;
+        break;
+      /* not enough bits in the steam to fill request */
+      case 500:
+        messageIndex = 0;
+        break;
+      /* meh, all other errors wont make sense to the user, use generic */
+      default:
+        messageIndex = 2;
+        break;
+    }
+
+    /* create a pop-up message to display error text */
     var myPopup = $ionicPopup.prompt({
-      template: $scope.errorMessages.body[0],
+      template: $scope.errorMessages.body[messageIndex],
       scope: $scope,
       title: $scope.errorMessages.title,
       buttons: [
@@ -58,7 +75,7 @@ app.controller('fishController', function ($scope, $ionicHistory, $ionicPopup) {
           text: '<b>done</b>',
           type: 'button-assertive',
           onTap: function (e) {
-            return 'done';
+            return 'okay';
           }
         }
       ]

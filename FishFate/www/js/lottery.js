@@ -12,7 +12,6 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
   $scope.lottery = {
     quantity: 5,
     whichLottery: 'Powerball',
-    isMegamillions: false,
     results: []
   };
   // When button is clicked, the popup will be shown...
@@ -32,11 +31,9 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
         $scope.lottery.results = response.data.split(' ');
         displayLottery();
       }, function errorCallback(response) {
-        $scope.displayError(0);
-        console.log(response);
+        $scope.displayError(response.status);
       });
     }
-
   };
 
   $scope.toggleLottery = function(){

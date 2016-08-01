@@ -42,10 +42,8 @@ app.controller('diceController', function ($scope, $http) {
       $scope.diceRoll.diceValues = tempArray;
       if (!isActivated)
         rotateDice();
-
     }, function errorCallback(response) {
-      $scope.displayError(0);
-      console.log(response);
+      $scope.displayError(response.status);
     });
   };
 
