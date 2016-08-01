@@ -120,11 +120,11 @@ class FishPool:
             return 'empty stream :('
 
         # now lets get the probabilities of each
-        percent_zeros = zero_count / float(self.total_count)
-        percent_ones = one_count / float(self.total_count)
+        percent_zeros = zero_count / float(total_count)
+        percent_ones = one_count / float(total_count)
 
-        entropy = (-self.percent_ones * math.log(self.percent_ones, 2)) + \
-                  (-self.percent_zeros * math.log(self.percent_zeros, 2))
+        entropy = (-percent_ones * math.log(percent_ones, 2)) + \
+                  (-percent_zeros * math.log(percent_zeros, 2))
 
         # now return a string with the calculated analysis
         return '<h3>BitStream Analysis</h3>', \
