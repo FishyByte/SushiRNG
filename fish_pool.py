@@ -127,8 +127,8 @@ class FishPool:
                   (-percent_zeros * math.log(percent_zeros, 2))
 
         # now return a string with the calculated analysis
-        return '<h3>BitStream Analysis</h3>', \
+        return '_________BitStream Analysis_________', '\n', \
                'total bits in stream:', total_count, '\n', \
                'percentage of zeros:', percent_zeros, '\n', \
                'percentage of ones:', percent_ones, '\n', \
-               'entropy calculation:', entropy, '\n'
+               'entropy calculation:', entropy
