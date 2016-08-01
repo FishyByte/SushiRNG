@@ -5600,7 +5600,8 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
 
 .popup-body {
   padding: 10px;
-  overflow: auto; }
+  overflow: auto;
+}
 
 .popup-buttons {
   display: -webkit-box;
