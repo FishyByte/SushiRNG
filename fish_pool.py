@@ -2,6 +2,34 @@ import hashlib
 import math
 
 # there will be 2^13 or 8192 fed into this class (input_bits)
+def stream_analysis(stream):
+    print 'hit stream analysis'
+    # get counts of ones zeros and total
+    zero_count = stream.count('0')
+    one_count = stream.count('1')
+    total_count = zero_count + one_count
+
+    # lets avoid that divide by zero
+    if total_count == 0:
+        return 'empty stream :('
+
+    # now lets get the probabilities of each
+    percent_zeros = zero_count / float(total_count)
+    percent_ones = one_count / float(total_count)
+
+    entropy = (-percent_ones * math.log(percent_ones, 2)) + \
+              (-percent_zeros * math.log(percent_zeros, 2))
+
+    print 'calculations completed'
+
+    # now return a string with the calculated analysis
+    return '--ANALYSIS-- <br>', \
+           'total bits in stream:', total_count, '<br>', \
+           'percentage of zeros:', percent_zeros, '<br>', \
+           'percentage of ones:', percent_ones, '<br>', \
+           'entropy calculation:', entropy
+
+
 class FishPool:
 
     # constructor
@@ -109,26 +137,3 @@ class FishPool:
         self.return_string = ''             # string to be returned
         self.finish_processing = False      # boolean for knowing when done
 
-    def stream_analysis(self, stream):
-        # get counts of ones zeros and total
-        zero_count = stream.count('0')
-        one_count = stream.count('1')
-        total_count = zero_count + one_count
-
-        # lets avoid that divide by zero
-        if total_count == 0:
-            return 'empty stream :('
-
-        # now lets get the probabilities of each
-        percent_zeros = zero_count / float(total_count)
-        percent_ones = one_count / float(total_count)
-
-        entropy = (-percent_ones * math.log(percent_ones, 2)) + \
-                  (-percent_zeros * math.log(percent_zeros, 2))
-
-        # now return a string with the calculated analysis
-        return '--ANALYSIS-- <br>', \
-               'total bits in stream:', total_count, '<br>', \
-               'percentage of zeros:', percent_zeros, '<br>', \
-               'percentage of ones:', percent_ones, '<br>', \
-               'entropy calculation:', entropy

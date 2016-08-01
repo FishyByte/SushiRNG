@@ -48,7 +48,7 @@ fish_pool = FishPool()      # class that processes raw bits from fish tank
 # ********************************************************
 @app.route("/")
 def main_page():
-    return fish_pool.stream_analysis(str(fish_stream))
+    return stream_analysis(str(fish_stream))
 
 # ********************************************************
 #
