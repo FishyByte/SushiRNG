@@ -18,7 +18,7 @@ app.run(function ($ionicPlatform) {
 
 
 
-app.controller('fishController', function ($scope, $ionicHistory) {
+app.controller('fishController', function ($scope, $ionicHistory, $ionicPopup) {
 
   $scope.images = {
     demo:         'img/fishDemo_2.gif',
@@ -36,5 +36,29 @@ app.controller('fishController', function ($scope, $ionicHistory) {
 
   /* go back button */
   $scope.goBack = function () { $ionicHistory.goBack(); };
+
+  /* error message */
+  $scope.displayError = function (){
+    // Custom popup
+    var myPopup = $ionicPopup.prompt({
+      template: '<h1 style="text-align:center"></h1>',
+      scope: $scope,
+      title: titleArray[index],
+      buttons: [
+        {
+          text: '<b>done</b>',
+          type: 'button-assertive',
+          onTap: function (e) {
+            return 'done';
+          }
+        }
+      ]
+    });
+
+    myPopup.then(function (res) {
+      $scope.randoms.getInt.response = '';
+      $scope.randoms.getBinary.response = '';
+    });
+  }
 });
 
