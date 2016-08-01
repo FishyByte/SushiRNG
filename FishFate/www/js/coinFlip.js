@@ -37,6 +37,7 @@ app.controller('coinController', function ($scope, $http) {
         animateCoins();
 
     }, function errorCallback(response) {
+      $scope.displayError(0);
       console.log(response);
     });
   };

@@ -42,6 +42,7 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
       popUpResponse(0);
 
     }, function errorCallback(response) {
+      $scope.displayError(0);
       console.log(response);
     });
   };
@@ -62,6 +63,7 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
       popUpResponse(1);
 
     }, function errorCallback(response) {
+      $scope.displayError(0);
       console.log(response);
     });
   };

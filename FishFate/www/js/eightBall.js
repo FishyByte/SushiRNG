@@ -67,7 +67,7 @@ app.controller('eightBallController', function ($scope, $http) {
         animateEightBall();
       }
     }, function errorCallback(response) {
-      console.log(response);
+      $scope.displayError(0);
     });
   };
 

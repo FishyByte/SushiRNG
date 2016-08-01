@@ -144,16 +144,18 @@ def get_ints():
 
 # calculate the required number of bits
 def get_number_bits(upper_bound):
-    exponent = 1
-    number_bits = 1
-    while True:
-
-        if upper_bound >= pow(2, exponent):
-            number_bits += 1
-        else:
-            return number_bits
-
-        exponent += 1
+    return math.ceil(math.log(upper_bound, 2))
+    #
+    # exponent = 1
+    # number_bits = 1
+    # while True:
+    #
+    #     if upper_bound >= pow(2, exponent):
+    #         number_bits += 1
+    #     else:
+    #         return number_bits
+    #
+    #     exponent += 1
 
 
 # ********************************************************
@@ -269,9 +271,8 @@ def get_ints_with_range(max_value, quantity):
         if current <= max_value:
             respond += str(current) + ' '  # white space delimiter
             quantity -= 1
-        # lets not be wasteful, write unused value back to stream
-        else:
-            fish_stream.write(str(current))
+
+        # todo: figure out a way to not waste bits here.
 
 
 def get_lottery_lines(quantity, white, red):
