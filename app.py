@@ -32,15 +32,16 @@ import os
 import math
 from fish_pool import FishPool
 
-MAX_REQUEST_SIZE = 1000     # users may request up to 1MB
+MAX_REQUEST_SIZE = 1000  # users may request up to 1MB
 MAX_INT_RANGE = 2147483647  # max value for an integer
 
-app = Flask(__name__)       # init the flask application
-CORS(app)                   # enable cross-origin resource sharing on all routes
+app = Flask(__name__)  # init the flask application
+CORS(app)  # enable cross-origin resource sharing on all routes
 
 # init class objects
-fish_stream = BitStream()   # class that holds processed bits in a stream
-fish_pool = FishPool()      # class that processes raw bits from fish tank
+fish_stream = BitStream()  # class that holds processed bits in a stream
+fish_pool = FishPool()  # class that processes raw bits from fish tank
+
 
 # ********************************************************
 #
@@ -50,6 +51,7 @@ fish_pool = FishPool()      # class that processes raw bits from fish tank
 @app.route("/")
 def main_page():
     return stream_analysis()
+
 
 # ********************************************************
 #
@@ -78,6 +80,7 @@ def get_bits():
     except Exception, e:
         print e
         return abort(500)
+
 
 # ********************************************************
 #
@@ -152,6 +155,7 @@ def get_number_bits(upper_bound):
 
         exponent += 1
 
+
 # ********************************************************
 #
 #
@@ -172,11 +176,11 @@ def get_lottery():
 
     # grab lottery numbers ranges, fix offset by one
     if which_lottery == 'Powerball':
-        white_range = 68        # 1-69
-        red_range = 25          # 1-26
+        white_range = 68  # 1-69
+        red_range = 25  # 1-26
     elif which_lottery == 'MegaMillions':
-        white_range = 74        # 1-75
-        red_range = 14          # 1-15
+        white_range = 74  # 1-75
+        red_range = 14  # 1-15
     else:
         return abort(400)
 
@@ -185,6 +189,8 @@ def get_lottery():
     except Exception, e:
         print e
         return abort(500)
+
+
 # ********************************************************
 # this route will allow the upload of data to the server
 # include a string of random bits with the header "raw-data"
@@ -222,10 +228,10 @@ if __name__ == "__main__":
 
 def stream_analysis():
     print 'hit stream analysis'
-    analysis_stream = str(fish_stream)
+    analyze_stream = str(fish_stream)
     # get counts of ones zeros and total
-    zero_count = analysis_stream.count('0')
-    one_count = analysis_stream.count('1')
+    zero_count = analyze_stream.count('0')
+    one_count = analyze_stream.count('1')
     total_count = zero_count + one_count
 
     # lets avoid that divide by zero
@@ -242,11 +248,7 @@ def stream_analysis():
     print 'calculations completed'
 
     # now return a string with the calculated analysis
-    return '--ANALYSIS-- <br>', \
-           'total bits in stream:', total_count, '<br>', \
-           'percentage of zeros:', percent_zeros, '<br>', \
-           'percentage of ones:', percent_ones, '<br>', \
-           'entropy calculation:', entropy
+    return '--ANALYSIS-- <br>', 'total bits in stream:', total_count, '<br>', 'percentage of zeros:', percent_zeros, '<br>', 'percentage of ones:', percent_ones, '<br>', 'entropy calculation:', entropy
 
 
 def get_ints_with_range(max_value, quantity):
