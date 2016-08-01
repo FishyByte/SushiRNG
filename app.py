@@ -39,7 +39,7 @@ UPLOAD_FOLDER = 'data'
 ALLOWED_EXTENSIONS = ['bin']
 MAX_REQUEST_SIZE = 1000     # users may request up to 1MB
 MAX_INT_RANGE = 2147483647  # max value for an integer
-   
+
 # init flask app
 app = Flask(__name__)
 CORS(app)
@@ -78,7 +78,7 @@ def get_bits():
         abort(400)  # the client has made a valid request but,
         # no data is currently available
 
-    # OKAY, now we can fufill our request
+    # OKAY, now we can fulfill our request
 
     try:
         print 'bitstream: len=' + str(len(fish_stream))
@@ -162,7 +162,37 @@ def get_number_bits(upper_bound):
 
         exponent += 1
 
+# ********************************************************
+#
+#
+#
+# ********************************************************
+@app.route("/get-lottery")
+def get_lottery():
+    quantity = int(request.headers.get('quantity'))
+    which_lottery = str(request.headers.get('which-lottery'))
 
+    # empty request
+    if quantity is None or which_lottery is None:
+        return abort(400)
+
+    # only allow one to five rows
+    if quantity < 1 or quantity > 5:
+        return abort(400)
+    if which_lottery == 'powerball':
+        white_range = 69
+        red_range = 26
+    elif which_lottery == 'megamillions':
+        white_range = 75
+        red_range = 15
+    else:
+        return abort(400)
+
+    try:
+        get_lottery_lines(quantity, white_range, red_range)
+    except Exception, e:
+        print e
+        return abort(500)
 # ********************************************************
 # this route will allow the upload of data to the server
 # include a string of random bits with the header "raw-data"
@@ -176,7 +206,7 @@ def set_bits():
         if os.environ['SECRET_KEY'] != request.form['secret-key']:
             return abort(401)
 
-        print 'recieved post request:'
+        print 'received post request:'
 
         # grab the raw bits from the header
         raw_bits = str(request.form['raw-data'])
@@ -218,3 +248,32 @@ def get_ints_with_range(max_value, quantity):
         # lets not be wasteful, write unused value back to stream
         else:
             fish_stream.write(str(current))
+
+
+def get_lottery_lines(quantity, white, red):
+    response = ''
+    # loop through the quantity specified
+    for i in range(1, quantity):
+        # number list, used to avoid duplicates
+        numbers = []
+
+        # loop through until we get enough values for one line
+        while True:
+            # grab the white ball value
+            white_ball = int(get_ints_with_range(white, 1)) + 1  # correct zero offset
+            # not in the list? then add it
+            if white_ball not in numbers:
+                numbers.append(white_ball)
+
+            # sweet we got enough values
+            if len(numbers) == 5:
+                # sort the list
+                numbers.sort()
+                # append the red ball
+                numbers.append(int(get_ints_with_range(red, 1)) + 1)
+                response += ' '.join(numbers)
+                response += ' '
+                break
+
+    # were done, return the response string
+    return response
