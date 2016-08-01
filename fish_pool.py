@@ -108,3 +108,27 @@ class FishPool:
         self.total_count = 0                # total bit count
         self.return_string = ''             # string to be returned
         self.finish_processing = False      # boolean for knowing when done
+
+    def stream_analysis(self, stream):
+        # get counts of ones zeros and total
+        zero_count = stream.count('0')
+        one_count = stream.count('1')
+        total_count = zero_count + one_count
+
+        # lets avoid that divide by zero
+        if total_count == 0:
+            return 'empty stream :('
+
+        # now lets get the probabilities of each
+        percent_zeros = zero_count / float(self.total_count)
+        percent_ones = one_count / float(self.total_count)
+
+        entropy = (-self.percent_ones * math.log(self.percent_ones, 2)) + \
+                  (-self.percent_zeros * math.log(self.percent_zeros, 2))
+
+        # now return a string with the calculated analysis
+        return '<h3>BitStream Analysis</h3>', \
+               'total bits in stream:', total_count, '\n', \
+               'percentage of zeros:', percent_zeros, '\n', \
+               'percentage of ones:', percent_ones, '\n', \
+               'entropy calculation:', entropy, '\n'

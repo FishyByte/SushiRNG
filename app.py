@@ -23,29 +23,22 @@
 # *******************************************************************
 # bitstream page: https://github.com/boisgera/bitstream
 
-from flask import Flask, request, flash, abort
+from flask import Flask, request, abort
 from flask_cors import CORS
-from werkzeug.utils import secure_filename
 from bitstream import BitStream
 from numpy import *
 import binascii
-import math
 import os
-from datetime import datetime
-import time
 from fish_pool import FishPool
 
-UPLOAD_FOLDER = 'data'
-ALLOWED_EXTENSIONS = ['bin']
 MAX_REQUEST_SIZE = 1000     # users may request up to 1MB
 MAX_INT_RANGE = 2147483647  # max value for an integer
 
-# init flask app
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__)       # init the flask application
+CORS(app)                   # enable cross-origin resource sharing on all routes
 
 # init class objects
-fish_stream = BitStream()   # class that holds processed bits in stream
+fish_stream = BitStream()   # class that holds processed bits in a stream
 fish_pool = FishPool()      # class that processes raw bits from fish tank
 
 # ********************************************************
@@ -55,11 +48,7 @@ fish_pool = FishPool()      # class that processes raw bits from fish tank
 # ********************************************************
 @app.route("/")
 def main_page():
-    # TODOXXX
-    myStream = "BitString: " + str(fish_stream)
-    return myStream
-    # abort(401)#NOTHING TO SEE HERE
-
+    return fish_pool.stream_analysis(str(fish_stream))
 
 # ********************************************************
 #
