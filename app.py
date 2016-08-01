@@ -142,7 +142,7 @@ def get_ints():
         return abort(400)
 
     try:
-        get_ints_with_range(max_value, quantity)
+        return get_ints_with_range(max_value, quantity)
 
     except Exception, e:
         print e
