@@ -278,7 +278,7 @@ def get_lottery_lines(quantity, white, red):
                 numbers.append(int(get_ints_with_range(red, 1)) + 1)
                 print numbers
 
-                response += ' '.join(str(numbers))
+                response += ' '.join(str(x) for x in numbers)
                 response += ' '
 
                 print response
