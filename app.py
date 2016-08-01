@@ -272,10 +272,16 @@ def get_lottery_lines(quantity, white, red):
                 print numbers
                 # sort the list
                 numbers.sort()
+                print numbers
+
                 # append the red ball
                 numbers.append(int(get_ints_with_range(red, 1)) + 1)
-                response += ' '.join(numbers)
+                print numbers
+
+                response += ' '.join(str(numbers))
                 response += ' '
+
+                print response
                 break
 
     # were done, return the response string
