@@ -49,7 +49,7 @@ fish_pool = FishPool()      # class that processes raw bits from fish tank
 # ********************************************************
 @app.route("/")
 def main_page():
-    return stream_analysis(str(fish_stream))
+    return stream_analysis()
 
 # ********************************************************
 #
@@ -220,11 +220,12 @@ if __name__ == "__main__":
     app.run()
 
 
-def stream_analysis(stream):
+def stream_analysis():
     print 'hit stream analysis'
+    analysis_stream = str(fish_stream)
     # get counts of ones zeros and total
-    zero_count = stream.count('0')
-    one_count = stream.count('1')
+    zero_count = analysis_stream.count('0')
+    one_count = analysis_stream.count('1')
     total_count = zero_count + one_count
 
     # lets avoid that divide by zero
