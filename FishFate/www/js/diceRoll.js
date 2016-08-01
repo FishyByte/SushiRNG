@@ -44,6 +44,7 @@ app.controller('diceController', function ($scope, $http) {
         rotateDice();
 
     }, function errorCallback(response) {
+      $scope.displayError(0);
       console.log(response);
     });
   };

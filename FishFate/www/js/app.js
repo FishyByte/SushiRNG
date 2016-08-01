@@ -33,6 +33,15 @@ app.controller('fishController', function ($scope, $ionicHistory, $ionicPopup) {
       tankSetup:  'img/tankSetup.png'
     }
   };
+  $scope.errorMessages = {
+    title: '<h3 style="text-align:center">Forgot to feed the fish...</h3>',
+    body: [
+      "<h4>The fish haven't gathered enough data, please try again later.</h4>",
+      "<h4>You don't have internet connection, unable to communicate with the fish.</h4>"
+    ]
+  };
+
+
 
   /* go back button */
   $scope.goBack = function () { $ionicHistory.goBack(); };
@@ -41,9 +50,9 @@ app.controller('fishController', function ($scope, $ionicHistory, $ionicPopup) {
   $scope.displayError = function (){
     // Custom popup
     var myPopup = $ionicPopup.prompt({
-      template: '<h1 style="text-align:center"></h1>',
+      template: $scope.errorMessages.body[0],
       scope: $scope,
-      title: titleArray[index],
+      title: $scope.errorMessages.title,
       buttons: [
         {
           text: '<b>done</b>',
@@ -54,11 +63,7 @@ app.controller('fishController', function ($scope, $ionicHistory, $ionicPopup) {
         }
       ]
     });
-
-    myPopup.then(function (res) {
-      $scope.randoms.getInt.response = '';
-      $scope.randoms.getBinary.response = '';
-    });
+    myPopup.then(function (res) { });
   }
 });
 
