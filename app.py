@@ -317,15 +317,24 @@ def get_lottery_lines(quantity, white, red):
 def get_number_bits(upper_bound):
     return int(math.ceil(math.log((upper_bound + 1), 2)))
 
+# calculate the required number of bits
+def get_number_bits(upper_bound):
+    return int(math.ceil(math.log((upper_bound + 1), 2)))
+
 def get_hex_values(quantity):
+    print 'hit get_hex()'
     # grab the requested quantity in bits, convert to string
     response = str(fish_stream.read(quantity * 4))
+    print response
     # convert to binary sequence
     response = int(response, 2)
+    print response
     # convert to hex
     response = hex(response)
+    print response
     # convert back to string and strip '0x'
     response = str(response)[2:]
+    print response
     # capitalize all the letters in the response
     response = str.upper(response)
 
