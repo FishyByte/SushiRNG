@@ -12,7 +12,7 @@ for x in range(0, 4):
         'raw-data': test_input
     }
 
-    r = requests.post('https://fish-bit-hub.herokuapp.com/add-bytes', data=payload)
+    r = requests.post('https://fish-bit-hub.herokuapp.com/set-bits', data=payload)
     print 'status code:', r.status_code
 
     # lets wait to let teh back end process that last request
