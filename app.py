@@ -167,11 +167,11 @@ def get_lottery():
 
     # grab lottery numbers ranges, fix offset by one
     if which_lottery == 'Powerball':
-        white_range = 68  # 1-69
-        red_range = 25  # 1-26
+        white_range = 69  # 1-69
+        red_range = 26  # 1-26
     elif which_lottery == 'MegaMillions':
-        white_range = 74  # 1-75
-        red_range = 14  # 1-15
+        white_range = 75  # 1-75
+        red_range = 15  # 1-15
     else:
         return abort(400)
 
