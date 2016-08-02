@@ -85,8 +85,12 @@ app.controller('lotteryController', function ($scope, $http, $ionicPopup) {
         lotteryLines[i].fadeOut(300);
   }
 
+  /**
+   * prevent the user from spamming multiple GET requests, by
+   * forcing the user to complete more button presses
+   */
   function timeOutPopUp(){
-        /* create a pop-up message to display error text */
+    /* create a pop-up message to display error text */
     var timeOutPopUp = $ionicPopup.prompt({
       template: '<h4>The fish did all that work for you and you just want to throw it all away?</h4>',
       scope: $scope,
