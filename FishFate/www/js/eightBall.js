@@ -30,7 +30,7 @@ app.controller('eightBallController', function ($scope, $http) {
       '&emsp;Outhook<br>&emsp;not so<br>&emsp;good',//8
       '&emsp;It is Dace<br>&emsp;-cidedly<br>&ensp;&nbsp;so',//9
       '&emsp;&emsp;Dear<br>&emsp;&emsp;Cod<br>&emsp;&emsp;no',//10
-      /*'&emsp;Very<br>&emsp;Flounder<br>&emsp;-ing',//11*/
+      '&ensp;&nbsp;The Doubt<br>&ensp;Trout<br>&ensp;&nbsp;doubts<br>&ensp;it',//11
       '&nbsp;Yes<br>&nbsp;Dolphinitely',//12
       '&ensp;&nbsp;It is certain<br>as a<br>&ensp;Sturgeon',//13
       '&emsp;Fish can&#39;t<br>&emsp;forecast<br>&emsp;now',//14
