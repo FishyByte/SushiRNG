@@ -44,51 +44,54 @@ fish_pool = FishPool()  # class that processes raw bits from fish tank
 
 
 # ********************************************************
+#   The following is all of the flask routes, that can be
+#   accessed via http requests (https://fish-bit-hub.herokuapp.com/).
+#   Here is a list of the following GET request routes:
 #
+#       ("/")               home route for stream analysis
+#       ("/get-bytes")      returns a series of byte values
+#       ("/get-binary")     returns a binary string
+#       ("/get-ints")       returns a string of integers
+#       ("/get-hex")        returns a string of hex values
+#       ("/get-lottery")    returns a string of integers
 #
+#   The only POST route for this application is secured with
+#   a secret key, there is only one client that is allowed to
+#   make POST requests (raspberry pi). This route for this is
+#
+#       ("/set-bits")       sets the bits that are passing in
+#                           through the header field.
 #
 # ********************************************************
+
+# home route, runs analysis on stream
 @app.route("/")
 def main_page():
     return stream_analysis()
 
 
-# ********************************************************
-#
-#
-#
-# ********************************************************
+# returns a series of byte values
 @app.route("/get-bytes")
 def get_bytes():
     quantity = int(request.headers.get('quantity'))
     if (quantity is None) or (quantity < 1) or (quantity > MAX_REQUEST_SIZE):
-        abort(400)  # invalid request, we dont waste time around here, come back when you are prepared.
+        abort(400)  # invalid request
 
     # OKAY, now we can fulfill our request
     try:
-        response = fish_stream.read(int8, quantity)
-        # capitalize all the letters in the response
-        return str(response)
+        return str(fish_stream.read(int8, quantity))
     except Exception, e:
         print e
         return abort(500)
 
 
-# ********************************************************
-#
-#
-#
-# ********************************************************
+# returns a binary string
 @app.route("/get-binary")
 def get_binary():
     quantity = int(request.headers.get('quantity'))
 
-    # empty request
-    if quantity is None:
-        return abort(400)
-
-    # param value too small or too large
-    if quantity < 1 or quantity > MAX_REQUEST_SIZE:
+    # empty request OR param value too small OR too large
+    if quantity is None or quantity < 1 or quantity > MAX_REQUEST_SIZE:
         return abort(400)
 
     # ship it
@@ -99,45 +102,26 @@ def get_binary():
         return abort(500)
 
 
-# ********************************************************
-#
-#
-#
-# ********************************************************
+# returns a series of integers with a white space delimiter
 @app.route("/get-ints")
 def get_ints():
     quantity = int(request.headers.get('quantity'))
     max_value = int(request.headers.get('max-value'))
     bits_requested = get_number_bits(max_value)
 
-    # empty request
-    if quantity is None or max_value is None:
-        return abort(400)
-
-    # param value to small
-    if quantity < 1 or max_value < 1:
-        return abort(400)
-
-    # limit request size to 1000 bytes/8000 bits
-    if bits_requested > (MAX_REQUEST_SIZE * 8):
-        return abort(400)
-
-    # too large of a range
-    if max_value > MAX_INT_RANGE:
+    # Error checking: empty request, or out of bounds, or too large
+    if quantity is None or max_value is None or quantity < 1 or max_value < 1 \
+            or bits_requested > (MAX_REQUEST_SIZE * 8) or max_value > MAX_INT_RANGE:
         return abort(400)
 
     try:
         return get_ints_with_range(max_value, quantity)
-
     except Exception, e:
         print e
         return abort(500)
 
-# ********************************************************
-#
-#
-#
-# ********************************************************
+
+
 @app.route("/get-hex")
 def get_hex():
     quantity = int(request.headers.get('quantity'))
@@ -147,16 +131,13 @@ def get_hex():
         return abort(400)
 
     try:
-        return get_hex_values(quantity)
+        return get_hex_values(quantity / 2)
     except Exception, e:
         print e
         return abort(500)
 
-# ********************************************************
-#
-#
-#
-# ********************************************************
+
+# returns a string of integers
 @app.route("/get-lottery")
 def get_lottery():
     quantity = int(request.headers.get('quantity'))
@@ -187,12 +168,7 @@ def get_lottery():
         return abort(500)
 
 
-# ********************************************************
-# this route will allow the upload of data to the server
-# include a string of random bits with the header "raw-data"
-#
-# ********************************************************
-# should only allow POST requests from the pi
+# POST route, only one client, which is the raspberry pi
 @app.route("/set-bits", methods=['POST'])
 def set_bits():
     if request.method == 'POST':
@@ -214,11 +190,12 @@ def set_bits():
         abort(401)  # access denied only post requests allowed
 
 
+# init the flask server
 if __name__ == "__main__":
-    #    fillByteBuffer()
     app.run()
 
-
+# run analysis on the bit stream and return the results formatted
+# into a string formatted with html
 def stream_analysis():
     analyze_stream = str(fish_stream)
     # get counts of ones zeros and total
@@ -228,7 +205,7 @@ def stream_analysis():
 
     # lets avoid that divide by zero
     if total_count == 0:
-        return 'empty stream :('
+        return '<h3>empty stream :(</h3>'
 
     # now lets get the probabilities of each
     percent_zeros = zero_count / float(total_count)
@@ -245,6 +222,8 @@ def stream_analysis():
     return response
 
 
+# get a random integer with a specified range, the minimum bound
+# is static as zero, and the upper bound is non-inclusive
 def get_ints_with_range(max_value, quantity):
     bits_requested = get_number_bits(max_value)
     respond = ''
@@ -263,9 +242,11 @@ def get_ints_with_range(max_value, quantity):
             respond += str(current) + ' '  # white space delimiter
             quantity -= 1
 
-        # todo: figure out a way to not waste bits here.
+            # todo: figure out a way to not waste bits here.
 
 
+# calls get_int_with_range() until the order is filled, then returns
+# the results parsed into a string
 def get_lottery_lines(quantity, white, red):
     response = ''
     print 'hit lottery function'
@@ -286,7 +267,6 @@ def get_lottery_lines(quantity, white, red):
             if len(numbers) == 5:
                 # sort the list
                 numbers.sort()
-
                 # append the red ball
                 numbers.append(int(get_ints_with_range(red, 1)) + 1)
 
@@ -297,10 +277,14 @@ def get_lottery_lines(quantity, white, red):
     # were done, return the response string
     return response
 
-# calculate the required number of bits
+
+# calculate the required number of bits for the upper_bound
+# this is used for getting an integer with a range
 def get_number_bits(upper_bound):
     return int(math.ceil(math.log((upper_bound + 1), 2)))
 
+
+# get hex values, returns hex values parsed into a string
 def get_hex_values(quantity):
     response = fish_stream.read(int8, quantity)
     response = binascii.hexlify(response)
@@ -308,4 +292,3 @@ def get_hex_values(quantity):
     response = str.upper(response)
     # were done, now ship it
     return str(response)
-
