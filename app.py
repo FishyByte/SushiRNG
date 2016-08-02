@@ -147,7 +147,7 @@ def get_ints():
 #
 # ********************************************************
 @app.route("/get-hex")
-def get_ints():
+def get_hex():
     quantity = int(request.headers.get('quantity'))
 
     # empty request
