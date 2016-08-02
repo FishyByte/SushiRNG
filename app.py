@@ -155,7 +155,7 @@ def get_hex():
         return abort(400)
 
     # param value to small or to big
-    if quantity < 1 or quantity < MAX_REQUEST_SIZE:
+    if quantity < 1 or quantity > MAX_REQUEST_SIZE:
         return abort(400)
 
     try:
