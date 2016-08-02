@@ -58,25 +58,17 @@ def main_page():
 #
 #
 # ********************************************************
-@app.route("/getBytes")
-def get_bits():
-    numBytes = int(request.headers.get('number-bytes-requested'))
-    if ((numBytes == None) or (numBytes < 1) or (numBytes > MAX_REQUEST_SIZE)):
+@app.route("/get-bytes")
+def get_bytes():
+    quantity = int(request.headers.get('quantity'))
+    if (quantity is None) or (quantity < 1) or (quantity > MAX_REQUEST_SIZE):
         abort(400)  # invalid request, we dont waste time around here, come back when you are prepared.
-    if (numBytes > (len(fish_stream) / 8)):
-        # UH OH WE NEED MOAR BITS IN MEMORY
-        # if(fillByteBuffer() == False):
-
-        abort(400)  # the client has made a valid request but,
-        # no data is currently available
 
     # OKAY, now we can fulfill our request
-
     try:
-        print 'bitstream: len=' + str(len(fish_stream))
-        userBytes = fish_stream.read(int8, numBytes)
-        userBytes = binascii.hexlify(userBytes)
-        return userBytes
+        response = fish_stream.read(int8, quantity)
+        # capitalize all the letters in the response
+        return str(response)
     except Exception, e:
         print e
         return abort(500)
@@ -150,18 +142,12 @@ def get_ints():
 def get_hex():
     quantity = int(request.headers.get('quantity'))
 
-    # empty request
-    if quantity is None:
-        return abort(400)
-
-    # param value to small or to big
-    if quantity < 1 or quantity > MAX_REQUEST_SIZE:
+    # empty request OR param value to small OR to big
+    if quantity is None or quantity < 1 or quantity > MAX_REQUEST_SIZE:
         return abort(400)
 
     try:
-        print 'hit get_hex()'
         return get_hex_values(quantity)
-
     except Exception, e:
         print e
         return abort(500)
@@ -207,25 +193,22 @@ def get_lottery():
 #
 # ********************************************************
 # should only allow POST requests from the pi
-@app.route("/add-bytes", methods=['POST'])
+@app.route("/set-bits", methods=['POST'])
 def set_bits():
     if request.method == 'POST':
 
+        # first lets authenticate the post
         if os.environ['SECRET_KEY'] != request.form['secret-key']:
             return abort(401)
 
-        print 'received post request:'
-
+        print '...received post request...'
         # grab the raw bits from the header
         raw_bits = str(request.form['raw-data'])
-
         # process those raw bits
         processed_bits = fish_pool.process_bits(raw_bits)
-
         # lets loop through the processed string and add it to the fish_stream
         for i in range(len(processed_bits)):
             fish_stream.write(int(processed_bits[i]), bool)
-
         return 'success'
     else:
         abort(401)  # access denied only post requests allowed
@@ -318,27 +301,11 @@ def get_lottery_lines(quantity, white, red):
 def get_number_bits(upper_bound):
     return int(math.ceil(math.log((upper_bound + 1), 2)))
 
-# calculate the required number of bits
-def get_number_bits(upper_bound):
-    return int(math.ceil(math.log((upper_bound + 1), 2)))
-
 def get_hex_values(quantity):
-    print 'hit get_hex()'
-    # grab the requested quantity in bits, convert to string
-    response = str(fish_stream.read(quantity * 4))
-    print response
-    # convert to binary sequence
-    response = int(response, 2)
-    print response
-    # convert to hex
-    response = hex(response)
-    print response
-    # convert back to string and strip '0x'
-    response = str(response)[2:]
-    print response
+    response = fish_stream.read(int8, quantity)
+    response = binascii.hexlify(response)
     # capitalize all the letters in the response
     response = str.upper(response)
-
     # were done, now ship it
-    print 'returning response:', response
     return str(response)
+
