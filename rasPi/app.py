@@ -39,7 +39,7 @@ time.sleep(0.3)
 
 # the number of bits per POST.
 totalBits = 8192
-url = 'https://fish-bit-hub.herokuapp.com/add-bytes'
+url = 'https://fish-bit-hub.herokuapp.com/set-bits'
 SECRET_KEY = ''
 
 # capture frames from the camera
