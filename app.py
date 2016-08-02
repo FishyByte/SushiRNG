@@ -159,6 +159,7 @@ def get_hex():
         return abort(400)
 
     try:
+        print 'hit get_hex()'
         return get_hex_values(quantity)
 
     except Exception, e:
@@ -340,4 +341,4 @@ def get_hex_values(quantity):
 
     # were done, now ship it
     print 'returning response:', response
-    return response
+    return str(response)
