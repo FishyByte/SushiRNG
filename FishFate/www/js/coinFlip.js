@@ -32,13 +32,11 @@ app.controller('coinController', function ($scope, $http) {
       crossDomain: true
     }).then(function successCallback(response) {
       $scope.coinFlip.coinValues = response.data.split(' ');
-
+      console.log(response.status);
       if (!isActivated)
         animateCoins();
-
     }, function errorCallback(response) {
-      $scope.displayError(0);
-      console.log(response);
+      $scope.displayError(response.status);
     });
   };
 
