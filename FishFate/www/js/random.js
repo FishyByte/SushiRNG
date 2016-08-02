@@ -42,8 +42,7 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
       popUpResponse(0);
 
     }, function errorCallback(response) {
-      $scope.displayError(0);
-      console.log(response);
+      $scope.displayError(response.status);
     });
   };
 
@@ -61,10 +60,8 @@ app.controller('randomController', function ($scope, $http, $ionicPopup) {
     }).then(function successCallback(response) {
       $scope.randoms.getBinary.response = response.data;
       popUpResponse(1);
-
     }, function errorCallback(response) {
-      $scope.displayError(0);
-      console.log(response);
+      $scope.displayError(response.status);
     });
   };
 
