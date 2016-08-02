@@ -121,7 +121,6 @@ def get_ints():
         return abort(500)
 
 
-
 @app.route("/get-hex")
 def get_hex():
     quantity = int(request.headers.get('quantity'))
@@ -193,6 +192,7 @@ def set_bits():
 # init the flask server
 if __name__ == "__main__":
     app.run()
+
 
 # run analysis on the bit stream and return the results formatted
 # into a string formatted with html
