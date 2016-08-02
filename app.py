@@ -145,17 +145,6 @@ def get_ints():
 # calculate the required number of bits
 def get_number_bits(upper_bound):
     return int(math.ceil(math.log((upper_bound + 1), 2)))
-    #
-    # exponent = 1
-    # number_bits = 1
-    # while True:
-    #
-    #     if upper_bound >= pow(2, exponent):
-    #         number_bits += 1
-    #     else:
-    #         return number_bits
-    #
-    #     exponent += 1
 
 
 # ********************************************************
@@ -268,7 +257,7 @@ def get_ints_with_range(max_value, quantity):
         current = int(str(fish_stream.read(bits_requested)), 2)
 
         # within range? add to return string
-        if current <= max_value:
+        if current < max_value:
             respond += str(current) + ' '  # white space delimiter
             quantity -= 1
 
