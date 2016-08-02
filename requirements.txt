@@ -8,3 +8,4 @@ virtualenv==15.0.2
 bitstream==2.0.3
 Werkzeug==0.11.10
 Flask-Cors==2.1.2
+newrelic==2.68.0.50
