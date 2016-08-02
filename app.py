@@ -268,7 +268,7 @@ def get_ints_with_range(max_value, quantity):
         current = int(str(fish_stream.read(bits_requested)), 2)
 
         # within range? add to return string
-        if current <= max_value:
+        if current < max_value:
             respond += str(current) + ' '  # white space delimiter
             quantity -= 1
 
