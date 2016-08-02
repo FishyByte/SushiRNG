@@ -40,7 +40,7 @@ app.controller('eightBallController', function ($scope, $http) {
       '&ensp;&nbsp;The<br>&ensp;&nbsp;tides look<br>&emsp;good',//18
       '&emsp;&ensp;&nbsp;Don&#39;t<br>&emsp;&ensp;&nbsp;reel<br>&emsp;&ensp;&nbsp;on it'//19
     ],
-    resultIndex: 11
+    resultIndex: 0
   };
 
   /**
