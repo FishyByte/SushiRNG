@@ -141,11 +141,29 @@ def get_ints():
         print e
         return abort(500)
 
+# ********************************************************
+#
+#
+#
+# ********************************************************
+@app.route("/get-hex")
+def get_ints():
+    quantity = int(request.headers.get('quantity'))
 
-# calculate the required number of bits
-def get_number_bits(upper_bound):
-    return int(math.ceil(math.log((upper_bound + 1), 2)))
+    # empty request
+    if quantity is None:
+        return abort(400)
 
+    # param value to small or to big
+    if quantity < 1 or quantity < MAX_REQUEST_SIZE:
+        return abort(400)
+
+    try:
+        return get_hex_values(quantity)
+
+    except Exception, e:
+        print e
+        return abort(500)
 
 # ********************************************************
 #
@@ -293,4 +311,24 @@ def get_lottery_lines(quantity, white, red):
                 break
 
     # were done, return the response string
+    return response
+
+# calculate the required number of bits
+def get_number_bits(upper_bound):
+    return int(math.ceil(math.log((upper_bound + 1), 2)))
+
+def get_hex_values(quantity):
+    # grab the requested quantity in bits, convert to string
+    response = str(fish_stream.read(quantity * 4))
+    # convert to binary sequence
+    response = int(response, 2)
+    # convert to hex
+    response = hex(response)
+    # convert back to string and strip '0x'
+    response = str(response)[2:]
+    # capitalize all the letters in the response
+    response = str.upper(response)
+
+    # were done, now ship it
+    print 'returning response:', response
     return response
