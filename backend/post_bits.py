@@ -15,5 +15,6 @@ for x in range(0, 4):
     r = requests.post('https://fish-bit-hub.herokuapp.com/add-bytes', data=payload)
     print 'status code:', r.status_code
 
-    print 'waiting 5 seconds...'
-    time.sleep(5)
+    # lets wait to let teh back end process that last request
+    print 'waiting 10 seconds...'
+    time.sleep(10)
