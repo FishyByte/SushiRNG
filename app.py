@@ -318,7 +318,7 @@ def get_number_bits(upper_bound):
     return int(math.ceil(math.log((upper_bound + 1), 2)))
 
 def get_hex_values(quantity):
-    # grab the requested quantity in bits, conver to string
+    # grab the requested quantity in bits, convert to string
     response = str(fish_stream.read(quantity * 4))
     # convert to binary sequence
     response = int(response, 2)
