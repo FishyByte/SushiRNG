@@ -18,10 +18,12 @@
 # OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
 # NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+# FROM, OUT OF OR I CONNECTION WITH THE SOFTWARE OR THE USE OR 
 # OTHER DEALINGS IN THE SOFTWARE.
 # *******************************************************************
 # bitstream page: https://github.com/boisgera/bitstream
+# synch psudo code from: https://en.wikipedia.org/wiki/Readers%E2%80%93writers_problem
+#
 
 from flask import Flask, request, abort
 from flask_cors import CORS
@@ -31,7 +33,7 @@ import binascii
 import os
 import math
 from fish_pool import FishPool
-
+from threading import Semaphore
 MAX_REQUEST_SIZE = 1000  # users may request up to 1MB
 MAX_INT_RANGE = 2147483647  # max value for an integer
 
@@ -42,6 +44,9 @@ CORS(app)  # enable cross-origin resource sharing on all routes
 fish_stream = BitStream()  # class that holds processed bits in a stream
 fish_pool = FishPool()  # class that processes raw bits from fish tank
 
+
+# synch objects
+streamResource = threading.Semaphore()   
 
 # ********************************************************
 #   The following is all of the flask routes, that can be
@@ -67,8 +72,11 @@ fish_pool = FishPool()  # class that processes raw bits from fish tank
 # home route, runs analysis on stream
 @app.route("/")
 def main_page():
+    aquireReadLock()
+    result = stream_analysis()
+    releaseReadLock()
     return stream_analysis()
-
+    
 
 # returns a series of byte values
 @app.route("/get-bytes")
@@ -79,9 +87,16 @@ def get_bytes():
 
     # OKAY, now we can fulfill our request
     try:
-        return str(fish_stream.read(int8, quantity))
+
+        aquireReadLock()
+        result =str(fish_stream.read(int8, quantity)) 
+        releaseReadLock()
+
+
+        return result
     except Exception, e:
         print e
+        releaseReadLock()
         return abort(500)
 
 
@@ -96,9 +111,13 @@ def get_binary():
 
     # ship it
     try:
-        return str(fish_stream.read(quantity))
+        acquireReadLock()
+        result = str(fish_stream.read(quantity))
+        releaseReadLock()
+        return result
     except Exception, e:
         print e
+        releaseReadLock()
         return abort(500)
 
 
@@ -115,9 +134,14 @@ def get_ints():
         return abort(400)
 
     try:
-        return get_ints_with_range(max_value, quantity)
+
+        acquireReadLock()
+        result = get_ints_with_range(max_value, quantity)
+        releaseReadLock()
+        return result
     except Exception, e:
         print e
+        releaseReadLock()
         return abort(500)
 
 
@@ -130,9 +154,13 @@ def get_hex():
         return abort(400)
 
     try:
-        return get_hex_values(quantity / 2)
+        acquireReadLock()
+        result = get_hex_values(quantity /2 )
+        releaseReadLock()
+        return result
     except Exception, e:
         print e
+        releaseReadLock()
         return abort(500)
 
 
@@ -161,9 +189,14 @@ def get_lottery():
         return abort(400)
 
     try:
-        return get_lottery_lines(quantity, white_range, red_range)
+        acquireReadLock()
+        result = get_lottery_lines(quantity, white_range, red_range)
+        releaseReadLock()
+
+        return result 
     except Exception, e:
         print e
+        releaseReadLock()
         return abort(500)
 
 
@@ -171,11 +204,11 @@ def get_lottery():
 @app.route("/set-bits", methods=['POST'])
 def set_bits():
     if request.method == 'POST':
-
+        
         # first lets authenticate the post
         if os.environ['SECRET_KEY'] != request.form['secret-key']:
             return abort(401)
-
+        acquireWriteLock()
         print '...received post request...'
         # grab the raw bits from the header
         raw_bits = str(request.form['raw-data'])
@@ -184,6 +217,8 @@ def set_bits():
         # lets loop through the processed string and add it to the fish_stream
         for i in range(len(processed_bits)):
             fish_stream.write(int(processed_bits[i]), bool)
+
+        releaseWriteLock()
         return 'success'
     else:
         abort(401)  # access denied only post requests allowed
@@ -192,6 +227,29 @@ def set_bits():
 # init the flask server
 if __name__ == "__main__":
     app.run()
+
+
+
+##################
+#Reader Synch
+##################
+
+def acquireReadLock():
+    streamResource.acquire()
+
+def releaseReadLock():
+    streamResource.release()
+
+
+##################
+#Writer Synch
+##################
+
+def acquireWriteLock():
+    streamResource.acquire()
+
+def releaseWriteLock():
+    streamResource.release()
 
 
 # run analysis on the bit stream and return the results formatted
