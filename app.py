@@ -228,6 +228,7 @@ def set_bits():
 
         releaseWriteLock()
         bit_check_upper()   # TODO make this smarter
+        return 'done'
     else:
         abort(401)  # access denied only post requests allowed
 
