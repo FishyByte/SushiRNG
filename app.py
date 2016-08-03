@@ -393,12 +393,12 @@ def insert_db():
             port=url.port
         )
         current = connection.cursor()
-        current.execute(query)
+        current.execute(str(query))
 
         #______testing________#
-        rows = current.fetchall()
-        for row in rows:
-            print row[0]
+        # rows = current.fetchall()
+        # for row in rows:
+        #     print row[0]
         #######################
 
         connection.commit()
