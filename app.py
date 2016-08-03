@@ -226,15 +226,15 @@ def set_bits():
         raw_bits = str(request.form['raw-data'])
         # process those raw bits
         processed_bits = fish_pool.process_bits(raw_bits)
-        # lets loop through the processed string and add it to the fish_stream
-        for i in range(len(processed_bits)):
-            fish_stream.write(int(processed_bits[i]), bool)
+        fish_stream.write(str(processed_bits))
 
         releaseWriteLock()
         bit_check_upper()   # TODO make this smarter
         return 'done'
     else:
         abort(401)  # access denied only post requests allowed
+
+#############################################################################
 
 
 # init the flask server
@@ -368,18 +368,21 @@ def get_hex_values(quantity):
 
 # upper bound check
 def bit_check_upper():
-    if len(fish_stream) > 60000:
+    if len(fish_stream) > 1048576:  # 2^20 bits
         insert_db()
 
 # lower bound check
 def bit_check_lower():
-    if len(fish_stream) < 10000:
+    if len(fish_stream) < 16384:    # 2^14 bits
         pop_db()
 
 
 # insert into the database
 def insert_db():
-    bit_string = fish_stream.read(1024)
+    # TODO: if DB full then start throwing away bits
+
+    # each row will hold 2^14 bits
+    bit_string = fish_stream.read(16384)
 
     # lets craft up that insert query
     query = "INSERT INTO FishBucket (bits) VALUES('" + str(bit_string) + "');"
@@ -394,13 +397,6 @@ def insert_db():
         )
         current = connection.cursor()
         current.execute(str(query))
-
-        #______testing________#
-        # rows = current.fetchall()
-        # for row in rows:
-        #     print row[0]
-        #######################
-
         connection.commit()
         connection.close()
 
@@ -437,8 +433,6 @@ def pop_db():
 
         connection.commit()
         connection.close()
-
-        print 'retrieved from database:', str(bit_string)    # testing
         fish_stream.write(str(bit_string))
 
     except:
