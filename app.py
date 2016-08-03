@@ -235,10 +235,10 @@ if __name__ == "__main__":
 ##################
 
 def acquireReadLock():
-    streamResource.acquire()
+    #streamResource.acquire()
 
 def releaseReadLock():
-    streamResource.release()
+    #streamResource.release()
 
 
 ##################
@@ -246,10 +246,10 @@ def releaseReadLock():
 ##################
 
 def acquireWriteLock():
-    streamResource.acquire()
+    #streamResource.acquire()
 
 def releaseWriteLock():
-    streamResource.release()
+    #streamResource.release()
 
 
 # run analysis on the bit stream and return the results formatted
