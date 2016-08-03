@@ -34,6 +34,7 @@ import os
 import math
 from fish_pool import FishPool
 from threading import Semaphore
+
 MAX_REQUEST_SIZE = 1000  # users may request up to 1MB
 MAX_INT_RANGE = 2147483647  # max value for an integer
 
@@ -44,9 +45,9 @@ CORS(app)  # enable cross-origin resource sharing on all routes
 fish_stream = BitStream()  # class that holds processed bits in a stream
 fish_pool = FishPool()  # class that processes raw bits from fish tank
 
-
 # synch objects
-streamResource =Semaphore()   
+streamResource = Semaphore()
+
 
 # ********************************************************
 #   The following is all of the flask routes, that can be
@@ -72,11 +73,11 @@ streamResource =Semaphore()
 # home route, runs analysis on stream
 @app.route("/")
 def main_page():
-    aquireReadLock()
+    acquireReadLock()
     result = stream_analysis()
     releaseReadLock()
-    return stream_analysis()
-    
+    return result
+
 
 # returns a series of byte values
 @app.route("/get-bytes")
@@ -88,10 +89,9 @@ def get_bytes():
     # OKAY, now we can fulfill our request
     try:
 
-        aquireReadLock()
-        result =str(fish_stream.read(int8, quantity)) 
+        acquireReadLock()
+        result = str(fish_stream.read(int8, quantity))
         releaseReadLock()
-
 
         return result
     except Exception, e:
@@ -155,7 +155,7 @@ def get_hex():
 
     try:
         acquireReadLock()
-        result = get_hex_values(quantity /2 )
+        result = get_hex_values(quantity / 2)
         releaseReadLock()
         return result
     except Exception, e:
@@ -193,7 +193,7 @@ def get_lottery():
         result = get_lottery_lines(quantity, white_range, red_range)
         releaseReadLock()
 
-        return result 
+        return result
     except Exception, e:
         print e
         releaseReadLock()
@@ -204,7 +204,7 @@ def get_lottery():
 @app.route("/set-bits", methods=['POST'])
 def set_bits():
     if request.method == 'POST':
-        
+
         # first lets authenticate the post
         if os.environ['SECRET_KEY'] != request.form['secret-key']:
             return abort(401)
@@ -229,24 +229,25 @@ if __name__ == "__main__":
     app.run()
 
 
-
 ##################
-#Reader Synch
+# Reader Synch
 ##################
 
 def acquireReadLock():
     streamResource.acquire()
+
 
 def releaseReadLock():
     streamResource.release()
 
 
 ##################
-#Writer Synch
+# Writer Synch
 ##################
 
 def acquireWriteLock():
     streamResource.acquire()
+
 
 def releaseWriteLock():
     streamResource.release()
