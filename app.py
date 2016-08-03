@@ -34,6 +34,8 @@ import os
 import math
 from fish_pool import FishPool
 from threading import Semaphore
+import urlparse
+import psycopg2
 
 MAX_REQUEST_SIZE = 1000  # users may request up to 1MB
 MAX_INT_RANGE = 2147483647  # max value for an integer
@@ -82,6 +84,7 @@ def main_page():
 # returns a series of byte values
 @app.route("/get-bytes")
 def get_bytes():
+    bit_check_lower()   # TODO make this smarter
     quantity = int(request.headers.get('quantity'))
     if (quantity is None) or (quantity < 1) or (quantity > MAX_REQUEST_SIZE):
         abort(400)  # invalid request
@@ -103,6 +106,7 @@ def get_bytes():
 # returns a binary string
 @app.route("/get-binary")
 def get_binary():
+    bit_check_lower()   # TODO make this smarter
     quantity = int(request.headers.get('quantity'))
 
     # empty request OR param value too small OR too large
@@ -124,6 +128,7 @@ def get_binary():
 # returns a series of integers with a white space delimiter
 @app.route("/get-ints")
 def get_ints():
+    bit_check_lower()   # TODO make this smarter
     quantity = int(request.headers.get('quantity'))
     max_value = int(request.headers.get('max-value'))
     bits_requested = get_number_bits(max_value)
@@ -147,6 +152,7 @@ def get_ints():
 
 @app.route("/get-hex")
 def get_hex():
+    bit_check_lower()   # TODO make this smarter
     quantity = int(request.headers.get('quantity'))
 
     # empty request OR param value to small OR to big
@@ -167,6 +173,8 @@ def get_hex():
 # returns a string of integers
 @app.route("/get-lottery")
 def get_lottery():
+    bit_check_lower()   # TODO make this smarter
+
     quantity = int(request.headers.get('quantity'))
     which_lottery = str(request.headers.get('which-lottery'))
 
@@ -219,7 +227,7 @@ def set_bits():
             fish_stream.write(int(processed_bits[i]), bool)
 
         releaseWriteLock()
-        return 'success'
+        bit_check_upper()   # TODO make this smarter
     else:
         abort(401)  # access denied only post requests allowed
 
@@ -351,3 +359,85 @@ def get_hex_values(quantity):
     response = str.upper(response)
     # were done, now ship it
     return str(response)
+
+
+# upper bound check
+def bit_check_upper():
+    if len(fish_stream) > 60000:
+        insert_db()
+
+# lower bound check
+def bit_check_lower():
+    if len(fish_stream) < 10000:
+        pop_db()
+
+
+# insert into the database
+def insert_db():
+    bit_string = fish_stream.read(1024)
+
+    # lets craft up that insert query
+    query = 'INSERT INTO FishBucket (bits) VALUES('
+    query += str(bit_string) + ');'
+
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    try:
+        connection = psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
+        current = connection.cursor()
+        current.execute(query)
+
+        #______testing________#
+        rows = current.fetchall()
+        for row in rows:
+            print row[0]
+        #######################
+
+        connection.commit()
+        connection.close()
+
+    except:
+        print "unable to connect to the database"
+
+
+# simulate a pop operation with the database, catch the first row
+# and then delete from database, then write that row to the fish_stream
+def pop_db():
+    # lets craft up that insert queries
+    select_query = 'SELECT bits FROM FishBucket ORDER BY timestamp ASC LIMIT 1;'
+    delete_query = 'DELETE FROM FishBucket WHERE bits IN (SELECT bits FROM FishBucket ORDER BY timestamp ASC LIMIT 1);'
+
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    try:
+        connection = psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
+        current = connection.cursor()
+        current.execute(select_query)
+        row = current.fetchone()
+
+        # lets make sure there is data in the DB
+        if row is not None:
+            bit_string = row[0]
+            current.execute(delete_query)
+        else:
+            bit_string = ''
+            print 'the FishBucket database is empty...'
+
+        connection.commit()
+        connection.close()
+
+        print 'retrieved from database:', str(bit_string)    # testing
+        fish_stream.write(str(bit_string))
+
+    except:
+        print "unable to connect to the database"
