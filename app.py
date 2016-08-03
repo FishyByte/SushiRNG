@@ -50,6 +50,10 @@ fish_pool = FishPool()  # class that processes raw bits from fish tank
 # synch objects
 streamResource = Semaphore()
 
+# database url
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+
 
 # ********************************************************
 #   The following is all of the flask routes, that can be
@@ -378,10 +382,8 @@ def insert_db():
     bit_string = fish_stream.read(1024)
 
     # lets craft up that insert query
-    query = 'INSERT INTO FishBucket (bits) VALUES('
-    query += str(bit_string) + ');'
-
-    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    query = 'INSERT INTO FishBucket (bits) VALUES(' + str(bit_string) + ');'
+    print query  # testing
     try:
         connection = psycopg2.connect(
             database=url.path[1:],
@@ -413,7 +415,6 @@ def pop_db():
     select_query = 'SELECT bits FROM FishBucket ORDER BY timestamp ASC LIMIT 1;'
     delete_query = 'DELETE FROM FishBucket WHERE bits IN (SELECT bits FROM FishBucket ORDER BY timestamp ASC LIMIT 1);'
 
-    url = urlparse.urlparse(os.environ["DATABASE_URL"])
     try:
         connection = psycopg2.connect(
             database=url.path[1:],
