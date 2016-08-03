@@ -46,7 +46,7 @@ fish_pool = FishPool()  # class that processes raw bits from fish tank
 
 
 # synch objects
-streamResource = threading.Semaphore()   
+streamResource =Semaphore()   
 
 # ********************************************************
 #   The following is all of the flask routes, that can be
