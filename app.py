@@ -382,7 +382,7 @@ def insert_db():
     bit_string = fish_stream.read(1024)
 
     # lets craft up that insert query
-    query = 'INSERT INTO FishBucket (bits) VALUES(' + str(bit_string) + ');'
+    query = "INSERT INTO FishBucket (bits) VALUES('" + str(bit_string) + "');"
     print query  # testing
     try:
         connection = psycopg2.connect(
