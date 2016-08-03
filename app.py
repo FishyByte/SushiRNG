@@ -424,13 +424,13 @@ def pop_db():
             port=url.port
         )
         current = connection.cursor()
-        current.execute(select_query)
+        current.execute(str(select_query))
         row = current.fetchone()
 
         # lets make sure there is data in the DB
         if row is not None:
             bit_string = row[0]
-            current.execute(delete_query)
+            current.execute(str(delete_query))
         else:
             bit_string = ''
             print 'the FishBucket database is empty...'
