@@ -1,5 +1,4 @@
 import requests
-import os
 import time
 
 test_input = ''
@@ -16,5 +15,5 @@ for x in range(0, 4):
     print 'status code:', r.status_code
 
     # lets wait to let teh back end process that last request
-    print 'waiting 30 seconds...'
-    time.sleep(30)
+    print 'waiting 10 seconds...'
+    time.sleep(10)
