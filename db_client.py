@@ -2,9 +2,7 @@ import psycopg2
 import urlparse
 
 urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(
-        "postgres://coxqszruxmxpxl:wYLXsDdRyZHsugy6fnYVMyc_xl@ec2-23-21-179-195.compute-1.amazonaws.com:5432/d74vv6iktq05gk")
-
+url = urlparse.urlparse('')
 select_query = 'SELECT bits FROM FishBucket ORDER BY timestamp ASC LIMIT 1;'
 delete_query = 'DELETE FROM FishBucket WHERE bits IN (SELECT bits FROM FishBucket ORDER BY timestamp ASC LIMIT 1);'
 
