@@ -369,10 +369,13 @@ def get_number_bits(upper_bound):
 # get hex values, returns hex values parsed into a string
 def get_hex_values(quantity):
     response = str(fish_stream.read((quantity * 4)))
+    print response
     # binary string to hex conversion
     response = hex(int(response, 2))[2:]
+    print response
     # capitalize all the letters in the response
     response = str.upper(response)
+    print response
     # were done, now ship it
     return str(response)
 
