@@ -37,8 +37,9 @@ from threading import Semaphore
 import urlparse
 import psycopg2
 
-MAX_REQUEST_SIZE = 1000  # users may request up to 1MB
-MAX_INT_RANGE = 2147483647  # max value for an integer
+MAX_REQUEST_BITS = 4096     # max bits that can be requested
+MAX_STREAM_SIZE = 1048576   # 2^20 bits
+MIN_STREAM_SIZE = 32768     # 2^15 bits
 
 app = Flask(__name__)  # init the flask application
 CORS(app)  # enable cross-origin resource sharing on all routes
@@ -54,8 +55,7 @@ streamResource = Semaphore()
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
 
-
-# ********************************************************
+# ************************************************************************
 #   The following is all of the flask routes, that can be
 #   accessed via http requests (https://fish-bit-hub.herokuapp.com/).
 #   Here is a list of the following GET request routes:
@@ -74,7 +74,7 @@ url = urlparse.urlparse(os.environ["DATABASE_URL"])
 #       ("/set-bits")       sets the bits that are passing in
 #                           through the header field.
 #
-# ********************************************************
+# ************************************************************************
 
 # home route, runs analysis on stream
 @app.route("/")
@@ -88,18 +88,22 @@ def main_page():
 # returns a series of byte values
 @app.route("/get-bytes")
 def get_bytes():
-    bit_check_lower()   # TODO make this smarter
+    bit_check_lower()   # check health of bit stream
     quantity = int(request.headers.get('quantity'))
-    if (quantity is None) or (quantity < 1) or (quantity > MAX_REQUEST_SIZE):
-        abort(400)  # invalid request
+
+    # empty or two small of a request
+    if (quantity is None) or (quantity < 1):
+        abort(400)
+
+    # one byte = 8 bits
+    elif (quantity * 8) > MAX_REQUEST_BITS:
+        abort(400)
 
     # OKAY, now we can fulfill our request
     try:
-
         acquireReadLock()
         result = str(fish_stream.read(int8, quantity))
         releaseReadLock()
-
         return result
     except Exception, e:
         print e
@@ -110,11 +114,11 @@ def get_bytes():
 # returns a binary string
 @app.route("/get-binary")
 def get_binary():
-    bit_check_lower()   # TODO make this smarter
+    bit_check_lower()
     quantity = int(request.headers.get('quantity'))
 
     # empty request OR param value too small OR too large
-    if quantity is None or quantity < 1 or quantity > MAX_REQUEST_SIZE:
+    if quantity is None or quantity < 1 or quantity > MAX_REQUEST_BITS:
         return abort(400)
 
     # ship it
@@ -132,18 +136,19 @@ def get_binary():
 # returns a series of integers with a white space delimiter
 @app.route("/get-ints")
 def get_ints():
-    bit_check_lower()   # TODO make this smarter
+    bit_check_lower()
     quantity = int(request.headers.get('quantity'))
     max_value = int(request.headers.get('max-value'))
     bits_requested = get_number_bits(max_value)
 
-    # Error checking: empty request, or out of bounds, or too large
-    if quantity is None or max_value is None or quantity < 1 or max_value < 1 \
-            or bits_requested > (MAX_REQUEST_SIZE * 8) or max_value > MAX_INT_RANGE:
+    # empty request
+    if quantity is None or max_value is None:
+        return abort(400)
+    # request wants to many bits
+    if (quantity * bits_requested) > MAX_REQUEST_BITS:
         return abort(400)
 
     try:
-
         acquireReadLock()
         result = get_ints_with_range(max_value, quantity)
         releaseReadLock()
@@ -156,11 +161,15 @@ def get_ints():
 
 @app.route("/get-hex")
 def get_hex():
-    bit_check_lower()   # TODO make this smarter
+    bit_check_lower()
     quantity = int(request.headers.get('quantity'))
 
-    # empty request OR param value to small OR to big
-    if quantity is None or quantity < 1 or quantity > MAX_REQUEST_SIZE:
+    # empty request OR param value to small
+    if quantity is None or quantity < 1:
+        return abort(400)
+
+    # one hex = 4 bits
+    if (quantity * 4) > MAX_REQUEST_BITS:
         return abort(400)
 
     try:
@@ -177,7 +186,7 @@ def get_hex():
 # returns a string of integers
 @app.route("/get-lottery")
 def get_lottery():
-    bit_check_lower()   # TODO make this smarter
+    bit_check_lower()
 
     quantity = int(request.headers.get('quantity'))
     which_lottery = str(request.headers.get('which-lottery'))
@@ -190,7 +199,7 @@ def get_lottery():
     if quantity < 1 or quantity > 5:
         return abort(400)
 
-    # grab lottery numbers ranges, fix offset by one
+    # grab lottery numbers ranges
     if which_lottery == 'Powerball':
         white_range = 69  # 1-69
         red_range = 26  # 1-26
@@ -226,15 +235,16 @@ def set_bits():
         raw_bits = str(request.form['raw-data'])
         # process those raw bits
         processed_bits = fish_pool.process_bits(raw_bits)
-        # lets loop through the processed string and add it to the fish_stream
-        for i in range(len(processed_bits)):
-            fish_stream.write(int(processed_bits[i]), bool)
+        fish_stream.write(str(processed_bits))
 
         releaseWriteLock()
-        bit_check_upper()   # TODO make this smarter
+        bit_check_upper()  # TODO make this smarter
         return 'done'
     else:
         abort(401)  # access denied only post requests allowed
+
+
+#############################################################################
 
 
 # init the flask server
@@ -306,7 +316,7 @@ def get_ints_with_range(max_value, quantity):
         if quantity == 0:
             return respond
 
-        # grab some byte(s) for one value
+        # grab some bits for one value
         current = int(str(fish_stream.read(bits_requested)), 2)
 
         # within range? add to return string
@@ -314,7 +324,7 @@ def get_ints_with_range(max_value, quantity):
             respond += str(current) + ' '  # white space delimiter
             quantity -= 1
 
-            # todo: figure out a way to not waste bits here.
+            # todo: implement a way to not be so wasteful
 
 
 # calls get_int_with_range() until the order is filled, then returns
@@ -366,20 +376,26 @@ def get_hex_values(quantity):
     return str(response)
 
 
-# upper bound check
+# upper bound check of the bit stream
 def bit_check_upper():
-    if len(fish_stream) > 60000:
+    # plenty of bits here, save some for later
+    if len(fish_stream) > MAX_STREAM_SIZE:  # 2^20 bits
         insert_db()
 
-# lower bound check
+
+# lower bound check of the bit stream
 def bit_check_lower():
-    if len(fish_stream) < 10000:
+    # MOAR bits NAOW
+    if len(fish_stream) < MIN_STREAM_SIZE:  # 2^14 bits
         pop_db()
 
 
 # insert into the database
 def insert_db():
-    bit_string = fish_stream.read(1024)
+    # TODO: if DB full then start throwing away bits
+
+    # each row will hold 2^15 bits, max size is 2^20 bits per row
+    bit_string = fish_stream.read(MIN_STREAM_SIZE)
 
     # lets craft up that insert query
     query = "INSERT INTO FishBucket (bits) VALUES('" + str(bit_string) + "');"
@@ -394,13 +410,6 @@ def insert_db():
         )
         current = connection.cursor()
         current.execute(str(query))
-
-        #______testing________#
-        # rows = current.fetchall()
-        # for row in rows:
-        #     print row[0]
-        #######################
-
         connection.commit()
         connection.close()
 
@@ -437,8 +446,6 @@ def pop_db():
 
         connection.commit()
         connection.close()
-
-        print 'retrieved from database:', str(bit_string)    # testing
         fish_stream.write(str(bit_string))
 
     except:
