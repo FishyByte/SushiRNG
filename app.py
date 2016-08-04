@@ -174,7 +174,7 @@ def get_hex():
 
     try:
         acquireReadLock()
-        result = get_hex_values(quantity / 2)
+        result = get_hex_values(quantity)
         releaseReadLock()
         return result
     except Exception, e:
@@ -368,8 +368,9 @@ def get_number_bits(upper_bound):
 
 # get hex values, returns hex values parsed into a string
 def get_hex_values(quantity):
-    response = fish_stream.read(int8, quantity)
-    response = binascii.hexlify(response)
+    response = str(fish_stream.read((quantity * 4)))
+    # binary string to hex conversion
+    response = hex(int(response, 2))[2:]
     # capitalize all the letters in the response
     response = str.upper(response)
     # were done, now ship it
