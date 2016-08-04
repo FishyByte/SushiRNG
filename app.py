@@ -451,9 +451,9 @@ def pop_db():
 
         connection.commit()
         connection.close()
-        popped_stream = fish_stream.write(str(bit_string))
-        for i in range(len(popped_stream)):
-            fish_stream.write(int(popped_stream[i]), bool)
+        bit_string = str(bit_string)
+        for i in range(len(bit_string)):
+            fish_stream.write(int(bit_string[i]), bool)
 
     except:
         print "unable to connect to the database"
