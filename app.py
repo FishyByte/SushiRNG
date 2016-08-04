@@ -235,7 +235,8 @@ def set_bits():
         raw_bits = str(request.form['raw-data'])
         # process those raw bits
         processed_bits = fish_pool.process_bits(raw_bits)
-        fish_stream.write(str(processed_bits))
+        for i in range(len(processed_bits)):
+            fish_stream.write(int(processed_bits[i]), bool)
 
         releaseWriteLock()
         bit_check_upper()  # TODO make this smarter
@@ -450,7 +451,9 @@ def pop_db():
 
         connection.commit()
         connection.close()
-        fish_stream.write(str(bit_string))
+        popped_stream = fish_stream.write(str(bit_string))
+        for i in range(len(popped_stream)):
+            fish_stream.write(int(popped_stream[i]), bool)
 
     except:
         print "unable to connect to the database"
