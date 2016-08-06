@@ -1,4 +1,7 @@
 # SushiRNG
+
+![alt tag](https://github.com/FishyByte/FishFate/blob/master/www/img/fishDemo_2.gif?raw=true)
+
 Fish tank random number generator.
 This project uses a Raspberry Pi 3 with a camera to create a live stream of my fish tank. This live stream is then used to generate a random number.
 
@@ -19,6 +22,7 @@ This project uses a Raspberry Pi 3 with a camera to create a live stream of my f
 - [License](https://github.com/FishyByte/SushiRNG/tree/readme#license)
 
 ## Installation Guide
+
 
 ## Scope
 ### - Image Processing
