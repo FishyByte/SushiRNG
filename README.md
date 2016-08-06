@@ -12,6 +12,7 @@ This project uses a Raspberry Pi 3 with a camera to create a live stream of my f
 - [Server](#server)
     - [Server Setup](#server-setup)
     - [Server Build](#server-build)
+- [Fish Fate](https://github.com/FishyByte/FishFate)
 - [Configuration](#configuration)
 - [Contributions](#contributions)
 - [License](#license)
