@@ -12,13 +12,15 @@ This project uses a Raspberry Pi 3 with a camera to create a live stream of my f
 - [Server](#server)
     - [Server Setup](#server-setup)
     - [Server Build](#server-build)
-- [Fish Fate](https://github.com/FishyByte/FishFate)
+- [Mobile Application](#mobile-application)
 - [Configuration](#configuration)
 - [Contributions](#contributions)
 - [License](#license)
 
 
-
+## Fish Fate
+See our application [Fish Fate](https://github.com/FishyByte/FishFate). Which uses
+this project to generate random values. 
 
 ## Contributions
 - [Adrian Roseblock](https://github.com/jrosebr1)
