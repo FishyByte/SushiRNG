@@ -25,7 +25,7 @@ should work (installation took me about 6 hours). I used this tutorial from [Adr
 to help me install openCV on the Pi.
 
 ### Install BitStream
-
+For this project we used the python package Bitstream 2.0.3. Information about bitstream can be located [here](https://pypi.python.org/pypi/bitstream/2.0.3). Please follow the instructions from that website.
 
 ## Mobile Application
 See our application [Fish Fate](https://github.com/FishyByte/FishFate). Which uses
@@ -33,6 +33,9 @@ this project to generate random values.
 
 ## Contributions
 - [Adrian Roseblock](https://github.com/jrosebr1)
+
+## Reporting Issues
+Please report all issues on the github [issue tracker](https://github.com/FishyByte/SushiRNG/issues)
 
 ## License
 [The MIT License](LICENSE)
