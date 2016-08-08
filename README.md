@@ -32,7 +32,15 @@ See our application [Fish Fate](https://github.com/FishyByte/FishFate). Which us
 this project to generate random values. 
 
 ## Contributions
+
+### Open Source Community
 - [Adrian Roseblock](https://github.com/jrosebr1)
+
+### Contact Information
+- [Matthew O'Brien](https://github.com/obriematt)
+- [Chris Asakawa](-https://github.com/c-asakawa)
+- [Nick McHale](https://github.com/nmchale)
+- [Corey Aing](https://github.com/aingc)
 
 ## Reporting Issues
 Please report all issues on the github [issue tracker](https://github.com/FishyByte/SushiRNG/issues)
