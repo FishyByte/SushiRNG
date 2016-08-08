@@ -39,7 +39,7 @@ this project to generate random values.
 ### Contact Information
 To contact any specific member of the FishyByte team please refer to their personal repositories.
 - [Matthew O'Brien](https://github.com/obriematt)
-- [Chris Asakawa](-https://github.com/c-asakawa)
+- [Chris Asakawa](https://github.com/c-asakawa)
 - [Nick McHale](https://github.com/nmchale)
 - [Corey Aing](https://github.com/aingc)
 
