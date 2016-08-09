@@ -63,7 +63,10 @@ python app.py
 ## NIST Testing
 To test against our random numbers that we generate and make sure it's crypographically secure we used the official NIST
 Testing Suite. This runs specific tests against a stream of binary bits that we have generated from our algorithm for randomness.
-To run these tests against your bits of data. Simple do this command:
+To run these tests against your bits of data, first go the the `NIST` directory and run this command:
+
+---NOTE: It would help to put your data set in the `data` directory---
+
 ```
 python bitStreamTesting.py __NumberOfBitsToTest__ PATH_TO_FILE
 ```
@@ -74,7 +77,8 @@ Example code that you can try with one of our data sets that comes with this rep
 python bitStreamTesting.py 32768 data/fishBits3.txt
 ```
 
-You can learn more about the statistical NIST Testing and the organization itself here: [National Institute of Standards and Technology](http://csrc.nist.gov/groups/ST/toolkit/rng/stats_tests.html)
+You can learn more about the statistical NIST Testing and the organization itself at the provided link below
+[National Institute of Standards and Technology](http://csrc.nist.gov/groups/ST/toolkit/rng/stats_tests.html)
 
 ## Mobile Application
 See our application [Fish Fate](https://github.com/FishyByte/FishFate). Which uses
