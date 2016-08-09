@@ -78,6 +78,7 @@ python bitStreamTesting.py 32768 data/fishBits3.txt
 ```
 
 You can learn more about the statistical NIST Testing and the organization itself at the provided link below
+
 [National Institute of Standards and Technology](http://csrc.nist.gov/groups/ST/toolkit/rng/stats_tests.html)
 
 ## Mobile Application
