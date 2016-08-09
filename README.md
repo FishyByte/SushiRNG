@@ -12,6 +12,7 @@ This project uses a Raspberry Pi 3 with a camera to create a live stream of my f
 - [Server](#server)
     - [Server Setup](#server-setup)
     - [Server Build](#server-build)
+- [NIST Testing](#nist-testing)
 - [Mobile Application](#mobile-application)
 - [Configuration](#configuration)
 - [Contributions](#contributions)
@@ -36,7 +37,7 @@ At this point we should have all dependencies installed on the raspberry pi, so 
 git clone https://github.com/FishyByte/SushiRNG.git
 ```
 
-For the raspberry pi we only care about the `rpi` directory. Before we can fire up the openCV script were going to
+For the raspberry pi we only care about the `rpi` directory. Before we can fire up the openCV script we're going to
 need to tweak the color ranges in `rpi/app.py`. Grab some still images from the pi with the `raspistill` command and then
 use the provided range detector script to find the HSV color space range of the image, this is how the fish will be tracked.
 
@@ -53,6 +54,27 @@ We are finally ready to test out the openCV code, make sure you are in the `rpi`
 python app.py
 ```
 
+## Server
+
+### Server Setup
+
+### Server Build
+
+## NIST Testing
+To test against our random numbers that we generate and make sure it's crypographically secure we used the official NIST
+Testing Suite. This runs specific tests against a stream of binary bits that we have generated from our algorithm for randomness.
+To run these tests against your bits of data. Simple do this command:
+```
+python bitStreamTesting.py __NumberOfBitsToTest__ PATH_TO_FILE
+```
+
+Example code that you can try with one of our data sets that comes with this repo:
+
+```
+python bitStreamTesting.py 32768 data/fishBits3.txt
+```
+
+You can learn more about the statistical NIST Testing and the organization itself here: [National Institute of Standards and Technology](http://csrc.nist.gov/groups/ST/toolkit/rng/stats_tests.html)
 
 ## Mobile Application
 See our application [Fish Fate](https://github.com/FishyByte/FishFate). Which uses
