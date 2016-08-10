@@ -37,7 +37,7 @@ from threading import Semaphore
 import urlparse
 import psycopg2
 
-MAX_REQUEST_BITS = 4096     # max bits that can be requested
+MAX_REQUEST_BITS = 16384    # max bits that can be requested
 MAX_STREAM_SIZE = 1048576   # 2^20 bits
 MIN_STREAM_SIZE = 32768     # 2^15 bits
 
