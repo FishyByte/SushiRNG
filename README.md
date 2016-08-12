@@ -96,10 +96,10 @@ this project to generate random values.
 
 ### Contact Information
 To contact any specific member of the FishyByte team please refer to their personal github profiles.
-- [Matthew O'Brien](https://github.com/obriematt)
-- [Chris Asakawa](https://github.com/c-asakawa)
-- [Nick McHale](https://github.com/nmchale)
-- [Corey Aing](https://github.com/aingc)
+- [Matthew O'Brien](https://github.com/obriematt)	- Email: [matthewo@pdx.edu](matthewo@pdx.edu)
+- [Chris Asakawa](https://github.com/c-asakawa)		- Email: [casakawa@pdx.edu](casakawa@pdx.edu)
+- [Nick McHale](https://github.com/nmchale)			- Email: [nicholas.mchale@pdx.edu](nicholas.mchale@pdx.edu)
+- [Corey Aing](https://github.com/aingc)			- Email: [caing@pdx.edu](caing@pdx.edu)
 
 ## Reporting Issues
 Please report all issues on the github [issue tracker](https://github.com/FishyByte/SushiRNG/issues)
