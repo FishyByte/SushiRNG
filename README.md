@@ -94,7 +94,7 @@ this project to generate random values.
 
 ### Other Sources
 - [National Institute of Standards and Technology](http://csrc.nist.gov/groups/ST/toolkit/rng/index.html)
-	- [Andrew Rukhin, Elaine Barker, & Larry Bassham](http://csrc.nist.gov/groups/ST/toolkit/rng/contacts.html)
+	- [Andrew Rukhin, Elaine Barker, & Larry Bassham](http://csrc.nist.gov/groups/ST/toolkit/rng/contacts.html)<br /><br />
 [NIST DISCLAIMER](NIST_DISCLAIMER)	
 
 ### Contact Information
