@@ -1,6 +1,12 @@
 #!/usr/bin/python
 # generates bits from fish movements
 # - Chris Asakawa
+
+# Copyright (c) 2016 Christopher Asakawa, Nicholas McHale, Matthew O'Brien, Corey Aing
+# This code is available under the "MIT License".
+# Please see the file COPYING in this distribution
+# for license terms.
+
 from bitstream import BitStream
 from numpy import *
 import time
