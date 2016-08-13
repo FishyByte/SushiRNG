@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Copyright (c) 2016 Christopher Asakawa, Nicholas McHale, Matthew O'Brien, Corey Aing
+# This code is available under the "MIT License".
+# Please see the file COPYING in this distribution
+# for license terms.
+
 # USAGE: You need to specify a filter and "only one" image source
 #
 # (python) range-detector --filter RGB --image /path/to/image.png

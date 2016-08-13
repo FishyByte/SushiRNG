@@ -1,6 +1,11 @@
 import hashlib
 import math
 
+# Copyright (c) 2016 Christopher Asakawa, Nicholas McHale, Matthew O'Brien, Corey Aing
+# This code is available under the "MIT License".
+# Please see the file COPYING in this distribution
+# for license terms.
+
 # there will be 2^13 or 8192 fed into this class (input_bits)
 class FishPool:
 
